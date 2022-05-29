@@ -1,0 +1,8 @@
+{
+  "label": "Basics",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn the foundational concepts of the service framework and how to use it."
+  }
+}
