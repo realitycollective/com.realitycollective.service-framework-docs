@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://realitycollective.io/com.realitycollective.service-framework-docs/blog</id>
+    <title>Service Framework Blog</title>
+    <updated>2022-05-24T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="http://realitycollective.io/com.realitycollective.service-framework-docs/blog"/>
+    <subtitle>Service Framework Blog</subtitle>
+    <icon>http://realitycollective.io/com.realitycollective.service-framework-docs/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome to our new docs page!]]></title>
+        <id>welcome</id>
+        <link href="http://realitycollective.io/com.realitycollective.service-framework-docs/blog/welcome"/>
+        <updated>2022-05-24T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Our official documentation page]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mojV" id="our-official-documentation-page">Our official documentation page<a class="hash-link" href="#our-official-documentation-page" title="Direct link to heading">​</a></h2><p>Hey and welcome to the brand new Service Framework docs page. On this page you will find useful links and most importantly user documentation for the framework. Please bare with us as we prepare initial content.</p><p>We'll be using this blog for release announcements and whatever we feel like is important enough to ring the bell.</p><h2 class="anchor anchorWithStickyNavbar_mojV" id="discord">Discord<a class="hash-link" href="#discord" title="Direct link to heading">​</a></h2><p>We have started a community <a href="https://discord.gg/YjHAQD2XT8" target="_blank" rel="noopener noreferrer">Discord</a> server for the collective. If you have not joined yet, do so and join a great commuity of enthusiasts just like yourself!</p>]]></content>
+        <author>
+            <name>Simon (Darkside) Jackson</name>
+            <uri>https://github.com/SimonDarksideJ</uri>
+        </author>
+        <author>
+            <name>Rony Portelli</name>
+            <uri>https://github.com/Cangi</uri>
+        </author>
+        <author>
+            <name>Dino Fejzagić</name>
+            <uri>https://github.com/FejZa</uri>
+        </author>
+        <category label="welcome" term="welcome"/>
+        <category label="service" term="service"/>
+        <category label="framework" term="framework"/>
+        <category label="unity" term="unity"/>
+    </entry>
+</feed>

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkreality_toolkit_docs=self.webpackChunkreality_toolkit_docs||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome to our new docs page!","permalink":"/blog/welcome"}]}')}}]);
