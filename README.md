@@ -1,13 +1,13 @@
-# Reality Toolkit Documentation
+# Service Framework Documentation
 
-This repository contains the Reality Toolkit documentation website found at [https://www.realitytoolkit.io](https://www.realitytoolkit.io).
+This repository contains the Service Framework documentation website found at [https://realitycollective.io/com.realitycollective.service-framework-docs/](https://realitycollective.io/com.realitycollective.service-framework-docs/).
 
 ## Contributing
 
-If you want to contribute to documentation of the toolkit please target your PR against the `main` branch.
+If you want to contribute to documentation of the framework please target your PR against the `main` branch.
 
 ## Build Status
 
 Whenever a PR is merged to the `main` branch the docs are updated and published right away.
 
-![main](https://github.com/realitycollective/com.realitytoolkit.docs/actions/workflows/deploy.yml/badge.svg?branch=main)
+![main](https://github.com/realitycollective/com.realitycollective.service-framework-docs/actions/workflows/deploy.yml/badge.svg?branch=main)
