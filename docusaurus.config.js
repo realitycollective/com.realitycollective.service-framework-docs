@@ -30,11 +30,6 @@ const config = {
           editUrl:
             'https://github.com/realitycollective/com.realitycollective.service-framework-docs/edit/main/',
         },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/realitycollective/com.realitycollective.service-framework-docs/edit/main/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -58,7 +53,6 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://discord.gg/YjHAQD2XT8',
             label: 'Join Us On Discord',
@@ -101,7 +95,11 @@ const config = {
             items: [
               {
                 label: 'Blog',
-                to: '/blog',
+                href: 'https://realitycollective.io/blog',
+              },
+              {
+                label: 'Reality Collective Website',
+                href: 'https://realitycollective.io/',
               },
               {
                 label: 'GitHub',
