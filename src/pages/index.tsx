@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title="Home"
-      description="Official documentation for the Reality Toolkit by the Reality Collective.">
+      description="Official documentation for the Service Framework by the Reality Collective">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
