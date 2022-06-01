@@ -1,6 +1,6 @@
 # Service Framework Documentation
 
-This repository contains the Service Framework documentation website found at [https://realitycollective.io/com.realitycollective.service-framework-docs/](https://realitycollective.io/com.realitycollective.service-framework-docs/).
+This repository contains the Service Framework documentation website found at [https://service-framework.realitycollective.io/](https://service-framework.realitycollective.io).
 
 ## Contributing
 
