@@ -1,8 +1,6 @@
 # Service Framework
 
-The Service Framework package components for the [Reality Collective](https://realityCollective.io). This package an extensible service framework to build highly performant components for your Unity projects.
-
-[![openupm](https://img.shields.io/npm/v/com.xrtk.spatial-persistence.asa?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.xrtk.spatial-persistence.asa/)
+The Service Framework is an extensible service framework to build highly performant components for your Unity projects by the [Reality Collective](https://realityCollective.io).
 
 ## Overview
 
@@ -14,26 +12,23 @@ The Service framework provides a service repository for enabling background serv
 * Fully configurable with Scriptable profiles - Each service can host a configuration profile to change the behavior of your service without changing code.
 
 ## Requirements
-<!-- Fill in list of requirements here -->
 
 - [Unity 2020.3 and above](https://unity.com/)
 - [RealityCollective.Utilities](https://github.com/realitycollective/com.realitycollective.utilities)
 
 ### OpenUPM
-<!-- Check openUPM links and details -->
 
 [![openupm](https://img.shields.io/npm/v/com.realitycollective.service-framework?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.realitycollective.service-framework/)
 
 The simplest way to getting started using the utilities package in your project is via OpenUPM. Visit [OpenUPM](https://openupm.com/docs/) to learn more about it. Once you have the OpenUPM CLI set up use the following command to add the package to your project:
 
-```
+```text
 `openupm add com.realitycollective.service-framework`
 ```
 
 > For more details on using [OpenUPM CLI, check the docs here](https://github.com/openupm/openupm-cli#installation).
 
 ## Build Status
-<!-- Check build status links and details -->
 
 | branch | build status |
 | --- | --- |
@@ -56,7 +51,7 @@ The possibilities are almost endless.
 
 ### 1. Creating a service
 
-A fully featured "Service Generator" is included with the Service Framework to get you quickly started, by simply giving a service a name and a namespace with which to run from, the generator will quickly create:
+A fully featured "**Service Generator**" is included with the Service Framework to get you started quickly, by simply giving a service a name and a namespace with which to run from, the generator will quickly create:
 
 * An interface to identify your service to the Service Framework (all services are identified by their parent interface)
 * A configuration profile - to customize to the needs of your service (optional, delete if not required)

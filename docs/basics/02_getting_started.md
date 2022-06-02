@@ -46,22 +46,24 @@ Alternatively, you can register the scoped registry for the Service Framework ma
 - First, open up the [Scoped Registry interface](https://docs.unity3d.com/Manual/upm-scoped.html) in the Unity editor and add a new entry in the Scoped Registry list:
 
 ```text
-    (Editor -> Edit -> Project Settings -> Scoped Registries)
+    Editor -> Edit -> Project Settings -> Scoped Registries
 ```
 
 - Next, Enter the following details in to the window to the right:
 
 ```text
-    name: Service Framework
+    name: OpenUPM
     url: https://package.openupm.com
-    scopes: com.realitytoolkit.service-framework
+    scopes: com.realitycollective
 ```
 
-Once entered, click the "+" button to add and save the registry.
+Once entered, click the "**+**" button to add and save the registry.
+
+> For the Reality Collective packages (such as the Service Framework) that are still in preview, make sure to also check the "**Enable Pre-Release packages**" option in the top of the Scoped Registry screen, as shown below.
 
 - Finally, Open the Unity Package Manager, in the top-left most drop down, select "My Registries" and then select and click install on the Service Framework entry to download and register the service framework and its dependencies in your project.
 
-///Image
+![Scoped Registry View](./images/02_01_ScopedRegistry.png)
 
 ## Adding the Service Manager Instance
 
@@ -71,7 +73,7 @@ The Service Manager Instance is the ONLY MonoBehaviour GameObject that needs to 
 
 1. To begin, simply create an Empty GameObject (*Editor -> GameObject -> Create Empty*) and call it the "Service Manager Instance"
 
-///Image
+![Service Manager Instance](./images/02_02_ServiceManagerInstance.png)
 
 2. Then simply add the "Service Manager Instance" component by selecting the GameObject created in the previous step and clicking on "Add component" in the inspector and searching for the "Service Manager Instance".
 
@@ -79,7 +81,7 @@ By default you will receive an information box telling you that you do not have 
 
 > If you already have Service Framework configuration in your project, the editor will bring up a new window to select it if you have more than one.  If you only have one, it will automatically be applied to your new Service Manager Instance.
 
-Now that the Service Manager is in your scene, you can select it to see its current configuration.  By default, no configuration is supplied and you will need to create your own configuration for it.
+Now that the Service Manager is in your scene, you can select it to see its current configuration.  By default, no configuration is applied and you will need to create your own configuration for it.
 
 ## Creating the root configuration for the Service Manager
 
@@ -87,11 +89,19 @@ The simplest way to create your first new Root configuration for the Service Fra
 
 This will automatically create you a new configuration file called "**ServiceProvidersProfile**" in the root of your assets folder.  Feel free to move this wherever you like in your assets folder as it will remain references to the instance of the Service Framework.
 
-Alternatively, you can create it manually in the Project window by "*right-clicking*" and selecting "***Reality Toolkit -> Service Manager -> Service Providers Profile***", which will create the new profile in the folder you are currently viewing.  You will then need to manually assign this profile to the Service Manager by dragging and dropping it in to the "Reality Toolkit configuration Profile" field in the inspector.
+Alternatively, you can create it manually in the Project window by "*right-clicking*" and selecting "***Reality Collective -> Service Framework -> Service Providers Profile***", which will create the new profile in the folder you are currently viewing.  You will then need to manually assign this profile to the Service Manager by dragging and dropping it in to the "Reality Toolkit configuration Profile" field in the inspector.
 
 > Also available through the "Assets" menu in the editor under the same path mentioned above.
 
 Once configured, the Service Framework is ready to receive the services you create and get them running.
+
+![Service Framework blank configuration](./images/02_03_ServiceFrameworkEmptyConfiguraton.png)
+
+There are additional options you can enable on the Service Framework Instance, which have the following behaviours:
+
+* Initialize on Play - Will only initialize the framework configuration when you hit **Play** in the editor, else it will always run and validate your configuration.  *Note this does not affect runtime, where the Service Framework always starts.
+
+* Do Not destroy Service Manager on Load - By default, the Service Manager Instance will set itself to initialize in to a separate scene and will stay running for the life time of the project.  If you want to have separate Service Managers in eah scene, then disable this option.
 
 ## Using the Service Generator
 

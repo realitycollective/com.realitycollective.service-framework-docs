@@ -10,6 +10,8 @@ The Service Framework built by the Reality Collective is a Service repository th
 
 Ultimately it services to solve some of the common use cases that cause Unity developers problems when architecting and managing their code.
 
+> If you just want to get started, jump to the ["**Getting Started**"](02_getting_started.md) section here and read the history later.
+
 ## Why use a Service Framework?
 
 In many cases, code is written and attached to MonoBehaviours in order to execute and run, this is perfectly fine where this code is to manage the state of a UX component as it operates in the project.  However, In may cases empty game objects are created to "just run" code or have access to certain Unity functions, in other cases repetitive use of static classes are implemented just so make code accessible, all of which can cause problems in the long run, such as:
@@ -60,7 +62,7 @@ This enables you to create a "Header" service to accept requests and then provid
 * A networking service that has different client implementations based on the running platform.
 * A utility service that enables several functions that require to work differently based upon platform or different sets of conditions.
 
-This capability is quite advanced but also quite limitless.
+This capability is a bit more advanced advanced and potentially limitless.
 
 For more information checkout the [Advanced services and sub services (data providers)](serviceframework_04_advanced_services.md) section.
 
@@ -98,7 +100,6 @@ There are many more advanced implementations possible, some of which are likely 
 
 for more information on the Service Framework, check out these additional links:
 
-* [Introduction](serviceframework_01_intro.md)
 * [Creating your first service](serviceframework_02_getting_started.md)
 * [Service design](serviceframework_03_service_design.md)
 * [Advanced services and sub services (data providers)](serviceframework_04_advanced_services.md)
