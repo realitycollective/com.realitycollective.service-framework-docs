@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import Link from '@docusaurus/Link';
 
 type FeatureItem = {
   title: string;
@@ -10,12 +11,11 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Made for XR',
-    Svg: require('@site/static/img/undraw_augmented_reality_re_f0qd.svg').default,
+    title: 'Develop better Unity apps and games',
+    Svg: require('@site/static/img/undraw_developer_activity_re_39tg.svg').default,
     description: (
       <>
-        The Reality Toolkit was designed from the ground up to aid with mixed reality development. Be it AR, VR or XR,
-        the toolkit comes with useful services and components to kickstart your development journey!
+        The Service Framework helps you maintain a clean architecture and improve performance of your Unity based app or game. <Link to='docs/get-started'>Get started</Link> now!
       </>
     ),
   },
@@ -39,7 +39,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

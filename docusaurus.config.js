@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Service Framework',
   tagline: 'Official documentation for the Service Framework by the Reality Collective',
-  url: 'http://realitycollective.io/com.realitycollective.service-framework-docs/',
+  url: 'http://service-framework.realitycollective.io/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -27,11 +27,6 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/realitycollective/com.realitycollective.service-framework-docs/edit/main/',
-        },
-        blog: {
-          showReadingTime: true,
           editUrl:
             'https://github.com/realitycollective/com.realitycollective.service-framework-docs/edit/main/',
         },
@@ -58,7 +53,6 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://discord.gg/YjHAQD2XT8',
             label: 'Join Us On Discord',
@@ -101,7 +95,11 @@ const config = {
             items: [
               {
                 label: 'Blog',
-                to: '/blog',
+                href: 'https://realitycollective.io/blog',
+              },
+              {
+                label: 'Reality Collective Website',
+                href: 'https://realitycollective.io/',
               },
               {
                 label: 'GitHub',
