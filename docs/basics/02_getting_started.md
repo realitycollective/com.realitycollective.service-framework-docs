@@ -196,7 +196,7 @@ If there is ever a situation where you may not be sure your service is registere
 
 This simply returns True if the Service is registered.  You can also check if the Service is enabled (as Services can be disabled once registered) by using the **IsServiceEnabled** function.
 
-### Get a reference to your service using GetService<>
+### Get a reference to your service using GetService
 
 The common way to get a reference to your running service is to use the **GetService** function.
 
@@ -219,6 +219,18 @@ As an alternative to the GetService call there is also a **TryGetService** funct
 ```
 
 This is generally the better approach but it all depends on the usage of your service.
+
+## See the running state of your service
+
+A handy feature contributed by one of our community ([Joost van Schaik](https://localjoost.github.io/)) which allows you to see the running state of your service and all its properties from within the editor.
+
+Simply create an Empty GameObject with the same **Name** (The Name registered in the configuration and not the class name) as your service, add the **Service Display Hook** component and all the running properties of the Service will appear in the inspector for that service:
+
+![Service Display Hook](./images/02_10_ServiceDisplay.png)
+
+Very useful if you simply want to inspect what the service is doing.
+
+> We are looking to extend this in the future to also make it editable for testing.
 
 ### Check the API docs for more calls
 
