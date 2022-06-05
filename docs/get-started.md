@@ -39,7 +39,7 @@ The simplest way to getting started using the utilities package in your project 
 
 ## Use cases
 
-The service framework has been the foundation behind such toolkit's such as Microsoft's MRTK and open source projects like the XRTK and newly formed Reality Toolkit.  These use the framework to enable such use cases as:
+The service framework has been the foundation behind such toolkits as Microsoft's MRTK and open source projects like the XRTK as well as the newly formed Reality Toolkit.  These use the framework to enable such use cases as:
 
 * A platform independent input system - A single service able to route input data from multiple controllers on various platforms, each controller only activates on the platform it was designed for.
 * An Authentication service - Able to integrate with multiple authentication providers as needed through a single interface.
