@@ -12,9 +12,9 @@ sidebar_position: 5
 
 for more information on the Service Framework, check out these additional links:
 
-* [Introduction](serviceframework_01_intro.md)
-* [Creating your first service](serviceframework_02_getting_started.md)
-* [Service design](serviceframework_03_service_design.md)
-* [Advanced services and sub services (data providers)](serviceframework_04_advanced_services.md)
-* [Platform System](serviceframework_06_platform_system.md)
-* [Roadmap](serviceframework_07_roadmap.md)
+* [Introduction](./01_introduction.md)
+* [Creating your first service](./02_getting_started.md)
+* [Service design](./03_service_design.md)
+* [Advanced services and sub services (data providers)](./04_advanced_services.md)
+* [Platform System](./06_platform_system.md)
+* [Roadmap](./07_roadmap.md)

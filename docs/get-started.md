@@ -107,13 +107,13 @@ There are some fringe areas of the framework which are still under development a
 
 ## Related Articles
 
-* [Introduction](basics/serviceframework_01_intro.md)
-* [Creating your first service](basics/serviceframework_02_getting_started.md)
-* [Service design](basics/serviceframework_03_service_design.md)
-* [Advanced services and sub services (data providers)](basics/serviceframework_04_advanced_services.md)
-* [Service Patterns and implementations](basics/serviceframework_05_service_patterns.md)
-* [Platform System](basics/serviceframework_06_platform_system.md)
-* [Roadmap](basics/serviceframework_07_roadmap.md)
+* [Introduction](./basics/01_introduction.md)
+* [Creating your first service](./basics/02_getting_started.md)
+* [Service design](./basics/03_service_design.md)
+* [Advanced services and sub services (data providers)](./basics/04_advanced_services.md)
+* [Service Patterns and implementations](./basics/05_service_patterns.md)
+* [Platform System](./basics/06_platform_system.md)
+* [Roadmap](./basics/07_roadmap.md)
 
 ---
 

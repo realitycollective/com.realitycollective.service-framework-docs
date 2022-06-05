@@ -69,7 +69,7 @@ Once entered, click the "**+**" button to add and save the registry.
 
 The Service Manager Instance is the ONLY MonoBehaviour GameObject that needs to be in a scene to operate any/all services that are registered with it, this ensures that all the events raised by Unity can be properly propagated (sent to) all the services.
 
-> There is an additional pattern available whereby the Service Framework can be integrated with your own functionality, not requiring the additional GameObject, essentially providing the Service Framework as a property in your own code.  see the [Service Patterns and implementations](serviceframework_05_service_patterns.md) for more information.
+> There is an additional pattern available whereby the Service Framework can be integrated with your own functionality, not requiring the additional GameObject, essentially providing the Service Framework as a property in your own code.  see the [Service Patterns and implementations](./05_service_patterns.md) for more information.
 
 1. To begin, simply create an Empty GameObject (*Editor -> GameObject -> Create Empty*) and call it the "Service Manager Instance"
 
@@ -113,9 +113,9 @@ There are additional options you can enable on the Service Framework Instance, w
 
 for more information on the Service Framework, check out these additional links:
 
-* [Introduction](serviceframework_01_intro.md)
-* [Service design](serviceframework_03_service_design.md)
-* [Advanced services and sub services (data providers)](serviceframework_04_advanced_services.md)
-* [Service Patterns and implementations](serviceframework_05_service_patterns.md)
-* [Platform System](serviceframework_06_platform_system.md)
-* [Roadmap](serviceframework_07_roadmap.md)
+* [Introduction](./01_introduction.md)
+* [Service design](./03_service_design.md)
+* [Advanced services and sub services (data providers)](./04_advanced_services.md)
+* [Service Patterns and implementations](./05_service_patterns.md)
+* [Platform System](./06_platform_system.md)
+* [Roadmap](./07_roadmap.md)

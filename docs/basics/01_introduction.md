@@ -51,7 +51,7 @@ All the current Unity build platforms are included by default (all targets avail
 
 This then allows you to configure on which platforms your service should run, this is multi-selectable, so you can choose all platforms or just a selection.  You also create "Mock" services and have these only available in the editor if you so wish.
 
-Check the [Platform System](serviceframework_06_platform_system.md) section for more information.
+Check the [Platform System](./06_platform_system.md) section for more information.
 
 ## Services and SubServices (data providers) - Advanced
 
@@ -64,7 +64,7 @@ This enables you to create a "Header" service to accept requests and then provid
 
 This capability is a bit more advanced advanced and potentially limitless.
 
-For more information checkout the [Advanced services and sub services (data providers)](serviceframework_04_advanced_services.md) section.
+For more information checkout the [Advanced services and sub services (data providers)](./04_advanced_services.md) section.
 
 ## Use Cases (and what is a Service anyway?)
 
@@ -100,9 +100,9 @@ There are many more advanced implementations possible, some of which are likely 
 
 for more information on the Service Framework, check out these additional links:
 
-* [Creating your first service](serviceframework_02_getting_started.md)
-* [Service design](serviceframework_03_service_design.md)
-* [Advanced services and sub services (data providers)](serviceframework_04_advanced_services.md)
-* [Service Patterns and implementations](serviceframework_05_service_patterns.md)
-* [Platform System](serviceframework_06_platform_system.md)
-* [Roadmap](serviceframework_07_roadmap.md)
+* [Creating your first service](./02_getting_started.md)
+* [Service design](./03_service_design.md)
+* [Advanced services and sub services (data providers)](./04_advanced_services.md)
+* [Service Patterns and implementations](./05_service_patterns.md)
+* [Platform System](./06_platform_system.md)
+* [Roadmap](./07_roadmap.md)
