@@ -8,7 +8,6 @@ sidebar_position: 7
 
 At the present time, the roadmap is in preview.
 
-
 ## More information
 
 for more information on the Service Framework, check out these additional links:
