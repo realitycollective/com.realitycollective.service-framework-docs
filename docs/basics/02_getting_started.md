@@ -240,7 +240,7 @@ There are a few more accessors for getting references to services, such as:
 |---|---|
 |GetServiceAsync|An Async version of the GetService call|
 |GetServiceByName|Return a service by its name|
-|GetServices<T>|Returns a collection of all services of an Interface Type currently registered|
+|GetServices T|Returns a collection of all services of an Interface Type currently registered|
 |GetAllServices|Returns a collection of all services currently registered|
 |DisableService|Disables a running Service|
 |EnableService|Enables a disabled Service|
