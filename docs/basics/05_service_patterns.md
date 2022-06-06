@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Service Framework - Service Implementation patterns
+# Service Implementation patterns
 
 ***Last updated - 21st May 2022***
 

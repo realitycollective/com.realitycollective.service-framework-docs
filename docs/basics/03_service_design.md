@@ -1,7 +1,8 @@
 ---
 sidebar_position: 3
 ---
-# Service Framework - Service Design
+
+# Service Design
 
 ***Last updated - 21st May 2022***
 

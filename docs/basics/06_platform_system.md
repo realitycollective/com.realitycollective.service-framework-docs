@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Service Framework - Platform System
+# Platform System
 
 ***Last updated - 21st May 2022***
 

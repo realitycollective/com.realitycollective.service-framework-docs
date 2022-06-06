@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Service Framework - Getting Started guide
+# Getting Started guide
 
 ***Last updated - 21st May 2022***
 
@@ -232,7 +232,7 @@ Very useful if you simply want to inspect what the service is doing.
 
 > We are looking to extend this in the future to also make it editable for testing.
 
-### Check the API docs for more calls
+## Check the API docs for more calls
 
 There are a few more accessors for getting references to services, such as:
 

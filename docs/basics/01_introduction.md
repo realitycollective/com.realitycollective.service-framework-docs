@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Welcome to the Service Framework by the Reality Collective
+# Introduction
 
 ***Last updated - 21st May 2022***
 

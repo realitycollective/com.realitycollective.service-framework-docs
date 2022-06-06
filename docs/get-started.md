@@ -1,4 +1,8 @@
-# Service Framework
+---
+sidebar_position: 1
+---
+
+# Welcome to the Service Framework by the Reality Collective
 
 The Service Framework is an extensible service framework to build highly performant components for your Unity projects by the [Reality Collective](https://realityCollective.io).
 
@@ -47,7 +51,9 @@ The service framework has been the foundation behind such toolkits as Microsoft'
 
 The possibilities are almost endless.
 
-## Getting Started
+## Quickstart
+
+> If you want a more indepth tutorial on the Service Framework and creating services, check out the [Introduction](./basics/01_introduction.md) series.
 
 ### 1. Creating a service
 
@@ -61,11 +67,11 @@ Additionally, the generator can also create additional data providers (sub servi
 
 ### 2. Configuring your service
 
-With your service created, it will need to be registered with an active "Service Manager" in a scene, this can either use the provided "Service Manager Instance" component on a GameObject, or utilized as a private property on a class of your own.
+With your service created, it will need to be registered with an active "Service Manager" in a scene, this can either use the provided "Service Manager Instance" component on a GameObject, or consume it using a private property on a class of your own.
 
 > Note, at this time, only a single Service Framework Manager can be active in the scene at a time.  If you are intending to use the Framework with toolkit's such as the Reality Toolkit which already has an instance of the Service Framework embedded, then you will need to use the toolkit's endpoints to communicate with the Service Framework.
 
-Simply create an empty GameObject and add the **ServiceManagerInstance** component to it to begin.  From there it is simply a matter of creating a Profile for the Service Manager and then adding your services to it.
+Simply create an **empty GameObject** and add the **ServiceManagerInstance** component to it to begin.  From there it is simply a matter of creating a Profile for the Service Manager and then adding your services to it.
 
 ### 3. Accessing your running services
 
