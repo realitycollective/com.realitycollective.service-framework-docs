@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Service Framework - Advanced Service design and sub services
+# Advanced Service design and sub services
 
 ***Last updated - 21st May 2022***
 

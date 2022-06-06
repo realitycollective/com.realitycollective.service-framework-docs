@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Service Framework - Roadmap
+# Roadmap
 
 ***Last updated - 21st May 2022***
 
