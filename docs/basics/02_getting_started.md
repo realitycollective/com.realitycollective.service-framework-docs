@@ -111,6 +111,18 @@ There are additional options you can enable on the Service Framework Instance, w
 
 ---
 
+## The Platform switcher
+
+Currently, the only way in Unity to switch your current build platform to another target is to use the "Build Settings" Window, select another platform and then click "Switch Target".
+
+However, to make life a bit easier, especially when working to build for different platforms, the Service Framework provides a handy drop down to quickly switch build targets, right from the Service Manager Instance inspector:
+
+![Platform Switcher component](./images/02_11_PlatformSwitcher.png)
+
+Changing this option to another platform will force Unity to switch build targets and reload scripts for that platform.
+
+---
+
 ## Using the Service Generator
 
 Creating your first service is relatively easy, the hardest part is knowing what you want your service to do (check out [the examples](./01_introduction.md#use-cases-and-what-is-a-service-anyway) in the Introduction).  For the code, we have included a quick and easy **Service Generator** to get you going.
@@ -160,10 +172,12 @@ To then add a new Service entry, simply click the "**+**" in the **IService Conf
 
 Here you you would:
 
-* Give your Service a **Name** in the Name field
-* Select your Service **Instanced Type** from the Drop-down (more on that shortly)
-* Once the Instance Type is selected, you can also assign a Profile for the service, which is optional.  Click "+" to create a default configuration for the Service.
-* Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](./06_platform_system.md)
+* **Name** - Give your Service a **Name** in the Name field
+* **Instanced Type** - Select your Service **Instanced Type** from the Drop-down (more on that shortly)
+
+> Once the Instance Type is selected, you can also assign a Profile for the service, which is optional.  Click "+" to create a default configuration for the Service.
+
+* **Runtime Platforms** - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](./06_platform_system.md)
 
 Clicking the **Instanced Type** drop-down shows the list of services detected by the framework, grouped by Namespace (that you entered when you created the service):
 
