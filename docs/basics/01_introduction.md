@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-***Last updated - 21st May 2022***
+***Last updated - 18th October 2022***
 
 The Service Framework built by the Reality Collective is a Service repository that can be used in Unity projects to address many of the issues facing developers while trying to build performant features and utilities.
 

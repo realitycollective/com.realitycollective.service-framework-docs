@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Getting Started guide
 
-***Last updated - 21st May 2022***
+***Last updated - 18th October 2022***
 
 ## Overview
 
@@ -20,6 +20,8 @@ This is what this article will cover:
 * [Accessing your service](#accessing-your-service)
 
 Time to begin.
+
+> If you want a more detailed example of a Service, we have added a "Setting Service" example in the [Service Design](./03_service_design.md#building-a-settings-service) section.
 
 ---
 
