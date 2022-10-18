@@ -75,6 +75,14 @@ The Service Manager Instance is the ONLY MonoBehaviour GameObject that needs to 
 
 > There is an additional pattern available whereby the Service Framework can be integrated with your own functionality, not requiring the additional GameObject, essentially providing the Service Framework as a property in your own code.  see the [Service Patterns and implementations](./05_service_patterns.md) for more information.
 
+You can automatically add a **Service Manager Instance** to your scene using the handy editor menu option:
+
+> Reality Collective -> Service Framework -> Add to Scene
+
+![Platform Switcher component](./images/00_02_ServiceFramework_add_to_scene.png)
+
+Or you can create it manually, as follows:
+
 1. To begin, simply create an Empty GameObject (*Editor -> GameObject -> Create Empty*) and call it the "Service Manager Instance"
 
 ![Service Manager Instance](./images/02_02_ServiceManagerInstance.png)
@@ -91,7 +99,7 @@ Now that the Service Manager is in your scene, you can select it to see its curr
 
 ## Creating the root configuration for the Service Manager
 
-The simplest way to create your first new Root configuration for the Service Framework is to select the "**+**" symbol on the "**Reality Toolkit configuration Profile**" field in the inspector with the "Service Manager Instance" selected.
+The simplest way to create your first new Root configuration for the Service Framework is to select the "**+**" symbol on the "**Reality Toolkit configuration Profile**" field in the inspector with the "Service Manager Instance" selected, or simply click the "Create a new configuration profile" button below the profile field.
 
 This will automatically create you a new configuration file called "**ServiceProvidersProfile**" in the root of your assets folder.  Feel free to move this wherever you like in your assets folder as it will remain references to the instance of the Service Framework.
 
@@ -105,9 +113,9 @@ Once configured, the Service Framework is ready to receive the services you crea
 
 There are additional options you can enable on the Service Framework Instance, which have the following behaviours:
 
-* Initialize on Play - Will only initialize the framework configuration when you hit **Play** in the editor, else it will always run and validate your configuration.  *Note this does not affect runtime, where the Service Framework always starts.
+* Initialize on Play - Will only initialize the framework configuration when you hit **Play** in the editor, else it will always run and validate your configuration. <br/> **Note** this does not affect runtime, the Service Framework always starts when the project is running.
 
-* Do Not destroy Service Manager on Load - By default, the Service Manager Instance will set itself to initialize in to a separate scene and will stay running for the life time of the project.  If you want to have separate Service Managers in eah scene, then disable this option.
+* Do Not destroy Service Manager on Load - By default, the Service Manager Instance will set itself to initialize in to a separate scene and will stay running for the life time of the project.  If you want to have separate Service Managers in each scene, then disable this option.
 
 ---
 
@@ -119,32 +127,34 @@ However, to make life a bit easier, especially when working to build for differe
 
 ![Platform Switcher component](./images/02_11_PlatformSwitcher.png)
 
-Changing this option to another platform will force Unity to switch build targets and reload scripts for that platform.
+Changing this option to another platform will force Unity to switch build targets and reload scripts for that platform. 
+> **By the way, this is about 50% or more faster than using the build settings window, just saying :D**
 
 ---
 
 ## Using the Service Generator
 
-Creating your first service is relatively easy, the hardest part is knowing what you want your service to do (check out [the examples](./01_introduction.md#use-cases-and-what-is-a-service-anyway) in the Introduction).  For the code, we have included a quick and easy **Service Generator** to get you going.
+Creating your first service is relatively easy, the hardest part is knowing what you want your service to do (check out [the examples](./01_introduction.md#use-cases-and-what-is-a-service-anyway) in the Introduction).  To get you started with a new service we have included a quick and easy **Service Generator** to get you going.
 
 ![Service Generator Menu Option](./images/02_04_ServiceGenerator.png)
 
 In the Unity Editor menu under **Reality Collective** (where all Reality Collective tools are maintained), you will find the menu item for the **Service Framework** with two entries for:
 
 * Create new service
-* Create new data provider (to be covered later in [Advanced Service Design](./04_advanced_services.md))
+* Create new service provider (to be covered later in [Advanced Service Design](./04_advanced_services.md))
 
 On selecting the **Create new service** option, you will be presented with the **Service Wizard** window to choose your service generation options:
 
-![Service Wizard screen](./images/02_05_ServiceWizard.png)
+![Service Wizard screen](./images/00_01_ServiceWizard.png)
 
 The options for generating your service are very easy to use, simply enter:
 
-* Output path - Where you want the service files to be generated into (the default is the root of your Assets folder)
+* Output path - Where you want the service files to be generated into (the default is the root of your Assets folder) - use the button to change where the files are placed on generation.
 * Namespace - The [C# namespace](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/namespaces) you want to be applied to your service (we always recommend using a namespace to uniquely identify your own code)
 * Instance Name - The new name for your service
+* Generate Profile? - If checked, the generator will also generate a scriptable object profile for you create editable controls for your service should you need them. Completely optional.
 
-Once you have entered the details for your new service, just click on **Generate!** and the generator will automatically create a blank service, interface and profile in the folder you specified.
+Once you have entered the details for your new service, just click on **Generate!** and the generator will automatically create a blank service, interface and profile (if you opted to generate a profile) in the folder you specified.
 
 ![Newly generated service](./images/02_06_NewServiceGeneration.png)
 
@@ -175,7 +185,7 @@ Here you you would:
 * **Name** - Give your Service a **Name** in the Name field
 * **Instanced Type** - Select your Service **Instanced Type** from the Drop-down (more on that shortly)
 
-> Once the Instance Type is selected, you can also assign a Profile for the service, which is optional.  Click "+" to create a default configuration for the Service.
+> Once the Instance Type is selected, you can also assign a Profile for the service if you generated the service with a profile, which is optional.  Click "+" to create a default configuration for the Service.
 
 * **Runtime Platforms** - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](./06_platform_system.md)
 
@@ -185,7 +195,7 @@ Clicking the **Instanced Type** drop-down shows the list of services detected by
 
 > If your service does not show up in the list, make sure the Namespace is accessible, especially if your Service is located in a folder with an Assembly Definition (which limits how code is accessed). Just create a new C# script and try to create a new instance of your Service Manually (var test = new TestService())
 
-> If you ALSO want your service to be accessibly when hitting Play in the Editor, make sure to also select the **Editor** platform (or select "Everything").  The system does EXACTLY as it is told and will only try to start your service on the platforms it is told to.
+> If you ALSO want your service to be accessible when hitting Play in the Editor, make sure to also select the **Editor** platform (or select "Everything").  The system does EXACTLY as it is told and will only try to start your service on the platforms it is told to.
 
 With your service configured and available to run it is now available from ANYWHERE in your project.
 
@@ -236,9 +246,9 @@ This is generally the better approach but it all depends on the usage of your se
 
 ## See the running state of your service
 
-A handy feature contributed by one of our community ([Joost van Schaik](https://localjoost.github.io/)) which allows you to see the running state of your service and all its properties from within the editor.
+A handy feature contributed by one of our community ([Joost van Schaik](https://localjoost.github.io/)) allows you to see the running state of your service and all its properties from within the editor.
 
-Simply create an Empty GameObject with the same **Name** (The Name registered in the configuration and not the class name) as your service, add the **Service Display Hook** component and all the running properties of the Service will appear in the inspector for that service:
+Simply create an Empty GameObject with the same **Name** (The Name registered in the configuration and not the class name) as your service, add the **Service Display Hook** component, all the running properties of the Service will appear in the inspector for that service:
 
 ![Service Display Hook](./images/02_10_ServiceDisplay.png)
 

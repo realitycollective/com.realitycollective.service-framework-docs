@@ -14,7 +14,7 @@ Ultimately it services to solve some of the common use cases that cause Unity de
 
 ## Why use a Service Framework?
 
-In many cases, code is written and attached to MonoBehaviours in order to execute and run, this is perfectly fine where this code is to manage the state of a UX component as it operates in the project.  However, In may cases empty game objects are created to "just run" code or have access to certain Unity functions, in other cases repetitive use of static classes are implemented just so make code accessible, all of which can cause problems in the long run, such as:
+In many cases, code is written and attached to MonoBehaviours in order to execute and run, this is perfectly fine where this code is to manage the state of a UX component as it operates in the project.  However, In many cases empty game objects are created to "just run" code or have access to certain Unity functions, in other cases repetitive use of static classes are implemented just so make code accessible, all of which can cause problems in the long run, such as:
 
 * Finding code attached to GameObjects requires you to either know which object it is attached to or use expensive GameObject.Find techniques to locate them.  Granted, these references are then caches to avoid these performance drains, but usually many times throughout code.
 
@@ -41,21 +41,21 @@ The Service Framework at its core provides:
 * Full access to the entire MonoBehaviour lifecycle for all running services
 * A highly performant cycle, providing up to an 80% speed increase over using traditional MonoBehaviour attached scripts.
 
-There are many more benefits available to developers utilizing the Service Framework, this are just the highlights.  To learn more, simply start creating your own services and see the benefits in your own projects.
+There are many more benefits available to developers utilizing the Service Framework, these are just the highlights.  To learn more, simply start creating your own services and see the benefits in your own projects.
 
 ## The Service Framework Platform System
 
-In addition to the rest of the capabilities of the Service Framework, it also implements a powerful and extensible Platform System, this enabled the Service Framework to detect the currently running platform and which platform is currently being targeted by the Editor.
+In addition to the rest of the capabilities of the Service Framework, it also implements a powerful and extensible Platform System, this enables the Service Framework to detect the currently running platform and which platform is currently being targeted by the Editor.
 
 All the current Unity build platforms are included by default (all targets available in the Build Settings screen), however, additional platforms can be defined within your project or within additional UPM packages that will automatically be picked up and registered (so long as the Editor and your project can see them).
 
-This then allows you to configure on which platforms your service should run, this is multi-selectable, so you can choose all platforms or just a selection.  You also create "Mock" services and have these only available in the editor if you so wish.
+This then allows you to configure on which platforms your services should run, this is multi-selectable, so you can choose all platforms or just a selection.  You also create "Mock" services and have these only available in the editor if you so wish.
 
 Check the [Platform System](./06_platform_system.md) section for more information.
 
 ## Services and SubServices (data providers) - Advanced
 
-In addition to the core services you can create, it is also possible to create sub-services (also referred as data providers) which are connected to their parent core service.
+In addition to the core services you can create, it is also possible to create sub-services (also referred as service providers) which are connected to their parent core service.
 This enables you to create a "Header" service to accept requests and then provide multiple implementations for that service, usually to support multiple platforms but can also be used as a collection of providers to obtain data from, such as:
 
 * An asset service that can add providers that connect to google, sketchfab, Azure or wherever you can get assets from, all returned through the main parent service.
@@ -64,7 +64,7 @@ This enables you to create a "Header" service to accept requests and then provid
 
 This capability is a bit more advanced advanced and potentially limitless.
 
-For more information checkout the [Advanced services and sub services (data providers)](./04_advanced_services.md) section.
+For more information checkout the [Advanced services and sub services (service providers)](./04_advanced_services.md) section.
 
 ## Use Cases (and what is a Service anyway?)
 
@@ -96,13 +96,24 @@ There are many more advanced implementations possible, some of which are likely 
 
 ---
 
+### A Leaderboard service
+
+Most games or projects need to connect to backend systems in order to communicate or extend the platform, the most common of these being a leaderboard system in games (and some apps).  Given the many different systems available that support various platforms (in the most complex of scenarios, using a different system per platform), implementations tend to be difficult or hard to manage.
+
+By building a central service that all code can talk to, additional providers can be published to cope with the many various needs of running leaderboards, within our team two implementations are used:
+
+* A central service to field all leaderboard requests with several providers defined for each system, each system only being active for the platform that system is used for.  One request, multiple endpoints.
+* A hosting service that manages all the API / Authentication needs and providers for each leaderboard, allowing, through configuration, multiple leaderboards each with different properties all running in the background, either available collectively through the service or independently directly through the service provider for that leaderboard.
+
+---
+
 ## More information
 
 for more information on the Service Framework, check out these additional links:
 
 * [Creating your first service](./02_getting_started.md)
 * [Service design](./03_service_design.md)
-* [Advanced services and sub services (data providers)](./04_advanced_services.md)
+* [Advanced services and sub services (service providers)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Platform System](./06_platform_system.md)
 * [Roadmap](./07_roadmap.md)
