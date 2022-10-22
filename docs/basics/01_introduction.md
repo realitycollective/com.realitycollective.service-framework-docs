@@ -53,18 +53,18 @@ This then allows you to configure on which platforms your services should run, t
 
 Check the [Platform System](./06_platform_system.md) section for more information.
 
-## Services and SubServices (data providers) - Advanced
+## Services and SubServices (service modules) - Advanced
 
-In addition to the core services you can create, it is also possible to create sub-services (also referred as service providers) which are connected to their parent core service.
-This enables you to create a "Header" service to accept requests and then provide multiple implementations for that service, usually to support multiple platforms but can also be used as a collection of providers to obtain data from, such as:
+In addition to the core services you can create, it is also possible to create sub-services (also referred as service modules) which are connected to their parent core service.
+This enables you to create a "Header" service to accept requests and then provide multiple implementations for that service, usually to support multiple platforms but can also be used as a collection of modules to obtain data from, such as:
 
-* An asset service that can add providers that connect to google, sketchfab, Azure or wherever you can get assets from, all returned through the main parent service.
+* An asset service that can add modules that connect to google, sketchfab, Azure or wherever you can get assets from, all returned through the main parent service.
 * A networking service that has different client implementations based on the running platform.
 * A utility service that enables several functions that require to work differently based upon platform or different sets of conditions.
 
 This capability is a bit more advanced advanced and potentially limitless.
 
-For more information checkout the [Advanced services and sub services (service providers)](./04_advanced_services.md) section.
+For more information checkout the [Advanced services and sub services (service modules)](./04_advanced_services.md) section.
 
 ## Use Cases (and what is a Service anyway?)
 
@@ -100,10 +100,10 @@ There are many more advanced implementations possible, some of which are likely 
 
 Most games or projects need to connect to backend systems in order to communicate or extend the platform, the most common of these being a leaderboard system in games (and some apps).  Given the many different systems available that support various platforms (in the most complex of scenarios, using a different system per platform), implementations tend to be difficult or hard to manage.
 
-By building a central service that all code can talk to, additional providers can be published to cope with the many various needs of running leaderboards, within our team two implementations are used:
+By building a central service that all code can talk to, additional modules can be published to cope with the many various needs of running leaderboards, within our team two implementations are used:
 
-* A central service to field all leaderboard requests with several providers defined for each system, each system only being active for the platform that system is used for.  One request, multiple endpoints.
-* A hosting service that manages all the API / Authentication needs and providers for each leaderboard, allowing, through configuration, multiple leaderboards each with different properties all running in the background, either available collectively through the service or independently directly through the service provider for that leaderboard.
+* A central service to field all leaderboard requests with several modules defined for each system, each system only being active for the platform that system is used for.  One request, multiple endpoints.
+* A hosting service that manages all the API / Authentication needs and modules for each leaderboard, allowing, through configuration, multiple leaderboards each with different properties all running in the background, either available collectively through the service or independently directly through the service module for that leaderboard.
 
 ---
 
@@ -113,7 +113,7 @@ for more information on the Service Framework, check out these additional links:
 
 * [Creating your first service](./02_getting_started.md)
 * [Service design](./03_service_design.md)
-* [Advanced services and sub services (service providers)](./04_advanced_services.md)
+* [Advanced services and sub services (service modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Platform System](./06_platform_system.md)
 * [Roadmap](./07_roadmap.md)

@@ -171,7 +171,7 @@ The above does a lot of talk about what a service is and what you can put in to 
 
 ```csharp
     [CreateAssetMenu(menuName = "SettingsServiceProfile", fileName = "SettingsServiceProfile", order = (int)CreateProfileMenuItemIndices.ServiceConfig)]
-    public class SettingsServiceProfile : BaseServiceProfile<IServiceProvider>
+    public class SettingsServiceProfile : BaseServiceProfile<IServiceModule>
     {
         public int MaxPlayerCount; // <- Creating a profile configuration for MaxPlayers
     }
@@ -234,7 +234,7 @@ Nothing fancy, just getting the profile setting for "MaxPlayerCount" from the pr
 ![Settings Service Configured](./images/03_02_SettingServiceConfigured.png)
 
 > **Pro Tip** <br/>
-> If you collapse the Service definition in the Service Providers Profile, you can click on the service and it will automatically open the profile settings for the service, no need to keep expanding it just to open its settings.   You can of course just inspect the asset itself instead. <br/>
+> If you collapse the Service definition in the Service Configuration Options, you can click on the service and it will automatically open the profile settings for the service, no need to keep expanding it just to open its settings.   You can of course just inspect the asset itself instead. <br/>
 > ![Collapsed Service Settings View](./images/03_03_CollapsedServiceConfiguration.png)
 
 11. With your service running, here is the recommended way of setting up a class to use it.  Create a new C# script and add the following:
@@ -300,7 +300,7 @@ for more information on the Service Framework, check out these additional links:
 
 * [Introduction](./01_introduction.md)
 * [Creating your first service](./02_getting_started.md)
-* [Advanced services and sub services (data providers)](./04_advanced_services.md)
+* [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Platform System](./06_platform_system.md)
 * [Roadmap](./07_roadmap.md)

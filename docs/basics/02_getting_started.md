@@ -143,7 +143,7 @@ Creating your first service is relatively easy, the hardest part is knowing what
 In the Unity Editor menu under **Reality Collective** (where all Reality Collective tools are maintained), you will find the menu item for the **Service Framework** with two entries for:
 
 * Create new service
-* Create new service provider (to be covered later in [Advanced Service Design](./04_advanced_services.md))
+* Create new service module (to be covered later in [Advanced Service Design](./04_advanced_services.md))
 
 On selecting the **Create new service** option, you will be presented with the **Service Wizard** window to choose your service generation options:
 
@@ -288,7 +288,7 @@ for more information on the Service Framework, check out these additional links:
 
 * [Introduction](./01_introduction.md)
 * [Service design](./03_service_design.md)
-* [Advanced services and sub services (data providers)](./04_advanced_services.md)
+* [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Platform System](./06_platform_system.md)
 * [Roadmap](./07_roadmap.md)

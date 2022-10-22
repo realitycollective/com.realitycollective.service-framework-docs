@@ -12,7 +12,7 @@ The Service framework provides a service repository for enabling background serv
 
 * Platform specific operation - choose which platforms your service runs on.
 * Zero Latency from Unity operations - services are fully c# based with no Unity overhead.
-* Ability to host several sub-services (service providers) as part of a service, automatically maintained by a parent service and also platform aware.
+* Ability to host several sub-services (service modules) as part of a service, automatically maintained by a parent service and also platform aware.
 * Fully configurable with Scriptable profiles - Each service can host a configuration profile to change the behavior of your service without changing code.
 
 ## Requirements
@@ -118,7 +118,7 @@ Please feel free to provide feedback via the [Reality Toolkit dev channel here](
 
 There are some fringe areas of the framework which are still under development and improvement, these include:
 
-* The Lookups for Service Types and Service Providers types include all services and providers the toolkit can see, this includes base types and testing data. These will be filtered out later.
+* The Lookups for Service and Service module Types include all services and modules the toolkit can see, this includes base types and testing data. These will be filtered out later.
 * We resolved a critical issue where some data types (such as delegates) can cause Unity to crash when used, this is a known Unity issue and has been logged.  Several workarounds have been implemented to handle these edge cases but there could possibly be more on different platforms (because Unity...)
 * More documentation is needed for the Service Framework, including examples (currently the Reality Toolkit is the best set of examples).  These will be improved over time.
 
@@ -129,7 +129,7 @@ There are some fringe areas of the framework which are still under development a
 * [Introduction](./basics/01_introduction.md)
 * [Creating your first service](./basics/02_getting_started.md)
 * [Service design](./basics/03_service_design.md)
-* [Advanced services and sub services (service providers)](./basics/04_advanced_services.md)
+* [Advanced services and sub services (service modules)](./basics/04_advanced_services.md)
 * [Service Patterns and implementations](./basics/05_service_patterns.md)
 * [Platform System](./basics/06_platform_system.md)
 * [Roadmap](./basics/07_roadmap.md)
