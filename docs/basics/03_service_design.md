@@ -17,6 +17,7 @@ This is what this article will cover:
 * [What is a Service?](#what-is-a-service)
 * [Using a Service Profile](#using-a-service-profile)
 * [The Monobehaviour events](#the-monobehaviour-events)
+* [Platform support](#platform-support)
 * [CoRoutines and async](#coroutines-and-async)
 * [Service Hooks and events](#service-hooks-and-events)
 * [Tutorial: Building a Settings Service](#building-a-settings-service)
@@ -30,7 +31,7 @@ Time to begin.
 
 A basic question with a simple answer, what exactly is a "service"?  In short, a Service is nothing more than a Game Component in Unity with one key exception, Unity is not running the show.
 
-### Performance?
+### Performance
 
 When you use a MonoBehaviour natively, you get all the events and data that Unity sends you each cycle whether you want it or not, multiplied by all the different GameObjects and components in your project updated each update or fixed update cycle can lead to performance issues.  The cost is marginal but not linear, some components do more work than others and finding out which is causing what can be tricky.  With the Service Framework however, there is only ONE GameObject and ONE MonoBehaviour, no matter the work that is done by services in the framework, the performance cost is the same (in Unity terms) and any performance hits are easier to identify because you no longer have Unity as part of the equation, while still retaining all the benefits and access to the information Unity gives each cycle.
 
@@ -45,6 +46,8 @@ Testing is also a huge advantage because all services require an [Interface](htt
 ### Summary
 
 There are many other benefits from building a service over the traditional methods used to create fully reusable code or features that your title depends on, these are but a few.
+
+![Service Registration](./images/03_05_ServiceRegistration.png)
 
 In short, Services are distinct features and reusable code that your project/game will use, built in a safe, structured and easily accessible way.
 
@@ -85,6 +88,18 @@ You have full access to all the events Unity exposes:
 
 > Check the [Unity documentation](https://docs.unity3d.com/ScriptReference/MonoBehaviour.html) on the details behind these MonoBehaviour calls
 
+---
+
+## Platform support
+
+Services can be configured to only activate when a particular platform is active (being run on), this is useful in those situations when a service only needs to run on a specific platform or platforms.
+
+![Service Runtime Platform selector](./images/03_04_ServicePlatformSelector.png)
+
+> See the [Platform System](./06_platform_system.md) section for more details on the Platform System.
+
+---
+
 ## CoRoutines and async
 
 One crucial difference between a Service and a Component/Gameobject is that it does not have a presence in the scene, this does not cause issue in most cases with the exception of CoRoutines.  If your service needs to run a CoRoutine, then the Service Framework (via the RC Utilities library) provides a helper in order to enable a service to initiate CoRoutines, as follows:
@@ -120,6 +135,8 @@ All are valid when using services (just make sure to clean up after yourself whe
 In the Reality Toolkit and other service implementations, the recommended pattern is to use an event Delegate using [Unity's "Action" events](https://docs.unity3d.com/ScriptReference/Events.UnityAction.html), especially as the Service Framework is built up on top of the Unity Event System.
 
 To create an Action Delegate event in your service simply use:
+
+> If you prefer, you can alternatively using the built in Action type of UnityAction, which Unity has provided to make Action more versatile.
 
 ```csharp
     event Action MyEvent;
