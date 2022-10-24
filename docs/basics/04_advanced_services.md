@@ -4,11 +4,11 @@ sidebar_position: 4
 
 # Advanced Service design and sub services
 
-***Last updated - 21st May 2022***
+***Last updated - 24th October 2022***
 
 ## Overview
 
-This article will cover what makes a service tick as well as good patterns to follow in service design, effectively what goes into making a good service, as well as a more full-featured example.
+This article will cover service modules and how they can extend capabilities beyond a single service through additional service modules added to the service to provide distinct operations and extensions.
 
 > For more advanced information on the different patterns that can be used in Service Design, check out the [Service Patterns and implementations](./05_service_patterns.md) section.
 
@@ -18,6 +18,7 @@ This is what this article will cover:
 * [Profiles for Modules](#profiles-for-modules)
 * [Use cases for Modules](#use-cases-for-modules)
 * [Platform support for Modules](#platform-support-for-module)
+* [Pre and Post Service Processors](#service-processors)
 * [Tutorial: Building a Leaderboard Service with modules](#building-a-leaderboard-service-with-modules)
 * [Tips and tricks](#tips-and-tricks)
 
@@ -82,11 +83,17 @@ A common scenario when dealing with files stored on the "internet" is that you n
 
 ---
 
+## Service Processors
+
+tbc
+
+---
+
 ## Building a Leaderboard Service with modules?
 
 Just to demo walking through creating a service that uses modules, we will build a "Very" basic leaderboard service, just to have separate lists in each module to track which player is in which leaderboard and some generic operations on the leaderboards.
 
-<tbc>
+tbc
 
 ---
 

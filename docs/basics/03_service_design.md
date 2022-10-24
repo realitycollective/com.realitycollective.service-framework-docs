@@ -303,11 +303,11 @@ And that is it, we have:
 Writing services is easy enough, working out yourself what each service is and what it should do is the hard part, but always remember:
 
 * Use the Service Interface, it is a guide and a control to know exactly what a service does and what it provides, from the most basic to the very advanced.
-* Take note of the Accessor Pattern used in the example.  You can just call "```GetService<MyService>```" everywhere and there is little cost in doing so.  But the Accessor pattern is just cleaner.
+* Take note of the Accessor Pattern used in the example.  You can just call "```GetService<IMyService>```" everywhere and there is little cost in doing so.  But the Accessor pattern is just cleaner.
 * Remember, services can call each other, but remember that if one service depends on another when it is initialising, then make sure they are in the right order in the ServiceManager Inspector. Order matters.
-* **NEVER** use **GetService** during **Awake**, during awake, the ServiceManager is waking up just like everything else so services will not have initialised yet.  Might be less critical by the second scene or so, but still something to keep in mind
+* **NEVER** use **GetService** during **Awake**. During the awake loop, the ServiceManager is still waking up just like everything else so services will not have initialised yet.  Might be less critical by the second scene or so, but still something to keep in mind.
 * If you tell a service NOT to start for a platform, it will not start :D
-* Beware Null Ref Exceptions, if something is not started or initialised, it **WILL BE NULL**
+* Beware Null Ref Exceptions, if something is not started or initialised, it **WILL BE NULL.**
 
 ---
 
