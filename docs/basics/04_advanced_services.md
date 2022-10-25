@@ -18,7 +18,6 @@ This is what this article will cover:
 * [Profiles for Modules](#profiles-for-modules)
 * [Use cases for Modules](#use-cases-for-modules)
 * [Platform support for Modules](#platform-support-for-module)
-* [Pre and Post Service Processors](#service-processors)
 * [Tutorial: Building a Leaderboard Service with modules](#building-a-leaderboard-service-with-modules)
 * [Tips and tricks](#tips-and-tricks)
 
@@ -80,12 +79,6 @@ As highlighted in other examples, another great implementation was to have a Lea
 ### A Storage Service
 
 A common scenario when dealing with files stored on the "internet" is that you need a common way to request files from providers (Azure, Sketchfab, OneDrive, etc) or even upload to those providers at a later point.  Trying to do this all in a set of classes with all the authentication and "faff" of talking to those endpoints.  Using modules means you can compartmentalise each of those services to only deal with a single vendor and have the service decide which service to use at runtime.
-
----
-
-## Service Processors
-
-tbc
 
 ---
 
