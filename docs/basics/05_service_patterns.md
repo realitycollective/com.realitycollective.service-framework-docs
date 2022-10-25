@@ -48,7 +48,7 @@ In some scenarios, it is common for two services to be interlinked, each providi
 
 Depending on how the connectivity is maintained, care must be taken to ensure the services are registered in the correct order.  However, you can also utilise Scriptable Objects as configurable assets to provide weak references between services.
 
-The simplest solution is that Service 2, on initialisation or later, will call "GetService<IService1>" to gain a reference and utilise Service 1 during its operation.
+The simplest solution is that Service 2, on initialisation or later, will call "```GetService<IService1>```" to gain a reference and utilise Service 1 during its operation.
 
 ---
 
@@ -79,7 +79,7 @@ This is the pattern enabled for services by default.  Primarily it is recognised
 
 Another pattern which is widely used (such as in the Leaderboard examples) whereby the Modules are the primary driver for access to the Services resources, with the Service itself mainly providing common functionality (such as authentication) for all the modules.
 
-Similar to the [Service Providers Model](#service-providers-model), with the exception that only "```GetService<IServiceModule>```" is used to talk directly to the module that is required for an operation (e.g. a specific leaderboard)
+Similar to the [Service Providers Model](#service-providers-model), with the exception that only "```GetService<IServiceModule>```" is used to talk directly to the module that is required for an operation (e.g. a specific Leaderboard)
 
 ---
 

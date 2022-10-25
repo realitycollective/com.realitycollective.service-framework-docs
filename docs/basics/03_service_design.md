@@ -102,7 +102,7 @@ Services can be configured to only activate when a particular platform is active
 
 ## CoRoutines and async
 
-One crucial difference between a Service and a Component/Gameobject is that it does not have a presence in the scene, this does not cause issue in most cases with the exception of CoRoutines.  If your service needs to run a CoRoutine, then the Service Framework (via the RC Utilities library) provides a helper in order to enable a service to initiate CoRoutines, as follows:
+One crucial difference between a Service and a Component/GameObject is that it does not have a presence in the scene, this does not cause issue in most cases with the exception of CoRoutines.  If your service needs to run a CoRoutine, then the Service Framework (via the RC Utilities library) provides a helper in order to enable a service to initiate CoRoutines, as follows:
 
 ```csharp
     using RealityCollective.Utilities.Async;

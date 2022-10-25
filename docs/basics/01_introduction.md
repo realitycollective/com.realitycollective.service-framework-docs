@@ -8,7 +8,7 @@ sidebar_position: 1
 
 The Service Framework built by the Reality Collective is a Service repository that can be used in Unity projects to address many of the issues facing developers while trying to build performant features and utilities.
 
-Ultimately it services to solve some of the common use cases that cause Unity developers problems when architecting and managing their code.
+Ultimately it services to solve some of the common use cases that cause Unity developers problems when designing and managing their code.
 
 > If you just want to get started, jump to the ["**Getting Started**"](02_getting_started.md) section here and read the history later.
 
@@ -98,12 +98,12 @@ There are many more advanced implementations possible, some of which are likely 
 
 ### A Leaderboard service
 
-Most games or projects need to connect to backend systems in order to communicate or extend the platform, the most common of these being a leaderboard system in games (and some apps).  Given the many different systems available that support various platforms (in the most complex of scenarios, using a different system per platform), implementations tend to be difficult or hard to manage.
+Most games or projects need to connect to backend systems in order to communicate or extend the platform, the most common of these being a Leaderboard system in games (and some apps).  Given the many different systems available that support various platforms (in the most complex of scenarios, using a different system per platform), implementations tend to be difficult or hard to manage.
 
-By building a central service that all code can talk to, additional modules can be published to cope with the many various needs of running leaderboards, within our team two implementations are used:
+By building a central service that all code can talk to, additional modules can be published to cope with the many various needs of running Leaderboards, within our team two implementations are used:
 
-* A central service to field all leaderboard requests with several modules defined for each system, each system only being active for the platform that system is used for.  One request, multiple endpoints.
-* A hosting service that manages all the API / Authentication needs and modules for each leaderboard, allowing, through configuration, multiple leaderboards each with different properties all running in the background, either available collectively through the service or independently directly through the service module for that leaderboard.
+* A central service to field all Leaderboard requests with several modules defined for each system, each system only being active for the platform that system is used for.  One request, multiple endpoints.
+* A hosting service that manages all the API / Authentication needs and modules for each Leaderboard, allowing, through configuration, multiple Leaderboards each with different properties all running in the background, either available collectively through the service or independently directly through the service module for that Leaderboard.
 
 ---
 

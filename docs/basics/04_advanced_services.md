@@ -44,7 +44,7 @@ Ultimately, Modules offer abstraction on the implementation of your service to m
 
 ---
 
-## Profiles for Modules?
+## Profiles for Modules
 
 Like their service parents, modules can also "optionally" have profiles attached to them, to allow you, at design time, set the operating environment for the module.
 Simply "check" the box when generating a Service Module and the wizard will automatically create one for you.
@@ -75,7 +75,7 @@ Building individual discrete modules for each interaction which shared a common 
 
 ### A Leaderboard Service
 
-As highlighted in other examples, another great implementation was to have a Leaderboard service which provided authentication and common utilities for accessing the backend, then providing separate Modules for each Leaderboard (Global, Weekly, Daily, challenge) each with their own settings for how they operate.  Then the application simply requests and interacts with each leaderboard modules and each module then used the service to talk to the external service.
+As highlighted in other examples, another great implementation was to have a Leaderboard service which provided authentication and common utilities for accessing the backend, then providing separate Modules for each Leaderboard (Global, Weekly, Daily, challenge) each with their own settings for how they operate.  Then the application simply requests and interacts with each Leaderboard modules and each module then used the service to talk to the external service.
 
 ### A Storage Service
 
@@ -91,7 +91,7 @@ tbc
 
 ## Building a Leaderboard Service with modules?
 
-Just to demo walking through creating a service that uses modules, we will build a "Very" basic leaderboard service, just to have separate lists in each module to track which player is in which leaderboard and some generic operations on the leaderboards.
+Just to demo walking through creating a service that uses modules, we will build a "Very" basic Leaderboard service, just to have separate lists in each module to track which player is in which Leaderboard and some generic operations on the Leaderboards.
 
 tbc
 

@@ -48,7 +48,7 @@ The service framework has been the foundation behind such toolkits as Microsoft'
 * A platform independent input system - A single service able to route input data from multiple controllers on various platforms, each controller only activates on the platform it was designed for.
 * An Authentication service - Able to integrate with multiple authentication providers as needed through a single interface.
 * A networking service - Utilizing multiple endpoints for Lobby's, communication routes and data sharing.
-* A leaderboard system - A leader board service can manage access to different leader board system/solution or simply manage sub services to control access to different types of leaderboard, all in one place.
+* A Leaderboard system - A leader board service can manage access to different leader board system/solution or simply manage sub services to control access to different types of Leaderboard, all in one place.
 * A "Settings" Service - to manage and control the application state and various runtime options, regardless of which scene you are currently in.
 
 The possibilities are almost endless.
