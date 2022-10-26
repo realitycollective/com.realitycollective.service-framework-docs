@@ -12,7 +12,7 @@ The Service framework provides a service repository for enabling background serv
 
 * Platform specific operation - choose which platforms your service runs on.
 * Zero Latency from Unity operations - services are fully c# based with no Unity overhead.
-* Ability to host several sub-services (data providers) as part of a service, automatically maintained by a parent service and also platform aware.
+* Ability to host several sub-services (service modules) as part of a service, automatically maintained by a parent service and also platform aware.
 * Fully configurable with Scriptable profiles - Each service can host a configuration profile to change the behavior of your service without changing code.
 
 ## Requirements
@@ -48,12 +48,14 @@ The service framework has been the foundation behind such toolkits as Microsoft'
 * A platform independent input system - A single service able to route input data from multiple controllers on various platforms, each controller only activates on the platform it was designed for.
 * An Authentication service - Able to integrate with multiple authentication providers as needed through a single interface.
 * A networking service - Utilizing multiple endpoints for Lobby's, communication routes and data sharing.
+* A Leaderboard system - A leader board service can manage access to different leader board system/solution or simply manage sub services to control access to different types of Leaderboard, all in one place.
+* A "Settings" Service - to manage and control the application state and various runtime options, regardless of which scene you are currently in.
 
 The possibilities are almost endless.
 
 ## Quickstart
 
-> If you want a more indepth tutorial on the Service Framework and creating services, check out the [Introduction](./basics/01_introduction.md) series.
+> If you want a more in-depth tutorial on the Service Framework and creating services, check out the [Introduction](./basics/01_introduction.md) series.
 
 ### 1. Creating a service
 
@@ -63,7 +65,7 @@ A fully featured "**Service Generator**" is included with the Service Framework 
 * A configuration profile - to customize to the needs of your service (optional, delete if not required)
 * The Service Implementation - You service to do with as you wish.
 
-Additionally, the generator can also create additional data providers (sub services) for your service to maintain, these require you to specify the parent services interface when generating to ensure they are appropriately bound in creation.  Data Providers are automatically started with a parent service provided their platforms match the current operating environment.
+![Platform Switcher component](basics/images/00_01_ServiceWizard.png)
 
 ### 2. Configuring your service
 
@@ -71,11 +73,20 @@ With your service created, it will need to be registered with an active "Service
 
 > Note, at this time, only a single Service Framework Manager can be active in the scene at a time.  If you are intending to use the Framework with toolkit's such as the Reality Toolkit which already has an instance of the Service Framework embedded, then you will need to use the toolkit's endpoints to communicate with the Service Framework.
 
-Simply create an **empty GameObject** and add the **ServiceManagerInstance** component to it to begin.  From there it is simply a matter of creating a Profile for the Service Manager and then adding your services to it.
+Simply use the handy Editor function provided by the Reality Collective to add a **Service Manager Instance** to a scene using:
+
+> Reality Collective -> Service Framework -> Add to Scene
+
+![Platform Switcher component](basics/images/00_02_ServiceFramework_add_to_scene.png)
+
+Once added, click on the **Create a new configuration profile** to create the configuration needed to run your service and add the service you generated using the handy drop downs to locate it.
+P.S. Don't forget to also set the Platforms your service needs to run on, if in doubt select "Everything", I'm sure it'll be fine :D
+
+![Platform Switcher component](basics/images/00_03_ServiceManagerConfiguration.png)
 
 ### 3. Accessing your running services
 
-Your services are available at any time from anywhere in your code by simply requesting the service from the Service Manager using its interface (Data Providers are also accessible directly, although we recommend working through your service), for example:
+Your services are available at any time from anywhere in your code by simply requesting the service from the Service Manager using its interface, for example:
 
 ```csharp
     var myService = ServiceManager.Instance.GetService<MyServiceInterface>();
@@ -93,7 +104,10 @@ Alternatively, there are also "TryGet" versions of the Service endpoints which *
 
 ## Final notes
 
-The Service Framework is robustly tested and confirmed to be working in most versions of Unity, including Unity 2021 LTS.  However, it is still classed as a preview while the rest of the Reality Toolkit is going through active development.
+The Service Framework is robustly tested and confirmed to be working in most versions of Unity, including the Unity 2021 latest LTS (2021.3.11f1, not prior versions).  
+
+> **At this time, Unity 2022 is not yet supported due to a bug in Unity, which is being fixed.**
+
 It is being used in production solutions by the Reality Collective team, but it will be up to you as a developer how you choose to consume and operate the framework in your solutions.
 
 ## Feedback
@@ -104,8 +118,7 @@ Please feel free to provide feedback via the [Reality Toolkit dev channel here](
 
 There are some fringe areas of the framework which are still under development and improvement, these include:
 
-* In Unity 2021, the inspector for selecting Service Framework Profiles is a little inconsistent due to 2021 changes.  No issues found in Unity 2020 or below
-* The Lookups for Service Types and Data Providers types include all services and providers the toolkit can see, this includes base types and testing data. These will be filtered out later.
+* The Lookups for Service and Service module Types include all services and modules the toolkit can see, this includes base types and testing data. These will be filtered out later.
 * We resolved a critical issue where some data types (such as delegates) can cause Unity to crash when used, this is a known Unity issue and has been logged.  Several workarounds have been implemented to handle these edge cases but there could possibly be more on different platforms (because Unity...)
 * More documentation is needed for the Service Framework, including examples (currently the Reality Toolkit is the best set of examples).  These will be improved over time.
 
@@ -116,7 +129,7 @@ There are some fringe areas of the framework which are still under development a
 * [Introduction](./basics/01_introduction.md)
 * [Creating your first service](./basics/02_getting_started.md)
 * [Service design](./basics/03_service_design.md)
-* [Advanced services and sub services (data providers)](./basics/04_advanced_services.md)
+* [Advanced services and sub services (service modules)](./basics/04_advanced_services.md)
 * [Service Patterns and implementations](./basics/05_service_patterns.md)
 * [Platform System](./basics/06_platform_system.md)
 * [Roadmap](./basics/07_roadmap.md)
