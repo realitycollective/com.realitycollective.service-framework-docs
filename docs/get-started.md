@@ -102,25 +102,13 @@ Alternatively, there are also "TryGet" versions of the Service endpoints which *
     }
 ```
 
-## Final notes
-
-The Service Framework is robustly tested and confirmed to be working in most versions of Unity, including the Unity 2021 latest LTS (2021.3.11f1, not prior versions).  
-
-> **At this time, Unity 2022 is not yet supported due to a bug in Unity, which is being fixed.**
-
-It is being used in production solutions by the Reality Collective team, but it will be up to you as a developer how you choose to consume and operate the framework in your solutions.
-
 ## Feedback
 
-Please feel free to provide feedback via the [Reality Toolkit dev channel here](https://github.com/realitycollective/realitytoolkit.dev/issues), all feedback. suggestions and fixes are welcome.
+Please feel free to provide feedback via the [Service Framework dev channel here](https://github.com/realitycollective/com.realitycollective.service-framework/issues), all feedback. suggestions and fixes are welcome.
 
-## Known Issues
+## Documentation, work in progress
 
-There are some fringe areas of the framework which are still under development and improvement, these include:
-
-* The Lookups for Service and Service module Types include all services and modules the toolkit can see, this includes base types and testing data. These will be filtered out later.
-* We resolved a critical issue where some data types (such as delegates) can cause Unity to crash when used, this is a known Unity issue and has been logged.  Several workarounds have been implemented to handle these edge cases but there could possibly be more on different platforms (because Unity...)
-* More documentation is needed for the Service Framework, including examples (currently the Reality Toolkit is the best set of examples).  These will be improved over time.
+The documentation that gives an overview and walk-through of the Service Framework contains enough to get going, but we are aware that more documentation is needed for the Service Framework, including examples (currently the Reality Toolkit is the best set of examples).  These will be improved over time.
 
 ---
 
