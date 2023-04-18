@@ -4,12 +4,11 @@ sidebar_position: 6
 
 # Platform System
 
-***Last updated - 24th October 2022***
+***Last updated - 1st February 2023***
 
 ## Overview
 
 This article will highlight some of the most common patterns used in service design / delivery, as used by the Reality Collective and its sponsors.
-
 
 This is what this article will cover:
 
@@ -17,22 +16,21 @@ This is what this article will cover:
 * [BuiltIn Platforms](#builtin-platforms)
 * [Platform Switcher](#platform-switcher)
 * [Service and Module Platform Selection](#service-and-module-platform-selection)
-* [IPlatform](#IPlatform)
+* [IPlatform](#iplatform)
 * [Tutorial: Building your own platform](#building-your-own-platform)
 * [Tips and tricks](#tips-and-tricks)
 
 Time to begin.
 
-
 ---
 
 ## Platform System Usage
 
-The platform system embedded inside the Service Framework enables a multitude of capabilities from simpler and quicker platform switching, to allowing services and modules to ONLy run when a specific platform is detected as running, which enables a lot more variety than just using #if processors everywhere (and more manageable code).
+The platform system embedded inside the Service Framework enables a multitude of capabilities from simpler and quicker platform switching, to allowing services and modules to ONLY run when a specific platform is detected as running, this enables a lot more variety than just using ```#if``` processors everywhere (and more manageable code).
 
 This platform detection works at BOTH in the Player runtime as well as in the Editor, which each uniquely identifying their activation based on the characteristics of each and not just the currently detected Unity platform.
 
-This capability can also be extended and is used by toolkit's such as the Reality Toolkit and the XRTK, to create custom platforms such as the Meta Quest and Pico, to also require the presence of the vendor API in order to enable custom platforms.
+This capability can also be extended and is used by toolkits such as the Reality Toolkit and the XRTK, to create custom platforms such as the Meta Quest and Pico, which require the presence of the vendor API in order to enable custom platforms.
 
 ---
 
@@ -50,6 +48,7 @@ By default, the Service Framework supports all of the built-in platforms that Un
 * WebGL
 * Windows Standalone
 * Xbox*
+* Nintendo*
 
 > * requires 3rd party licensed plugin
 
@@ -75,7 +74,8 @@ There is no limitation (except to say that a service can only register once per 
 
 > Remember a Service or Module can only be registered ONCE per interface.
 
-**NOTE**, that code still has to compile in the editor regardless of what platform the Service or Module is targetting, so you will still need to include Preprocessor Directives (#if statements) for any code that cannot be compiled on different platforms.
+**NOTE**, code still has to compile in the editor regardless of what platform the Service or Module is targeting, so you will still need to include Preprocessor Directives (#if statements) for any code that cannot be compiled on different platforms.
+
 ---
 
 ## IPlatform
@@ -89,9 +89,9 @@ The IPlatform interface defines the constraints and conditions which will determ
 |Platform|IPlatform[] (array)|Runtime & Editor|The list of platforms that this Platform overrides and makes unavailable|
 |IsBuildTargetAvailable|string|Editor Only|While in the Editor, is this platform active in the Editor|
 |ValidBuildTargets|IPlatform[] (array)|Editor Only|When in the editor, what are the Unity base targets this Platform requires|
-|||||
 
 Any new platforms need to inherit from "**BasePlatform**" and provides overrides for the above properties where applicable.  Check the [existing platforms](https://github.com/realitycollective/com.realitycollective.service-framework/tree/development/Runtime/Definitions/Platforms) currently implemented in the Service Framework for examples.
+
 ---
 
 ## Building your own platform

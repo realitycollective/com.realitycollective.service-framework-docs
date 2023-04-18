@@ -4,11 +4,11 @@ sidebar_position: 7
 
 # Roadmap
 
-***Last updated - 24th October 2022***
+***Last updated - 1st February 2023***
 
 The roadmap for the Service Framework as it stands is centred around a set of features that would be useful to implement in the future, there ar eno timelines currently associated with these features at this time and are provided on a "when resource is available" basis.
 
-> [The managed roadmap for the Service Framework can be found here](https://github.com/orgs/realitycollective/projects/1/views/1)
+> [The managed roadmap for the Service Framework can be found here](https://github.com/orgs/realitycollective/projects/1)
 
 In highlight the main items the team are reviewing to enhance the Service Framework are:
 
@@ -16,7 +16,7 @@ In highlight the main items the team are reviewing to enhance the Service Framew
 * Editor: Enabling the **Service Hook** feature to allow properties to be editable at Editor runtime.
 * Architecture: Implement the Dependency Injection pattern to define dependent interfaces at design time and have the framework ensure dependent services are available during initialisation.
 
-> For any other required features, please log requests on the [RealityToolkit.Dev repository](https://github.com/realitycollective/realitytoolkit.dev/issues), which is the central issue/feature repository for all Reality Collective projects.
+> For any other required features, please log requests on the [Service Framework repository](https://github.com/realitycollective/com.realitycollective.service-framework/issues).
 
 ## More information
 
