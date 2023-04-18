@@ -27,17 +27,20 @@ The Service framework provides a service repository for enabling background serv
 The simplest way to getting started using the utilities package in your project is via OpenUPM. Visit [OpenUPM](https://openupm.com/docs/) to learn more about it. Once you have the OpenUPM CLI set up use the following command to add the package to your project:
 
 ```text
-`openupm add com.realitycollective.service-framework`
+    openupm add com.realitycollective.service-framework
 ```
 
 > For more details on using [OpenUPM CLI, check the docs here](https://github.com/openupm/openupm-cli#installation).
+
+Alternatively you can connect to the repository directly from Unity using the "Add package from Git url" option in the [Unity Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) and using the URL for the repository below:<br/>
+[https://github.com/realitycollective/com.realitycollective.service-framework.git](https://github.com/realitycollective/com.realitycollective.service-framework.git)
 
 ## Build Status
 
 | branch | build status |
 | --- | --- |
-| main | [![main](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/buildupmpackages.yml/badge.svg?branch=main)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/buildupmpackages.yml) |
-| development | [![development](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/buildupmpackages.yml/badge.svg?branch=development)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/buildupmpackages.yml) |
+| main | [![main](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/main-publish.yml/badge.svg?branch=main)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/main-publish.yml) |
+| development | [![development](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/development-buildandtestupmrelease.yml/badge.svg?branch=development)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/development-buildandtestupmrelease.yml)|
 
 ---
 

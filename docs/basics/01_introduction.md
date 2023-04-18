@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-***Last updated - 18th October 2022***
+***Last updated - 1st February 2023***
 
 The Service Framework built by the Reality Collective is a Service repository that can be used in Unity projects to address many of the issues facing developers while trying to build performant features and utilities.
 
@@ -47,7 +47,27 @@ There are many more benefits available to developers utilizing the Service Frame
 
 In addition to the rest of the capabilities of the Service Framework, it also implements a powerful and extensible Platform System, this enables the Service Framework to detect the currently running platform and which platform is currently being targeted by the Editor.
 
-All the current Unity build platforms are included by default (all targets available in the Build Settings screen), however, additional platforms can be defined within your project or within additional UPM packages that will automatically be picked up and registered (so long as the Editor and your project can see them).
+All the current Unity build platforms are included by default (all targets available in the Build Settings screen):
+
+* Windows Standalone
+* Android
+* iOS
+* Linux
+* WebGL
+* Universal Windows Platform
+* Playstation (with appropriate SDK)
+* Xbox (with appropriate SDK)
+* Nintendo (with appropriate SDK)
+
+Additional platforms can be defined within your project or within additional UPM packages that will automatically be picked up and registered (so long as the Editor and your project can see them).
+
+For example, the [Reality Toolkit](https://realitytoolkit.io/) defines additional platforms for:
+
+* Quest
+* Magic Leap
+* Pico
+
+So long as there is a unique way to identify when a platform is available in the editor and at runtime (such as having an API that is active), then a platform can be recognised and the Service Framework will adjust its startup accordingly.
 
 This then allows you to configure on which platforms your services should run, this is multi-selectable, so you can choose all platforms or just a selection.  You also create "Mock" services and have these only available in the editor if you so wish.
 

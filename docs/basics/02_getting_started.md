@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Getting Started guide
 
-***Last updated - 18th October 2022***
+***Last updated - 1st February 2023***
 
 ## Overview
 
@@ -12,12 +12,12 @@ Getting started with the Service Framework and creating your first service shoul
 
 This is what this article will cover:
 
-* [Installing the Service Framework](#installing-the-service-framework)
-* [Adding the Service Manager Instance](#adding-the-service-manager-instance)
-* [Creating the root configuration for the Service Manager](#creating-the-root-configuration-for-the-service-manager)
-* [Using the Service Generator](#using-the-service-generator)
-* [Configuring your service](#configuring-your-service)
-* [Accessing your service](#accessing-your-service)
+- [Installing the Service Framework](#installing-the-service-framework)
+- [Adding the Service Manager Instance](#adding-the-service-manager-instance)
+- [Creating the root configuration for the Service Manager](#creating-the-root-configuration-for-the-service-manager)
+- [Using the Service Generator](#using-the-service-generator)
+- [Configuring your service](#configuring-your-service)
+- [Accessing your service](#accessing-your-service)
 
 Time to begin.
 
@@ -68,6 +68,9 @@ Once entered, click the "**+**" button to add and save the registry.
 - Finally, Open the Unity Package Manager, in the top-left most drop down, select "My Registries" and then select and click install on the Service Framework entry to download and register the service framework and its dependencies in your project.
 
 ![Scoped Registry View](./images/02_01_ScopedRegistry.png)
+
+Alternatively you can connect to the repository directly from Unity using the "Add package from Git url" option in the [Unity Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) and using the URL for the repository below:<br/>
+[https://github.com/realitycollective/com.realitycollective.service-framework.git](https://github.com/realitycollective/com.realitycollective.service-framework.git)
 
 ---
 
@@ -136,14 +139,16 @@ Changing this option to another platform will force Unity to switch build target
 
 ## Using the Service Generator
 
-Creating your first service is relatively easy, the hardest part is knowing what you want your service to do (check out [the examples](./01_introduction.md#use-cases-and-what-is-a-service-anyway) in the Introduction).  To get you started with a new service we have included a quick and easy **Service Generator** to get you going.
+Creating your first service is relatively easy, the hardest part is knowing what you want your service to do (check out [the examples](./01_introduction.md#use-cases-and-what-is-a-service-anyway) in the Introduction).
+
+To get you started with a new service we have included a quick and easy **Service Generator** to get you going.
 
 ![Service Generator Menu Option](./images/02_04_ServiceGenerator.png)
 
 In the Unity Editor menu under **Reality Collective** (where all Reality Collective tools are maintained), you will find the menu item for the **Service Framework** with two entries for:
 
-* Create new service
-* Create new service module (to be covered later in [Advanced Service Design](./04_advanced_services.md))
+- Create new service
+- Create new service module (to be covered later in [Advanced Service Design](./04_advanced_services.md))
 
 On selecting the **Create new service** option, you will be presented with the **Service Wizard** window to choose your service generation options:
 
@@ -151,10 +156,10 @@ On selecting the **Create new service** option, you will be presented with the *
 
 The options for generating your service are very easy to use, simply enter:
 
-* Output path - Where you want the service files to be generated into (the default is the root of your Assets folder) - use the button to change where the files are placed on generation.
-* Namespace - The [C# namespace](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/namespaces) you want to be applied to your service (we always recommend using a namespace to uniquely identify your own code)
-* Instance Name - The new name for your service
-* Generate Profile? - If checked, the generator will also generate a scriptable object profile for you create editable controls for your service should you need them. Completely optional.
+- Output path - Where you want the service files to be generated into (the default is the root of your Assets folder) - use the button to change where the files are placed on generation.
+- Namespace - The [C# namespace](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/namespaces) you want to be applied to your service (we always recommend using a namespace to uniquely identify your own code)
+- Instance Name - The new name for your service
+- Generate Profile? - If checked, the generator will also generate a scriptable object profile for you create editable controls for your service should you need them. Completely optional.
 
 Once you have entered the details for your new service, just click on **Generate!** and the generator will automatically create a blank service, interface and profile (if you opted to generate a profile) in the folder you specified.
 
@@ -184,19 +189,19 @@ To then add a new Service entry, simply click the "**+**" in the **IService Conf
 
 Here you you would:
 
-* **Name** - Give your Service a **Name** in the Name field
-* **Instanced Type** - Select your Service **Instanced Type** from the Drop-down (more on that shortly)
+- **Name** - Give your Service a **Name** in the Name field (defaults to the actual name of the service)
+- **Instanced Type** - Select your Service **Instanced Type** from the Drop-down (more on that shortly)
 
 > Once the Instance Type is selected, you can also assign a Profile for the service if you generated the service with a profile, which is optional.  Click "+" to create a default configuration for the Service.
 
-* **Runtime Platforms** - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](./06_platform_system.md)
+- **Runtime Platforms** - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](./06_platform_system.md)
 
 Clicking the **Instanced Type** drop-down shows the list of services detected by the framework, grouped by Namespace (that you entered when you created the service):
 
 ![Selecting an Instanced Type](./images/02_09_SelectingService.png)
 
-> If your service does not show up in the list, make sure the Namespace is accessible, especially if your Service is located in a folder with an Assembly Definition (which limits how code is accessed). Just create a new C# script and try to create a new instance of your Service Manually (var test = new TestService())
-
+> If your service does not show up in the list, make sure the Namespace is accessible, especially if your Service is located in a folder with an Assembly Definition (which limits how code is accessed). Just create a new C# script and try to create a new instance of your Service Manually (var test = new TestService()).
+<br/>
 > If you ALSO want your service to be accessible when hitting Play in the Editor, make sure to also select the **Editor** platform (or select "Everything").  The system does EXACTLY as it is told and will only try to start your service on the platforms it is told to.
 
 With your service configured and available to run it is now available from ANYWHERE in your project.
@@ -246,6 +251,41 @@ As an alternative to the GetService call there is also a **TryGetService** funct
 
 This is generally the better approach but it all depends on the usage of your service.
 
+## Checking the Service Manager is ready
+
+Some MonoBehaviour components rely on the ServiceManager to be initialized to retrieve service dependencies. If the components are in a Base scene (A recommended pre-load scene for just the Service Manager), they may attempt to retrieve a service before the service manager has finished loading and is ready.
+
+An API is available that allows conveniently waiting for the manager to initialise:
+
+### Usage
+
+```csharp
+private async void OnEnable()
+{
+    await ServiceManager.WaitUntilInitializedAsync();
+    cameraService = await ServiceManager.Instance.GetServiceAsync<ICameraService>();
+    cameraService.CameraOutOfBounds += CameraService_CameraOutOfBounds;
+    cameraService.CameraBackInBounds += CameraService_CameraBackInBounds;
+}
+```
+
+Alternatively, if you do not use async, an event is available on the service manager to delay requests until it is ready:
+
+```csharp
+private void OnEnable()
+{
+    ServiceManager.Initialized += ServiceManager_Initialized;
+}
+
+private void ServiceManager_Initialized(ServiceManager instance)
+{
+    if(ServiceManager.Instance.TryGetService<IMyNewService>(out var myService))
+    {
+        // My Service was found
+    }
+}
+```
+
 ## See the running state of your service
 
 A handy feature contributed by one of our community ([Joost van Schaik](https://localjoost.github.io/)) allows you to see the running state of your service and all its properties from within the editor.
@@ -286,9 +326,9 @@ Check the other documentation for more detail on how services work and how to ex
 
 for more information on the Service Framework, check out these additional links:
 
-* [Introduction](./01_introduction.md)
-* [Service design](./03_service_design.md)
-* [Advanced services and sub services (data modules)](./04_advanced_services.md)
-* [Service Patterns and implementations](./05_service_patterns.md)
-* [Platform System](./06_platform_system.md)
-* [Roadmap](./07_roadmap.md)
+- [Introduction](./01_introduction.md)
+- [Service design](./03_service_design.md)
+- [Advanced services and sub services (data modules)](./04_advanced_services.md)
+- [Service Patterns and implementations](./05_service_patterns.md)
+- [Platform System](./06_platform_system.md)
+- [Roadmap](./07_roadmap.md)

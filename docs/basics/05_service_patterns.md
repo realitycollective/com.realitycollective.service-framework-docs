@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Service Implementation patterns
 
-***Last updated - 24th October 2022***
+***Last updated - 1st February 2023***
 
 ## Overview
 
