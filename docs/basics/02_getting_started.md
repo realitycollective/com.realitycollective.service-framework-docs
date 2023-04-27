@@ -194,7 +194,7 @@ Here you you would:
 
 > Once the Instance Type is selected, you can also assign a Profile for the service if you generated the service with a profile, which is optional.  Click "+" to create a default configuration for the Service.
 
-- **Runtime Platforms** - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](./06_platform_system.md)
+- **Runtime Platforms** - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](/docs/features/platform_system.md)
 
 Clicking the **Instanced Type** drop-down shows the list of services detected by the framework, grouped by Namespace (that you entered when you created the service):
 
@@ -330,5 +330,5 @@ for more information on the Service Framework, check out these additional links:
 - [Service design](./03_service_design.md)
 - [Advanced services and sub services (data modules)](./04_advanced_services.md)
 - [Service Patterns and implementations](./05_service_patterns.md)
-- [Platform System](./06_platform_system.md)
+- [Platform System](/docs/features/platform_system.md)
 - [Roadmap](./07_roadmap.md)

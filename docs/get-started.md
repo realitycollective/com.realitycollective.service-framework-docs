@@ -122,7 +122,7 @@ The documentation that gives an overview and walk-through of the Service Framewo
 * [Service design](./basics/03_service_design.md)
 * [Advanced services and sub services (service modules)](./basics/04_advanced_services.md)
 * [Service Patterns and implementations](./basics/05_service_patterns.md)
-* [Platform System](./basics/06_platform_system.md)
+* [Platform System](./features/platform_system.md)
 * [Roadmap](./basics/07_roadmap.md)
 
 ---

@@ -92,11 +92,11 @@ You have full access to all the events Unity exposes:
 
 ## Platform support
 
-Services can be configured to only activate when a particular [platform](./06_platform_system.md) is active (being run on), this is useful in those situations when a service only needs to run on a specific platform or platforms.
+Services can be configured to only activate when a particular [platform](/docs/features/platform_system.md) is active (being run on), this is useful in those situations when a service only needs to run on a specific platform or platforms.
 
 ![Service Runtime Platform selector](./images/03_04_ServicePlatformSelector.png)
 
-> See the [Platform System](./06_platform_system.md) section for more details on the Platform System.
+> See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
 
 ---
 
@@ -410,5 +410,5 @@ for more information on the Service Framework, check out these additional links:
 * [Creating your first service](./02_getting_started.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
-* [Platform System](./06_platform_system.md)
+* [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)
