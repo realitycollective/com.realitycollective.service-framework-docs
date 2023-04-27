@@ -20,7 +20,7 @@ This is what this article will cover:
 
 ## Package Installer Overview
 
-![Package Installer Overview diagram](Images/package_installer_overview.png)
+![Package Installer Overview diagram](./images/package_installer_overview.png)
 
 At its core, the Service Framework provides a Package Installer system which can detect and react to Package Installer Profiles to deploy configuration and assets to a solution and other packages implementing a Package Installer Profile.
 
