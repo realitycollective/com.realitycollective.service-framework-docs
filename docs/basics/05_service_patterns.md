@@ -111,7 +111,7 @@ This has been used to great effect in:
 * There is no ONE path, you can mix and match how your services operate to meet the needs of your project.
 * While services can be "configured" at design time, they can also be registered in code at runtime if you wish using "```TryRegisterService<T>```" && "```TryRegisterServiceModule<T>```".
 * Services and Modules can be activated / deactivated at anytime, they will always be known by the Service Framework and cannot "disappear" (unlike with Unity GameObjects/Components). Unless you unregister them at Runtime.
-* Use the [Platform System](./06_platform_system.md) to its fullest extent, as required and do not be afraid to create duplicates of services with different modules configured against different platforms.  But you can also configure Platforms for modules, so pick and choose.
+* Use the [Platform System](/docs/features/platform_system.md) to its fullest extent, as required and do not be afraid to create duplicates of services with different modules configured against different platforms.  But you can also configure Platforms for modules, so pick and choose.
 * **REMEMBER**, a Service Interface or Module Interface, when registered with the Service Framework can **ONLY BE REGISTERED ONCE** else you will get a "Service Already Registered" error.  There can only be one.
 
 ---
@@ -124,5 +124,5 @@ for more information on the Service Framework, check out these additional links:
 * [Creating your first service](./02_getting_started.md)
 * [Service design](./03_service_design.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
-* [Platform System](./06_platform_system.md)
+* [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)

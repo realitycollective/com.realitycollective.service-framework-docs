@@ -27,4 +27,4 @@ for more information on the Service Framework, check out these additional links:
 * [Service design](./03_service_design.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
-* [Platform System](./06_platform_system.md)
+* [Platform System](/docs/features/platform_system.md)

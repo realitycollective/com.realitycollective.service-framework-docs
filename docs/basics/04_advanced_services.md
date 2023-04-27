@@ -59,7 +59,7 @@ Again, like services, Modules can be configured to only activate when a particul
 
 ![Module Runtime Platform selector](./images/04_02_ModulePlatformSelector.png)
 
-> See the [Platform System](./06_platform_system.md) section for more details on the Platform System.
+> See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
 
 ---
 
@@ -103,5 +103,5 @@ for more information on the Service Framework, check out these additional links:
 * [Creating your first service](./02_getting_started.md)
 * [Service design](./03_service_design.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
-* [Platform System](./06_platform_system.md)
+* [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)
