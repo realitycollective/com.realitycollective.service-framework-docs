@@ -1,10 +1,10 @@
 ---
-sidebar_position: 6
+sidebar_position: 1
 ---
 
 # Platform System
 
-***Last updated - 1st February 2023***
+***Last updated - 27th April 2023***
 
 ## Overview
 
@@ -56,7 +56,7 @@ By default, the Service Framework supports all of the built-in platforms that Un
 
 ## Platform Switcher
 
-![Platform Switcher component](./images/02_11_PlatformSwitcher.png)
+![Platform Switcher component](../basics/images/02_11_PlatformSwitcher.png)
 
 On the inspector for the **Service Management Instance**, the Service Framework provides a handy utility to automatically switch the "Active" build target while the editor is running.  In comparison, it is approximately 50% quicker using the Platform Switcher over using Unity's built in "Switch Platform" option in the Build Settings screen.
 
@@ -66,7 +66,7 @@ To change to another platform to check how things are compiling, you simply sele
 
 ## Service and Module Platform Selection
 
-![Service Runtime Platform selector](./images/03_04_ServicePlatformSelector.png)
+![Service Runtime Platform selector](../basics/images/03_04_ServicePlatformSelector.png)
 
 When configuring when Services and Modules activate (when the Service Framework will register them), you can choose which platforms the service or module that have to be present for them to start.
 
