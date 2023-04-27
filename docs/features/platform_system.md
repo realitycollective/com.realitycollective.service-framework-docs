@@ -234,10 +234,9 @@ But creating Platforms to set conditions to define when a Service Or Module is v
 
 for more information on the Service Framework, check out these additional links:
 
-* [Introduction](./01_introduction.md)
-* [Creating your first service](./02_getting_started.md)
-* [Service design](./03_service_design.md)
-* [Advanced services and sub services (data modules)](./04_advanced_services.md)
-* [Service Patterns and implementations](./05_service_patterns.md)
-* [Platform System](./06_platform_system.md)
-* [Roadmap](./07_roadmap.md)
+* [Introduction](../basics/01_introduction.md)
+* [Creating your first service](../basics/02_getting_started.md)
+* [Service design](../basics/03_service_design.md)
+* [Advanced services and sub services (data modules)](../basics/04_advanced_services.md)
+* [Service Patterns and implementations](../basics/05_service_patterns.md)
+* [Roadmap](../basics/07_roadmap.md)
