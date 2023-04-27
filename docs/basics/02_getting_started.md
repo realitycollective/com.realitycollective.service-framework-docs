@@ -15,9 +15,13 @@ This is what this article will cover:
 - [Installing the Service Framework](#installing-the-service-framework)
 - [Adding the Service Manager Instance](#adding-the-service-manager-instance)
 - [Creating the root configuration for the Service Manager](#creating-the-root-configuration-for-the-service-manager)
+- [The Platform switcher](#the-platform-switcher)
 - [Using the Service Generator](#using-the-service-generator)
 - [Configuring your service](#configuring-your-service)
 - [Accessing your service](#accessing-your-service)
+- [Checking the Service Manager is ready](#checking-the-service-manager-is-ready)
+- [See the running state of your service](#see-the-running-state-of-your-service)
+- [Check the API docs for more calls](#check-the-api-docs-for-more-calls)
 
 Time to begin.
 
