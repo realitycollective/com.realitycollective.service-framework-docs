@@ -4,12 +4,11 @@ sidebar_position: 5
 
 # Service Implementation patterns
 
-***Last updated - 1st February 2023***
+***Last updated - 27th February 2024***
 
 ## Overview
 
 This article will highlight some of the most common patterns used in service design / delivery, as used by the Reality Collective and its sponsors.
-
 
 This is what this article will cover:
 
@@ -93,7 +92,7 @@ With the [Service Providers Model](#service-providers-model), both Service and M
 
 By adding the following override to a service:
 
-```
+```csharp
 public override bool RegisterServiceModules => false;
 ```
 
@@ -124,5 +123,6 @@ for more information on the Service Framework, check out these additional links:
 * [Creating your first service](./02_getting_started.md)
 * [Service design](./03_service_design.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
+* [Scene based service loading](./06_scene_based_service_manager.md)
 * [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)

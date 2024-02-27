@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Service Design
 
-***Last updated - 1st February 2023***
+***Last updated - 27th February 2024***
 
 ## Overview
 
@@ -410,5 +410,6 @@ for more information on the Service Framework, check out these additional links:
 * [Creating your first service](./02_getting_started.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
+* [Scene based service loading](./06_scene_based_service_manager.md)
 * [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)
