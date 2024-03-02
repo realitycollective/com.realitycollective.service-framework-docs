@@ -69,9 +69,9 @@ Alternatively, you can register the scoped registry for the Service Framework ma
     scopes: com.realitycollective
 ```
 
-Once entered, click the `**+**` button to add and save the registry.
+Once entered, click the `+` button to add and save the registry.
 
-> For the Reality Collective packages (such as the Service Framework) that are still in preview, make sure to also check the `**Enable Pre-Release packages**` option in the top of the Scoped Registry screen, as shown below.
+> For the Reality Collective packages (such as the Service Framework) that are still in preview, make sure to also check the `Enable Pre-Release packages` option in the top of the Scoped Registry screen, as shown below.
 
 - Finally, Open the Unity Package Manager, in the top-left most drop down, select `My Registries` and then select and click install on the `Service Framework` entry to download and register the service framework and its dependencies in your project.
 
@@ -124,11 +124,11 @@ Now that the Service Manager is in your scene, you can select it to see its curr
 
 ## Creating the root configuration for the Service Manager
 
-The simplest way to create your first new Root configuration for the Service Framework is to select the `**+**` symbol on the `**Reality Toolkit configuration Profile**` field in the inspector with the `Global Service Manager` selected, or simply click the `Create a new configuration profile` button below the profile field.
+The simplest way to create your first new Root configuration for the Service Framework is to select the `+` symbol on the `Reality Toolkit configuration Profile` field in the inspector with the `Global Service Manager` selected, or simply click the `Create a new configuration profile` button below the profile field.
 
-This will automatically create you a new configuration file called `**ServiceProvidersProfile**` in the root of your assets folder.  Feel free to move this wherever you like in your assets folder as it will remain references to the instance of the Service Framework.
+This will automatically create you a new configuration file called `ServiceProvidersProfile` in the root of your assets folder.  Feel free to move this wherever you like in your assets folder as it will remain references to the instance of the Service Framework.
 
-Alternatively, you can create it manually in the Project window by `*right-clicking*` and selecting `***Service Framework -> Service Providers Profile***`, which will create the new profile in the folder you are currently viewing.  You will then need to manually assign this profile to the Service Manager by dragging and dropping it in to the "Reality Toolkit configuration Profile" field in the inspector.
+Alternatively, you can create it manually in the Project window by `*right-clicking*` and selecting `*Service Framework -> Service Providers Profile*`, which will create the new profile in the folder you are currently viewing.  You will then need to manually assign this profile to the Service Manager by dragging and dropping it in to the "Reality Toolkit configuration Profile" field in the inspector.
 
 :::tip
 
@@ -191,7 +191,7 @@ In the Unity Editor menu under `Tools - Service Framework`, you will find two en
 - Create new service
 - Create new service module (to be covered later in [Advanced Service Design](./04_advanced_services.md))
 
-On selecting the `**Create new service**` option, you will be presented with the `**Service Wizard**` window to choose your service generation options:
+On selecting the `Create new service` option, you will be presented with the `Service Wizard` window to choose your service generation options:
 
 ![Service Wizard screen](./images/00_01_ServiceWizard.png)
 
@@ -202,7 +202,7 @@ The options for generating your service are very easy to use, simply enter:
 - `Instance Name` - The new name for your service
 - `Generate Profile?` - If checked, the generator will also generate a scriptable object profile for you create editable controls for your service should you need them. Completely optional.
 
-Once you have entered the details for your new service, just click on `**Generate!**` and the generator will automatically create a blank service, interface and profile (if you opted to generate a profile) in the folder you specified.
+Once you have entered the details for your new service, just click on `Generate!` and the generator will automatically create a blank service, interface and profile (if you opted to generate a profile) in the folder you specified.
 
 ![Newly generated service](./images/02_06_NewServiceGeneration.png)
 
@@ -228,7 +228,7 @@ Please see the [Service Design](./03_service_design.md) section for more details
 
 ## Configuring your service
 
-With your service generated, it will now be accessible to register in the Service Framework configuration which you can access via the Inspector with the `**Global Service Manager**` selected:
+With your service generated, it will now be accessible to register in the Service Framework configuration which you can access via the Inspector with the `Global Service Manager` selected:
 
 ![Service Manager Configuration](./images/02_07_ServiceManagerConfiguration.png)
 
@@ -238,24 +238,24 @@ If you have not [created the configuration shown above](#creating-the-root-confi
 
 :::
 
-To then add a new Service entry, simply click the `**+**` in the `**IService Configuration Options**` section, which will create a new entry to configure:
+To then add a new Service entry, simply click the `+` in the `IService Configuration Options` section, which will create a new entry to configure:
 
 ![Service Configuration Entry](./images/02_08_ServiceManagerServiceEntry.png)
 
 Here you you would apply the following settings:
 
-- `**Name**` - Give your Service a **Name** in the Name field (defaults to the actual name of the service)
-- `**Instanced Type**` - Select your Service **Instanced Type** from the Drop-down (more on that shortly)
+- `Name` - Give your Service a **Name** in the Name field (defaults to the actual name of the service)
+- `Instanced Type` - Select your Service **Instanced Type** from the Drop-down (more on that shortly)
 
 :::tip
 
-Once the Instance Type is selected, you can also assign a Profile for the service if you generated the service with a profile, which is optional.  Click `**+**` to create a default configuration for the Service.
+Once the Instance Type is selected, you can also assign a Profile for the service if you generated the service with a profile, which is optional.  Click `+` to create a default configuration for the Service.
 
 :::
 
-- `**Runtime Platforms**` - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](/docs/features/platform_system.md)
+- `Runtime Platforms` - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](/docs/features/platform_system.md)
 
-Clicking the `**Instanced Type**` drop-down shows the list of services detected by the framework, grouped by Namespace (that you entered when you created the service):
+Clicking the `Instanced Type` drop-down shows the list of services detected by the framework, grouped by Namespace (that you entered when you created the service):
 
 ![Selecting an Instanced Type](./images/02_09_SelectingService.png)
 
@@ -289,7 +289,7 @@ We only start querying for services from the MonoBehaviour `Start` method, durin
 
 ### Check your Service is registered
 
-If there is ever a situation where you may not be sure your service is registered or running, the Service Framework has an easy check to see if the Service is currently registered with the Framework, this is done by calling the `**IsServiceRegistered**` function:
+If there is ever a situation where you may not be sure your service is registered or running, the Service Framework has an easy check to see if the Service is currently registered with the Framework, this is done by calling the `IsServiceRegistered` function:
 
 ```csharp
     if (ServiceManager.Instance.IsServiceRegistered<IMyNewService>())
@@ -298,11 +298,11 @@ If there is ever a situation where you may not be sure your service is registere
     }
 ```
 
-This simply returns `True` if the Service is registered.  You can also check if the Service is enabled (as Services can be disabled once registered) by using the `**IsServiceEnabled**` function.
+This simply returns `True` if the Service is registered.  You can also check if the Service is enabled (as Services can be disabled once registered) by using the `IsServiceEnabled` function.
 
 ### Get a reference to your service using GetService
 
-The common way to get a reference to your running service is to use the `**GetService**` function which requires the `Interface Type` of the service you wish to request.
+The common way to get a reference to your running service is to use the `GetService` function which requires the `Interface Type` of the service you wish to request.
 
 ```csharp
     var service = ServiceManager.Instance.GetService<IMyNewService>();
@@ -316,7 +316,7 @@ This will return null and log an error if the service was not found.
 
 ### Safer access to Getting a Service
 
-As an alternative to the GetService call there is also a `**TryGetService**` function which returns a `Bool` to denote whether the Service request was successful and an `out parameter` with the `Service instance` if it was found:
+As an alternative to the GetService call there is also a `TryGetService` function which returns a `Bool` to denote whether the Service request was successful and an `out parameter` with the `Service instance` if it was found:
 
 ```csharp
     IMyNewService myService = null;
@@ -367,7 +367,7 @@ private void ServiceManager_Initialized(ServiceManager instance)
 
 A handy feature contributed by one of our community ([Joost van Schaik](https://localjoost.github.io/)) allows you to see the running state of your service and all its properties from within the editor.
 
-Simply create an Empty GameObject with the same `**Name**` (The Name registered in the configuration and not the class name) as your service, add the `**Service Display Hook**` component, all the running properties of the Service will appear in the inspector for that service:
+Simply create an Empty GameObject with the same `Name` (The Name registered in the configuration and not the class name) as your service, add the `Service Display Hook` component, all the running properties of the Service will appear in the inspector for that service:
 
 ![Service Display Hook](./images/02_10_ServiceDisplay.png)
 

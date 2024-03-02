@@ -59,7 +59,7 @@ In short, Services are distinct features and reusable code that your project/gam
 
 ## Using a Service Profile
 
-In Unity you can expose properties from your code that the editor will see and let you configure, either through Public properties or private properties decorated with the `**SerializeField**` attribute.  While useful, this can create issues for code that is dependent on these settings across scenes.
+In Unity you can expose properties from your code that the editor will see and let you configure, either through Public properties or private properties decorated with the `SerializeField` attribute.  While useful, this can create issues for code that is dependent on these settings across scenes.
 
 With Services you have the option to create a [Scriptable Object](https://docs.unity3d.com/Manual/class-ScriptableObject.html) that is configured against the service for use at run-time, this has many advantages, such as:
 
@@ -180,8 +180,8 @@ P.S. [Learn Async](https://learn.microsoft.com/en-us/dotnet/csharp/language-refe
 
 In some instances, it is better to have a service manually started rather than automatically when the Service Manager initializes, in these cases the advised pattern is to implement a `Start Behaviour` in the service profile and configuration, the recommendation for a Service Framework service is as follows:
 
-* An `**AutoStartBehaviour**` profile configuration option.
-* Update Service implementation to read this profile option and only start if the value is set to `**AutoStartBehavior.AutoStart**`.
+* An `AutoStartBehaviour` profile configuration option.
+* Update Service implementation to read this profile option and only start if the value is set to `AutoStartBehavior.AutoStart`.
 * Implement Start and Stop methods in the Service interface, Service and Modules (if applicable).
 
 ### Profile setting
@@ -195,7 +195,7 @@ In the profile for the service, add the following property, which will allow the
 
 ### Service configuration
 
-The service should be updated to recognize the `**AutoStartBehaviour**` and adapt if it is set to manual:
+The service should be updated to recognize the `AutoStartBehaviour` and adapt if it is set to manual:
 
 ```csharp
 // Add a property to store the setting (or the entire profile)
@@ -313,7 +313,7 @@ We will not the `AutoStart` behaviour above because we want the Settings service
         }
     ```
 
-3. To demonstrate the usefulness of `Service Profiles`, we will also enable the `MaxPlayerCount` to be configurable, so if you want to change it you do not need to do it through code, instead. we will use the profile.  Edit the `**SettingsServiceProfile**` and add the following.
+3. To demonstrate the usefulness of `Service Profiles`, we will also enable the `MaxPlayerCount` to be configurable, so if you want to change it you do not need to do it through code, instead. we will use the profile.  Edit the `SettingsServiceProfile` and add the following.
 
     ```csharp
         [CreateAssetMenu(menuName = "SettingsServiceProfile", fileName = "SettingsServiceProfile", order = (int)CreateProfileMenuItemIndices.ServiceConfig)]
@@ -361,7 +361,7 @@ We will not the `AutoStart` behaviour above because we want the Settings service
 
 5. With everything coded, we just need to add our new service to a `GlobalServiceManager` configuration.  So open or create a new scene (We usually recommend the configuration should be applied in your first scene in your build settings, so it's up and running from the start) and add the ServiceManager using the Editor Menu option `*Tools -> Service Framework -> Add to scene*`.
 
-6. Select the `**GlobalServiceManager**` in your hierarchy and then click `**Create a new configuration profile**` to add the main Root configuration for the Service Framework.  By default, this is added to the root of your project and then you can move it where you like.
+6. Select the `GlobalServiceManager` in your hierarchy and then click `Create a new configuration profile` to add the main Root configuration for the Service Framework.  By default, this is added to the root of your project and then you can move it where you like.
 
     :::tip
 
@@ -369,7 +369,7 @@ We will not the `AutoStart` behaviour above because we want the Settings service
 
     :::
 
-7. Now let us add and configure your new Settings Service by clicking `**+**` in the `**IService Configuration Options**` section and then select our Settings Service in the `**Instanced Type**` drop-down:
+7. Now let us add and configure your new Settings Service by clicking `+` in the `IService Configuration Options` section and then select our Settings Service in the `Instanced Type` drop-down:
 
     ![Adding and Selecting the new Service](./images/03_01_Selecting_Service.png)
 
@@ -379,12 +379,12 @@ We will not the `AutoStart` behaviour above because we want the Settings service
 
     :::
 
-8. Because we opted to generate a Profile with the service, you can click the `**+**` symbol next to the Profile configuration to automatically create the profile for the Settings Service (you can also create one manually using the GameObject Create menu, because it is a scriptable object, and then search for it using the DOT symbol next to the Profile Property), the profile will then be automatically assigned too.  The profile is added to a folder of the same name as the profile, so feel free to move it elsewhere if you wish.
+8. Because we opted to generate a Profile with the service, you can click the `+` symbol next to the Profile configuration to automatically create the profile for the Settings Service (you can also create one manually using the GameObject Create menu, because it is a scriptable object, and then search for it using the DOT symbol next to the Profile Property), the profile will then be automatically assigned too.  The profile is added to a folder of the same name as the profile, so feel free to move it elsewhere if you wish.
 9. By assigning the Service Profile, it will also automatically open, allowing you to see the autogenerated Inspector window for the profile and letting you configure the `Max Player Count` option we added.
 
     :::note
 
-    If you add data types that are not automatically identifiable, you will need to write a custom inspector for the Profile which inherits from the `**ServiceProfileInspector**` class, else it will have issues drawing.
+    If you add data types that are not automatically identifiable, you will need to write a custom inspector for the Profile which inherits from the `ServiceProfileInspector` class, else it will have issues drawing.
 
     :::
 
@@ -461,7 +461,7 @@ Writing services is easy enough, working out yourself what each service is and w
 * Use the Service Interface, it is a guide and a control to know exactly what a service does and what it provides, from the most basic to the very advanced.
 * Take note of the Accessor Pattern used in the example.  You can just call `GetService<IMyService>` everywhere and there is little cost in doing so.  But the Accessor pattern is just cleaner.
 * Remember, services can call each other, but remember that if one service depends on another when it is initializing, then make sure they are in the right order in the ServiceManager Inspector. Order matters.
-* **NEVER** use `**GetService**` during `**Awake**`. During the awake loop, the ServiceManager is still waking up just like everything else so services will not have initialized yet.  Might be less critical by the second scene or so, but still something to keep in mind.
+* **NEVER** use `GetService` during `Awake`. During the awake loop, the ServiceManager is still waking up just like everything else so services will not have initialized yet.  Might be less critical by the second scene or so, but still something to keep in mind.
 * If you tell a service NOT to start for a platform, it will not start :D
 * Beware Null Ref Exceptions, if something is not started or initialized, it **WILL BE NULL.**
 
