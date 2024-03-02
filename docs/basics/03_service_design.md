@@ -4,15 +4,19 @@ sidebar_position: 3
 
 # Service Design
 
-***Last updated - 1st February 2023***
+***Last updated - 27th February 2024***
 
 ## Overview
 
 This article will cover what makes a service tick as well as good patterns to follow in service design, effectively what goes into making a good service, as well as a more full-featured example.
 
-> For more advanced information on the different patterns that can be used in Service Design, check out the [Service Patterns and implementations](./05_service_patterns.md) section.
+:::tip
 
-This is what this article will cover:
+For more advanced information on the different patterns that can be used in Service Design, check out the [Service Patterns and implementations](./05_service_patterns.md) section.
+
+:::
+
+This article will cover:
 
 * [What is a Service?](#what-is-a-service)
 * [Using a Service Profile](#using-a-service-profile)
@@ -29,7 +33,7 @@ Time to begin.
 
 ## What is a Service?
 
-A basic question with a simple answer, what exactly is a "service"?  In short, a Service is nothing more than a Game Component in Unity with one key exception, Unity is not running the show.
+A basic question with a simple answer, what exactly is a `Service`?  In short, a Service is nothing more than a Game Component in Unity with one key exception, Unity is not running the show.
 
 ### Performance
 
@@ -55,12 +59,12 @@ In short, Services are distinct features and reusable code that your project/gam
 
 ## Using a Service Profile
 
-In Unity you can expose properties from your code that the editor will see and let you configure, either through Public properties or via private properties decorated with the **SerializeField** attribute.  While useful, this can create issues for code that is dependent on these settings across scenes.
+In Unity you can expose properties from your code that the editor will see and let you configure, either through Public properties or private properties decorated with the `**SerializeField**` attribute.  While useful, this can create issues for code that is dependent on these settings across scenes.
 
 With Services you have the option to create a [Scriptable Object](https://docs.unity3d.com/Manual/class-ScriptableObject.html) that is configured against the service for use at run-time, this has many advantages, such as:
 
 * The settings are in a separate file, not bound to any one scene (if you need scene dependent config, then just build that in to your configuration)
-* You can use different "profiles" for different situations as you wish.
+* You can use different "**profiles**" for different situations as you wish.
 * Changing settings can be done separately, and does not require you to change it in all scenes.  Sure, you could use a prefab, however that too has its own problems.
 * The configuration is separate from all the jargon in a scene asset.
 
@@ -94,6 +98,12 @@ You have full access to all the events Unity exposes:
 
 Services can be configured to only activate when a particular [platform](/docs/features/platform_system.md) is active (being run on), this is useful in those situations when a service only needs to run on a specific platform or platforms.
 
+:::note
+
+Only want a specific piece of functionality to run on iOS and NOT Android, then create a service and limit its running to just Android (and Editor, if you want to test in the editor)
+
+:::
+
 ![Service Runtime Platform selector](./images/03_04_ServicePlatformSelector.png)
 
 > See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
@@ -102,7 +112,7 @@ Services can be configured to only activate when a particular [platform](/docs/f
 
 ## CoRoutines and async
 
-One crucial difference between a Service and a Component/GameObject is that it does not have a presence in the scene, this does not cause issue in most cases with the exception of CoRoutines.  If your service needs to run a CoRoutine, then the Service Framework (via the Reality Collective [Utilities library](https://github.com/realitycollective/com.realitycollective.utilities)) provides a helper in order to enable a service to initiate CoRoutines, as follows:
+One crucial difference between a Service and a Component/GameObject, is that it does not have a presence in the scene, this does not cause issue in most cases with the exception of CoRoutines.  If your service needs to run a CoRoutine, then the Service Framework (via the Reality Collective [Utilities library](https://github.com/realitycollective/com.realitycollective.utilities)) provides a helper in order to enable a service to initiate CoRoutines, as follows:
 
 ```csharp
     using RealityCollective.Utilities.Async;
@@ -158,16 +168,20 @@ Any client code that then needs to listen to the event simply needs to call the 
 
 Unity also provides several overloads for the UnityEvent, enabling you also pass data back to the calling client code if need be.
 
-> P.S. [Learn Async](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async), your life will be easier/better/more confused for it.
+:::tip
+
+P.S. [Learn Async](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async), your life will be easier/better/more confused for it.
+
+:::
 
 ---
 
 ## Auto Start Behaviour
 
-In some instances, it is better to have a service manually started rather than automatically when the Service Manager initialises, in these cases the advised pattern is to implement a "Start Behaviour" in the service profile and configuration, the recommendation for a Service Framework service is as follows:
+In some instances, it is better to have a service manually started rather than automatically when the Service Manager initializes, in these cases the advised pattern is to implement a `Start Behaviour` in the service profile and configuration, the recommendation for a Service Framework service is as follows:
 
-* An **AutoStartBehaviour** profile configuration option.
-* Update Service implementation to read this profile option and only start if the value is set to "**AutoStartBehavior.AutoStart**".
+* An `**AutoStartBehaviour**` profile configuration option.
+* Update Service implementation to read this profile option and only start if the value is set to `**AutoStartBehavior.AutoStart**`.
 * Implement Start and Stop methods in the Service interface, Service and Modules (if applicable).
 
 ### Profile setting
@@ -181,7 +195,7 @@ In the profile for the service, add the following property, which will allow the
 
 ### Service configuration
 
-The service should be updated to recognise the **AutoStartBehaviour** and adapt if it is set to manual:
+The service should be updated to recognize the `**AutoStartBehaviour**` and adapt if it is set to manual:
 
 ```csharp
 // Add a property to store the setting (or the entire profile)
@@ -199,7 +213,7 @@ public MyService(string name, uint priority, MyServiceProfile profile) : base(na
 #endregion Constructor
 ```
 
-Then using the "autoStartBehaviour" property, ensure that any code or functionality recognises the value and does nto attempt to start if the value is not set to "AutoStart", making sure to also prevent any additional modules for the service (if used) are also not started. For example:
+Then using the `autoStartBehaviour` property, ensure that any code or functionality recognizes the value and does not attempt to start if the value is not set to `AutoStart`, making sure to also prevent any additional modules for the service (if used) are also not started. For example:
 
 ```csharp
 public override void RegisterServiceModule(IServiceModule serviceModule)
@@ -215,7 +229,7 @@ public override void RegisterServiceModule(IServiceModule serviceModule)
 
 ### Service Interface
 
-The service interface should be updated to include methods to Start/Stop the service on demand, this allows any functionality consuming the service the ability to perform those actions, we use the Interface as all instances of the service are returned via the Service Manager using the Interfaces and not the concrete instance of the service itself:
+The service interface should also be updated to include methods to `Start`/`Stop` the service on demand, this allows any functionality consuming the service the ability to perform those actions, we use the Interface as all instances of the service are returned via the Service Manager using the Interfaces and not the concrete instance of the service itself:
 
 ```csharp
 #region Methods
@@ -231,18 +245,27 @@ void StopMyService();
 #endregion Methods
 ```
 
-> Do NOT forget to also implement these methods in your actual service as indicated above :D.
+:::warning
+
+Do NOT forget to also implement these methods in your actual service as indicated above :D.
+
+:::
+
 ---
 
 ## Accessor pattern
 
-A common requirement when querying services to to just call "```GetService<IMyService>```" everywhere and there is little cost in doing so, but there is a better and more performant way.
+A common requirement when querying services to to just call `GetService<IMyService>` everywhere and there is little cost in doing so, but there is a better and more performant way.
 
 The Accessor pattern is simply a property which when first called will attempt to get the service in question and after that it will used a cached version of the service from then on (it is the same concrete implementation, so it is always current).
 
-So using the pattern below, you simply need call "```SettingsService.MyMethod```" in your class to access the service.  
+So using the pattern below, you simply need call `SettingsService.MyMethod` in your class to access the service.  
 
-> Although note, the value will be ```NULL``` if the service could not be found.
+:::note
+
+Although, the value will be `NULL` if the service could not be found.
+
+:::
 
 ```csharp
     #region Dependencies
@@ -257,93 +280,131 @@ So using the pattern below, you simply need call "```SettingsService.MyMethod```
 
 ## Building a Settings Service
 
-The above does a lot of talk about what a service is and what you can put in to it, the "Getting Started" section also showed you how to make a service but not what to put in to it.  In this section, we will build a simple "Settings" service to manage the state of an application, including using a profile to set some defaults (that are configurable, not just hardcoded stuff in our code).
+The above does a lot of talk about what a service is and what you can put in to it, the `Getting Started` section also showed you how to make a service but not what to put in to it.  In this section, we will build a simple "Settings" service to manage the state of an application, including using a profile to set some defaults (that are configurable, not just hardcoded stuff in our code).
 
-> We do not use the "AutoStart" behaviour above because we want the Settings service to always be on, and it has no dependencies.
+:::info
 
-1. Use the "Service Wizard" to create a new service called "SettingsService" and place it into a new folder (using the "Output Path" button to choose and create a new folder), leave the options as default (so a Profile is created)
-2. Starting with the Interface (**ISettingsService**), we determine exactly what our service is going to do, in this case managing the state of whether the game has started or not, the Max number of players that are supported, a checkpoint integer to remember the last checkpoint the player reached and two functions to Save or Load the settings, as shown below:
+We will not the `AutoStart` behaviour above because we want the Settings service to always be on, and it has no dependencies.
 
-```csharp
-    public interface ISettingsService : IService
-    {
-        bool GameStarted { get; set; }
+:::
 
-        int MaxPlayerCount { get; set; }
+1. Use the `Service Wizard` to create a new service called `SettingsService` and place it into a new folder (using the `Output Path` button to choose and create a new folder), leave the options as default (so a Profile is created)
+2. Starting with the `Interface` (**ISettingsService**), we determine exactly what our service is going to do, in this case:
 
-        int PlayerCheckpoint { get; set; }
+    * Managing the state of whether the game has started or not.
+    * The Max number of players that are supported.
+    * A checkpoint integer to remember the last checkpoint the player reached.
+    * And two functions to Save or Load the settings
 
-        void SaveSettings();
+    As shown below:
 
-        void LoadSettings();
-    }
-```
-
-3. To demonstrate the usefulness of Service Profiles, we will also enable the MaxPlayerCount to be configurable, so if you want to change it you do not need to do it through code, instead. we will use the profile.  SO edit the **SettingsServiceProfile** and add the following.
-
-```csharp
-    [CreateAssetMenu(menuName = "SettingsServiceProfile", fileName = "SettingsServiceProfile", order = (int)CreateProfileMenuItemIndices.ServiceConfig)]
-    public class SettingsServiceProfile : BaseServiceProfile<IServiceModule>
-    {
-        public int MaxPlayerCount; // <- Creating a profile configuration for MaxPlayers
-    }
-```
-
-4. Next, we then define the concrete implementation for the service, we are going to keep it simple here just as an example:
-
-```csharp
-    public class SettingsService : BaseServiceWithConstructor, ISettingsService
-    {
-        private const string MYAWESOMEAPPSAVENAME = "AppSaveSettings";
-
-        #region Constructor
-        public SettingsService(string name, uint priority, SettingsServiceProfile profile)
-            : base(name, priority)
+    ```csharp
+        public interface ISettingsService : IService
         {
-            this.MaxPlayerCount = profile.MaxPlayerCount;
+            bool GameStarted { get; set; }
+    
+            int MaxPlayerCount { get; set; }
+    
+            int PlayerCheckpoint { get; set; }
+    
+            void SaveSettings();
+    
+            void LoadSettings();
         }
-        #endregion Constructor
+    ```
 
-        #region ISettingsService Implementation
-        public bool GameStarted { get; set; }
-        public int MaxPlayerCount { get; set; }
-        public int PlayerCheckpoint { get; set; }
+3. To demonstrate the usefulness of `Service Profiles`, we will also enable the `MaxPlayerCount` to be configurable, so if you want to change it you do not need to do it through code, instead. we will use the profile.  Edit the `**SettingsServiceProfile**` and add the following.
 
-        public void SaveSettings()
+    ```csharp
+        [CreateAssetMenu(menuName = "SettingsServiceProfile", fileName = "SettingsServiceProfile", order = (int)CreateProfileMenuItemIndices.ServiceConfig)]
+        public class SettingsServiceProfile : BaseServiceProfile<IServiceModule>
         {
-            PlayerPrefs.SetInt(MYAWESOMEAPPSAVENAME, PlayerCheckpoint);
-            PlayerPrefs.Save();
+            public int MaxPlayerCount; // <- Creating a profile configuration for MaxPlayers
         }
+    ```
 
-        public void LoadSettings()
+4. Next, we define the concrete implementation for the service, we are going to keep it simple here just as an example:
+
+    ```csharp
+        public class SettingsService : BaseServiceWithConstructor, ISettingsService
         {
-            PlayerCheckpoint = PlayerPrefs.GetInt(MYAWESOMEAPPSAVENAME);
+            private const string MYAWESOMEAPPSAVENAME = "AppSaveSettings";
+    
+            #region Constructor
+            public SettingsService(string name, uint priority, SettingsServiceProfile profile)
+                : base(name, priority)
+            {
+                this.MaxPlayerCount = profile.MaxPlayerCount;
+            }
+            #endregion Constructor
+    
+            #region ISettingsService Implementation
+            public bool GameStarted { get; set; }
+            public int MaxPlayerCount { get; set; }
+            public int PlayerCheckpoint { get; set; }
+    
+            public void SaveSettings()
+            {
+                PlayerPrefs.SetInt(MYAWESOMEAPPSAVENAME, PlayerCheckpoint);
+                PlayerPrefs.Save();
+            }
+    
+            public void LoadSettings()
+            {
+                PlayerCheckpoint = PlayerPrefs.GetInt(MYAWESOMEAPPSAVENAME);
+            }
+            #endregion ISettingsService Implementation
         }
-        #endregion ISettingsService Implementation
-    }
-```
+    ```
 
-Nothing fancy, just getting the profile setting for "MaxPlayerCount" from the profile and Save / Load functions for the current value of the "PlayerCheckpoint".
-5. With everything coded, we just need to add our new service to a ServiceManagerInstance configuration.  So open or create a new scene (We usually recommend the configuration should be applied in your first scene in your build settings, so it's up and running from the start) and add the ServiceManager using the Editor Menu option *Reality Collective -> Service Framework -> Add to scene*.
-6. Select the **ServiceManagerInstance** in your hierarchy and then click **Create a new configuration profile** to add the main Root configuration for the Service Framework.  By default, this is added to the root of your project and then you can move it where you like.
-> We usually recommend creating a new folder to store all your service configuration and keep it separate from the rest of the project and make it easier to find.
-7. Now let us add and configure your new Settings Service by clicking **"+"** in the **IService Configuration Options** section and then select our Settings Service in the **Instanced Type** drop-down:<br/>
-![Adding and Selecting the new Service](./images/03_01_Selecting_Service.png)
+    Nothing fancy, just getting the profile setting for `MaxPlayerCount` from the profile and Save / Load functions for the current value of the `PlayerCheckpoint`.
 
-> **Note** the drop-down navigates by namespace and then class, which is why we recommend using namespaces to properly design how your service will be discovered.
+5. With everything coded, we just need to add our new service to a `GlobalServiceManager` configuration.  So open or create a new scene (We usually recommend the configuration should be applied in your first scene in your build settings, so it's up and running from the start) and add the ServiceManager using the Editor Menu option `*Tools -> Service Framework -> Add to scene*`.
 
-8. Because we opted to generate a Profile with the service, you can click the **+** symbol next to the Profile configuration to automatically create the profile for the Settings Service (you can also create one manually using the GameObject Create menu, because it is a scriptable object, and then search for it using the DOT symbol next to the Profile Property), the profile will then be automatically assigned too.  The profile is added to a folder of the same name as the profile, so feel free to move it elsewhere if you wish.
-9. By assigning the Service Profile, it will also automatically open, allowing you to see the autogenerated Inspector window for the profile and letting you configure the "Max Player Count" option we added.
+6. Select the `**GlobalServiceManager**` in your hierarchy and then click `**Create a new configuration profile**` to add the main Root configuration for the Service Framework.  By default, this is added to the root of your project and then you can move it where you like.
 
-> ***Note** If you add data types that are not automatically identifiable, you will need to write a custom inspector for the Profile which inherits from the **ServiceProfileInspector** class, else it will have issues drawing.
+    :::tip
 
-10. Returning to the scene and selecting the "ServiceManagerInstance" again to show the Service Framework in the inspector, the last thing to do is select the platforms the service will run on.  Remembering from "Getting Started", the Service Framework will only do as it is told, if you configure a service to run on Nothing (the default) it will never start.  Set this to "Everything" for now since there is no platform-dependent code in our service and it should be able to run anywhere.
+    We usually recommend creating a new folder to store all your service configuration and keep it separate from the rest of the project and make it easier to find.
 
-![Settings Service Configured](./images/03_02_SettingServiceConfigured.png)
+    :::
 
-> **Pro Tip** <br/>
-> If you collapse the Service definition in the Service Configuration Options, you can simply **click on the service** and it will automatically open the profile settings for the service, no need to keep expanding it just to open its settings.   You can of course just inspect the asset itself instead. <br/>
-> ![Collapsed Service Settings View](./images/03_03_CollapsedServiceConfiguration.png)
+7. Now let us add and configure your new Settings Service by clicking `**+**` in the `**IService Configuration Options**` section and then select our Settings Service in the `**Instanced Type**` drop-down:
+
+    ![Adding and Selecting the new Service](./images/03_01_Selecting_Service.png)
+
+    :::note
+
+    The drop-down navigates by namespace and then class, which is why we recommend using namespaces to properly design how your service will be discovered.
+
+    :::
+
+8. Because we opted to generate a Profile with the service, you can click the `**+**` symbol next to the Profile configuration to automatically create the profile for the Settings Service (you can also create one manually using the GameObject Create menu, because it is a scriptable object, and then search for it using the DOT symbol next to the Profile Property), the profile will then be automatically assigned too.  The profile is added to a folder of the same name as the profile, so feel free to move it elsewhere if you wish.
+9. By assigning the Service Profile, it will also automatically open, allowing you to see the autogenerated Inspector window for the profile and letting you configure the `Max Player Count` option we added.
+
+    :::note
+
+    If you add data types that are not automatically identifiable, you will need to write a custom inspector for the Profile which inherits from the `**ServiceProfileInspector**` class, else it will have issues drawing.
+
+    :::
+
+10. Returning to the scene, select the `GlobalServiceManager` again to show the Service Framework in the inspector, the last thing to do is select the `platforms` the service will run on.
+
+    :::tip
+
+    Remembering from [Getting Started](./02_getting_started.md), the Service Framework will only do as it is told, if you configure a service to run on `Nothing` (the default) it will never start.
+
+    :::
+
+    Set this to "Everything" for now since there is no platform-dependent code in our service and it should be able to run anywhere.
+    ![Settings Service Configured](./images/03_02_SettingServiceConfigured.png)
+
+    :::tip[Pro Tip**]
+
+    If you collapse the Service definition in the Service Configuration Options, you can simply **click on the service** and it will automatically open the profile settings for the service, no need to keep expanding it just to open its settings.   You can of course just inspect the asset itself instead.
+    ![Collapsed Service Settings View](./images/03_03_CollapsedServiceConfiguration.png)
+
+    :::
 
 11. With your service running, here is the recommended way of setting up a class to use it.  Create a new C# script and add the following:
 
@@ -355,7 +416,6 @@ Nothing fancy, just getting the profile setting for "MaxPlayerCount" from the pr
         => settingsService ??= ServiceManager.Instance is null ? null : ServiceManager.Instance.GetService<ISettingsService>();
     #endregion Dependencies
 
-    // Start is called before the first frame update
     void Start()
     {
         // Access our registered service and tell it to Load Settings
@@ -365,7 +425,6 @@ Nothing fancy, just getting the profile setting for "MaxPlayerCount" from the pr
         SettingsService.GameStarted = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Daft logic to repel players if we have reached our max player count
@@ -376,6 +435,12 @@ Nothing fancy, just getting the profile setting for "MaxPlayerCount" from the pr
         }
     }
 ```
+
+:::warning
+
+We only start querying for services from the MonoBehaviour `Start` method, during `Awake` services are still being registered and are not available yet!
+
+:::
 
 The code has been commented to explain each region, so hopefully it should be self-explanatory.
 
@@ -394,11 +459,11 @@ And that is it, we have:
 Writing services is easy enough, working out yourself what each service is and what it should do is the hard part, but always remember:
 
 * Use the Service Interface, it is a guide and a control to know exactly what a service does and what it provides, from the most basic to the very advanced.
-* Take note of the Accessor Pattern used in the example.  You can just call "```GetService<IMyService>```" everywhere and there is little cost in doing so.  But the Accessor pattern is just cleaner.
-* Remember, services can call each other, but remember that if one service depends on another when it is initialising, then make sure they are in the right order in the ServiceManager Inspector. Order matters.
-* **NEVER** use **GetService** during **Awake**. During the awake loop, the ServiceManager is still waking up just like everything else so services will not have initialised yet.  Might be less critical by the second scene or so, but still something to keep in mind.
+* Take note of the Accessor Pattern used in the example.  You can just call `GetService<IMyService>` everywhere and there is little cost in doing so.  But the Accessor pattern is just cleaner.
+* Remember, services can call each other, but remember that if one service depends on another when it is initializing, then make sure they are in the right order in the ServiceManager Inspector. Order matters.
+* **NEVER** use `**GetService**` during `**Awake**`. During the awake loop, the ServiceManager is still waking up just like everything else so services will not have initialized yet.  Might be less critical by the second scene or so, but still something to keep in mind.
 * If you tell a service NOT to start for a platform, it will not start :D
-* Beware Null Ref Exceptions, if something is not started or initialised, it **WILL BE NULL.**
+* Beware Null Ref Exceptions, if something is not started or initialized, it **WILL BE NULL.**
 
 ---
 
@@ -410,5 +475,6 @@ for more information on the Service Framework, check out these additional links:
 * [Creating your first service](./02_getting_started.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
+* [Scene based service loading](./06_scene_based_service_manager.md)
 * [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)

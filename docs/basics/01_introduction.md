@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-***Last updated - 1st February 2023***
+***Last updated - 27th February 2024***
 
 The Service Framework built by the Reality Collective is a Service repository that can be used in Unity projects to address many of the issues facing developers while trying to build performant features and utilities.
 
@@ -18,7 +18,7 @@ In many cases, code is written and attached to MonoBehaviours in order to execut
 
 * Finding code attached to GameObjects requires you to either know which object it is attached to or use expensive GameObject.Find techniques to locate them.  Granted, these references are then caches to avoid these performance drains, but usually many times throughout code.
 
-* The state of an empty GameObject is not guaranteed, especially with scene reloads. In the worst cases where editor settings are also applied to these GameObjects, they can sometimes be corrupted by Unity reserializing the GameObject.
+* The state of an empty GameObject is not guaranteed, especially with scene reloads. In the worst cases where editor settings are also applied to these GameObjects, they can sometimes be corrupted by Unity re-serializing the GameObject.
 
 * Speed - Attaching a script to a MonoBehaviour requires that script to be managed by the full lifecycle of a GameObject, even if it is not rendering in to the scene.  In highly performant code, this can incur unwanted slowdowns across the whole project that are likely unintended. (granted, recent Burst and DOTS implementations are also working to address this)
 
@@ -55,7 +55,7 @@ All the current Unity build platforms are included by default (all targets avail
 * Linux
 * WebGL
 * Universal Windows Platform
-* Playstation (with appropriate SDK)
+* PlayStation (with appropriate SDK)
 * Xbox (with appropriate SDK)
 * Nintendo (with appropriate SDK)
 
@@ -67,7 +67,7 @@ For example, the [Reality Toolkit](https://realitytoolkit.io/) defines additiona
 * Magic Leap
 * Pico
 
-So long as there is a unique way to identify when a platform is available in the editor and at runtime (such as having an API that is active), then a platform can be recognised and the Service Framework will adjust its startup accordingly.
+So long as there is a unique way to identify when a platform is available in the editor and at runtime (such as having an API that is active), then a platform can be recognized and the Service Framework will adjust its start-up accordingly.
 
 This then allows you to configure on which platforms your services should run, this is multi-selectable, so you can choose all platforms or just a selection.  You also create "Mock" services and have these only available in the editor if you so wish.
 
@@ -78,13 +78,17 @@ Check the [Platform System](/docs/features/platform_system.md) section for more 
 In addition to the core services you can create, it is also possible to create sub-services (also referred as service modules) which are connected to their parent core service.
 This enables you to create a "Header" service to accept requests and then provide multiple implementations for that service, usually to support multiple platforms but can also be used as a collection of modules to obtain data from, such as:
 
-* An asset service that can add modules that connect to google, sketchfab, Azure or wherever you can get assets from, all returned through the main parent service.
+* An asset service that can add modules that connect to Google, SketchFab, Azure or wherever you can get assets from, all returned through the main parent service.
 * A networking service that has different client implementations based on the running platform.
 * A utility service that enables several functions that require to work differently based upon platform or different sets of conditions.
 
 This capability is a bit more advanced advanced and potentially limitless.
 
+:::tip
+
 For more information checkout the [Advanced services and sub services (service modules)](./04_advanced_services.md) section.
+
+:::
 
 ## Use Cases (and what is a Service anyway?)
 
@@ -100,7 +104,7 @@ A common pattern is to ensure there is a single "settings" configuration availab
 
 ### An Asset loading service
 
-When content needs to be loaded from a remote source, this usually requires lots of functionality to handle all the different uses cases for where the content is located and how it should be loaded.  In more complicated scenarios, [preprocessor directives](https://docs.unity3d.com/Manual/PlatformDependentCompilation.html) are required to handle content differently depending on which platform the content will be loaded and instantiated on.
+When content needs to be loaded from a remote source, this usually requires lots of functionality to handle all the different uses cases for where the content is located and how it should be loaded.  In more complicated scenarios, [pre-processor directives](https://docs.unity3d.com/Manual/PlatformDependentCompilation.html) are required to handle content differently depending on which platform the content will be loaded and instantiated on.
 
 With a single service, this can be managed in a central location, with separate service implementations for different platform if needed using a single Interface, so that running game code does not need to know where it is coming from.
 
@@ -135,5 +139,6 @@ for more information on the Service Framework, check out these additional links:
 * [Service design](./03_service_design.md)
 * [Advanced services and sub services (service modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
+* [Scene based service loading](./06_scene_based_service_manager.md)
 * [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)

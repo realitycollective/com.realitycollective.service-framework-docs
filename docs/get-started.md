@@ -6,6 +6,8 @@ sidebar_position: 1
 
 The Service Framework is an extensible service framework to build highly performant components for your Unity projects by the [Reality Collective](https://realityCollective.io).
 
+[![Discord](https://img.shields.io/discord/597064584980987924.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/hF7TtRCFmB)
+
 ## Overview
 
 The Service framework provides a service repository for enabling background services to run efficiently in a Unity project, it features capabilities such as:
@@ -17,8 +19,8 @@ The Service framework provides a service repository for enabling background serv
 
 ## Requirements
 
-- [Unity 2020.3 and above](https://unity.com/)
-- [RealityCollective.Utilities](https://github.com/realitycollective/com.realitycollective.utilities)
+* [Unity 2021.3 and above](https://unity.com/)
+* [RealityCollective.Utilities](https://github.com/realitycollective/com.realitycollective.utilities)
 
 ### OpenUPM
 
@@ -39,8 +41,8 @@ Alternatively you can connect to the repository directly from Unity using the "A
 
 | branch | build status |
 | --- | --- |
-| main | [![main](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/main-publish.yml/badge.svg?branch=main)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/main-publish.yml) |
-| development | [![development](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/development-buildandtestupmrelease.yml/badge.svg?branch=development)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/development-buildandtestupmrelease.yml)|
+| main | [![main](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/main-publish.yml/badge.svg?branch=development)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/main-publish.yml) |
+| development | [![development](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/development-buildandtestupmrelease.yml/badge.svg)](https://github.com/realitycollective/com.realitycollective.service-framework/actions/workflows/development-buildandtestupmrelease.yml)|
 
 ---
 
@@ -72,11 +74,11 @@ A fully featured "**Service Generator**" is included with the Service Framework 
 
 ### 2. Configuring your service
 
-With your service created, it will need to be registered with an active "Service Manager" in a scene, this can either use the provided "Service Manager Instance" component on a GameObject, or consume it using a private property on a class of your own.
+With your service created, it will need to be registered with an active "Service Manager" in a scene, this can either use the provided "Global Service Manager" component on a GameObject, or consume it using a private property on a class of your own.
 
 > Note, at this time, only a single Service Framework Manager can be active in the scene at a time.  If you are intending to use the Framework with toolkit's such as the Reality Toolkit which already has an instance of the Service Framework embedded, then you will need to use the toolkit's endpoints to communicate with the Service Framework.
 
-Simply use the handy Editor function provided by the Reality Collective to add a **Service Manager Instance** to a scene using:
+Simply use the handy Editor function provided by the Reality Collective to add a `Global Service Manager` to a scene using:
 
 > Reality Collective -> Service Framework -> Add to Scene
 
@@ -122,6 +124,7 @@ The documentation that gives an overview and walk-through of the Service Framewo
 * [Service design](./basics/03_service_design.md)
 * [Advanced services and sub services (service modules)](./basics/04_advanced_services.md)
 * [Service Patterns and implementations](./basics/05_service_patterns.md)
+* [Scene based service loading](./basics/06_scene_based_service_manager.md)
 * [Platform System](./features/platform_system.md)
 * [Roadmap](./basics/07_roadmap.md)
 
