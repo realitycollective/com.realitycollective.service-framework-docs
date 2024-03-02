@@ -100,7 +100,7 @@ You can automatically add a `Global Service Manager` to your scene using the han
 
 > `Tools -> Service Framework -> Add to Scene`
 
-![Platform Switcher component](./images/00_02_ServiceFramework_add_to_scene.png)
+![Add to Scene menu option under tools](./images/00_02_ServiceFramework_add_to_scene.png)
 
 Or you can create it manually, as follows:
 

@@ -70,17 +70,21 @@ A fully featured "**Service Generator**" is included with the Service Framework 
 * A configuration profile - to customize to the needs of your service (optional, delete if not required)
 * The Service Implementation - You service to do with as you wish.
 
-![Platform Switcher component](basics/images/00_01_ServiceWizard.png)
+![Add to Scene menu option under tools](./images/00_02_ServiceFramework_add_to_scene.png)
 
 ### 2. Configuring your service
 
 With your service created, it will need to be registered with an active "Service Manager" in a scene, this can either use the provided "Global Service Manager" component on a GameObject, or consume it using a private property on a class of your own.
 
-> Note, at this time, only a single Service Framework Manager can be active in the scene at a time.  If you are intending to use the Framework with toolkit's such as the Reality Toolkit which already has an instance of the Service Framework embedded, then you will need to use the toolkit's endpoints to communicate with the Service Framework.
+:::note
+
+At this time, only a single Service Framework Manager can be active in the scene at a time.  If you are intending to use the Framework with toolkit's such as the Reality Toolkit which already has an instance of the Service Framework embedded, then you will need to use the toolkit's endpoints to communicate with the Service Framework.
+
+:::
 
 Simply use the handy Editor function provided by the Reality Collective to add a `Global Service Manager` to a scene using:
 
-> Reality Collective -> Service Framework -> Add to Scene
+> `Tools -> Service Framework -> Add to Scene`
 
 ![Platform Switcher component](basics/images/00_02_ServiceFramework_add_to_scene.png)
 
