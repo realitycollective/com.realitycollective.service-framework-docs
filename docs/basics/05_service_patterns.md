@@ -45,9 +45,9 @@ The most common and simple service, a singular entity that enables a single capa
 
 In some scenarios, it is common for two services to be interlinked, each providing a distinct service / operation particular to that service, yet dependent on another service to provide "common" functionality.
 
-Depending on how the connectivity is maintained, care must be taken to ensure the services are registered in the correct order.  However, you can also utilise Scriptable Objects as configurable assets to provide weak references between services.
+Depending on how the connectivity is maintained, care must be taken to ensure the services are registered in the correct order.  However, you can also utilize Scriptable Objects as configurable assets to provide weak references between services.
 
-The simplest solution is that Service 2, on initialisation or later, will call "```GetService<IService1>```" to gain a reference and utilise Service 1 during its operation.
+The simplest solution is that Service 2, on initialization or later, will call `GetService<IService1>` to gain a reference and utilize `Service 1` during its operation.
 
 ---
 
@@ -57,16 +57,20 @@ The simplest solution is that Service 2, on initialisation or later, will call "
 
 ![Service Providers Model](./images/05_03_ServiceProviderPattern.png)
 
-By default, when Services and their modules are registered, they are all accessible via the Service Framework, allowing instant access to either through a "```GetService<IService>```" call.  The registration flow is as follows:
+By default, when Services and their modules are registered, they are all accessible via the Service Framework, allowing instant access to either through a `GetService<IService>` call.  The registration flow is as follows:
 
 1. Services are read through configuration and registered with the Service Framework
-2. Service Modules contained within the Service configuration are initialised by the service
+2. Service Modules contained within the Service configuration are initialized by the service
 3. The modules then also Registered with the Service Framework (enabling the Service Framework to manage all entities)
-4. The primary method for accessing the service is via calling "```GetService<IService>```"
+4. The primary method for accessing the service is via calling `GetService<IService>`
 
-This is the pattern enabled for services by default.  Primarily it is recognised that the majority of the calls will be direct to the service, as the responsible party, it is still possible to use "```GetService<IServiceModule>```" when required.
+This is the pattern enabled for services by default.  Primarily it is recognized that the majority of the calls will be direct to the service, as the responsible party, it is still possible to use `GetService<IServiceModule>` when required.
 
-> Alternatively, see the [Managed Service](#managed-service) design where you can manage modules only from within a service.
+:::tip
+
+Alternatively, see the [Managed Service](#managed-service) design where you can manage modules only from within a service.
+
+:::
 
 ---
 
@@ -78,7 +82,7 @@ This is the pattern enabled for services by default.  Primarily it is recognised
 
 Another pattern which is widely used (such as in the Leaderboard examples) whereby the Modules are the primary driver for access to the Services resources, with the Service itself mainly providing common functionality (such as authentication) for all the modules.
 
-Similar to the [Service Providers Model](#service-providers-model), with the exception that only "```GetService<IServiceModule>```" is used to talk directly to the module that is required for an operation (e.g. a specific Leaderboard)
+Similar to the [Service Providers Model](#service-providers-model), with the exception that only `GetService<IServiceModule>` is used to talk directly to the module that is required for an operation (e.g. a specific Leaderboard)
 
 ---
 
@@ -108,10 +112,10 @@ This has been used to great effect in:
 ## Tips and tricks
 
 * There is no ONE path, you can mix and match how your services operate to meet the needs of your project.
-* While services can be "configured" at design time, they can also be registered in code at runtime if you wish using "```TryRegisterService<T>```" && "```TryRegisterServiceModule<T>```".
+* While services can be "configured" at design time, they can also be registered in code at runtime if you wish using `TryRegisterService<T>` && `TryRegisterServiceModule<T>`.
 * Services and Modules can be activated / deactivated at anytime, they will always be known by the Service Framework and cannot "disappear" (unlike with Unity GameObjects/Components). Unless you unregister them at Runtime.
 * Use the [Platform System](/docs/features/platform_system.md) to its fullest extent, as required and do not be afraid to create duplicates of services with different modules configured against different platforms.  But you can also configure Platforms for modules, so pick and choose.
-* **REMEMBER**, a Service Interface or Module Interface, when registered with the Service Framework can **ONLY BE REGISTERED ONCE** else you will get a "Service Already Registered" error.  There can only be one.
+* **REMEMBER**, a Service Interface or Module Interface, when registered with the Service Framework can **ONLY BE REGISTERED ONCE** else you will get a `Service Already Registered` error.  There can only be one.
 
 ---
 

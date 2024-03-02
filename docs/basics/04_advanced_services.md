@@ -10,14 +10,18 @@ sidebar_position: 4
 
 This article will cover service modules and how they can extend capabilities beyond a single service through additional service modules added to the service to provide distinct operations and extensions.
 
-> For more advanced information on the different patterns that can be used in Service Design, check out the [Service Patterns and implementations](./05_service_patterns.md) section.
+:::info
+
+For more advanced information on the different patterns that can be used in Service Design, check out the [Service Patterns and implementations](./05_service_patterns.md) section.
+
+:::
 
 This is what this article will cover:
 
 * [What is a Module? (Sub Service)](#what-is-a-module)
 * [Profiles for Modules](#profiles-for-modules)
 * [Use cases for Modules](#use-cases-for-modules)
-* [Platform support for Modules](#platform-support-for-module)
+* [Platform support for Modules](#platform-support-for-modules)
 * [Tutorial: Building a Leaderboard Service with modules](#building-a-leaderboard-service-with-modules)
 * [Tips and tricks](#tips-and-tricks)
 
@@ -29,9 +33,13 @@ Time to begin.
 
 In the simplest terms a Module is essentially a Sub-Service, a child service that registers as part of its parent service and does different work on behalf of that service.
 
-> Modules are completely optional and only needed to be used where they add value.  
+:::tip
 
-Modules are very powerful in modularising services that perform either have different operations on different platforms, or need several different implementations based on a specific task. This can be demonstrated as:
+Modules are completely optional and only needed to be used where they add value.  
+
+:::
+
+Modules are very powerful in modularizing services that perform either have different operations on different platforms, or need several different implementations based on a specific task. This can be demonstrated as:
 
 * A networking service with a common set of operations, with several implementations as modules, one for each different service that is used on a different platform, e.g. Android, iOS, etc, if you have different requirements based on OS.
 
@@ -50,7 +58,6 @@ Simply "check" the box when generating a Service Module and the wizard will auto
 
 ![Service Wizard generating a Module](./images/04_01_ServiceWizardModule.png)
 
-
 ---
 
 ## Platform support for Modules
@@ -59,7 +66,11 @@ Again, like services, Modules can be configured to only activate when a particul
 
 ![Module Runtime Platform selector](./images/04_02_ModulePlatformSelector.png)
 
-> See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
+:::tip
+
+See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
+
+:::
 
 ---
 
@@ -69,16 +80,37 @@ There are almost as many reasons not to use modules as there are for doing so, w
 
 ### An Interaction Service
 
-In one instance, there was a need to perform structured interactions on content within a project and rather than writing up all the possibilities in to a single service, the Header Service simply routed requests for specific interactions, such as Move, Hide, Fade, and individual modules were created to actually perform the independent operations.
-Building individual discrete modules for each interaction which shared a common interface such as "Execute" to perform the operation.
+In one instance, there was a need to perform structured interactions on content within a project and rather than writing up all the possibilities in to a single service, the Header Service simply routed requests for specific interactions, such as:
+
+* Move - translate a selected object.
+* Hide - loop through the renderers of an object and disable their renderers.
+* Fade - loop through the renderers and apply a fading property to its shaders.
+
+With individual modules created to actually perform the independent operations. Building individual discrete modules for each interaction which shared a common interface such as "Execute" to perform the operation.
+
+This allows you to call the `Interaction` service with the name of the operation and the specific module will perform the operation.  Very scalable and ensures each module is only responsible for its behaviour without having a monster class with everything.
 
 ### A Leaderboard Service
 
-As highlighted in other examples, another great implementation was to have a Leaderboard service which provided authentication and common utilities for accessing the backend, then providing separate Modules for each Leaderboard (Global, Weekly, Daily, challenge) each with their own settings for how they operate.  Then the application simply requests and interacts with each Leaderboard modules and each module then used the service to talk to the external service.
+As highlighted in other examples, another great implementation was to have a Leaderboard service which provided authentication and common utilities for accessing the backend, then providing separate Modules for each Leaderboard, such as:
+
+* Global
+* Weekly
+* Daily
+* Challenge
+
+Each leaderboard having its own settings for how they operate.  Then the application simply requests and interacts with each Leaderboard modules and each module then used the service to talk to the external service.
 
 ### A Storage Service
 
-A common scenario when dealing with files stored on the "internet" is that you need a common way to request files from providers (Azure, Sketchfab, OneDrive, etc) or even upload to those providers at a later point.  Trying to do this all in a set of classes with all the authentication and "faff" of talking to those endpoints.  Using modules means you can compartmentalise each of those services to only deal with a single vendor and have the service decide which service to use at runtime.
+A common scenario when dealing with files stored on the "internet" is that you need a common way to request files from providers Or even upload to those providers at a later point, such as:
+
+* Azure
+* Sketchfab
+* OneDrive
+* others
+
+Trying to do this all in a set of classes with all the authentication and "faff" of talking to those endpoints.  Using modules means you can compartmentalize each of those services to only deal with a single vendor and have the service decide which service to use at runtime.
 
 ---
 
@@ -92,6 +124,7 @@ tbc
 
 ## Tips and tricks
 
+tbc
 
 ---
 
