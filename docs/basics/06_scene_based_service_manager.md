@@ -41,7 +41,7 @@ The pattern you use will largely depend on your projects architecture and style,
 
 If you want to configure the service configuration for specific scenes in a single place, then you can do so through your Global Service Manager configuration using the new `Scene Configuration Options`, this takes `Scene Service Provider Profile` assets which contain the service configuration for each scene.
 
-1. Create a `Scene Service Provider Profile` through the project view using the menu option `Tools -> Service Framework -> Scene Service Provider Profile`, which will create a profile as shown below:
+1. Create a `Scene Service Provider Profile` through the project view using the menu option `Assets -> Create -> Service Framework -> Scene Service Provider Profile` (or alternatively through the `Right-click` menu using the same path), which will create a profile as shown below:
 
     ![Scene Service Providers Profile](./images/06_01_SceneServiceProvidersProfile.png)
 
@@ -58,7 +58,7 @@ Now configured, each time the selected scene is loaded or unloaded, the services
 
 ### Scene Service Manager Configuration
 
-As an alternate path, you can choose to contain the Services configuration within each scene instead of in the Global Service Manager.  To do this we simply add a custom `Scene Service Manager` component to a GameObject in our scene and then apply the service configuration as normal.
+As an alternate path, you can choose to contain the Services configuration within each scene instead of in the Global Service Manager.  To do this we simply add a custom `Scene Service Manager` component to a GameObject in our scene and then create and apply the [service configuration for the scene](./02_getting_started.md#creating-the-root-configuration-for-the-service-manager) as normal.
 
 :::info[Global Service Manager Required!]
 
@@ -67,7 +67,7 @@ Just ensure one has been registered in a start-up scene prior to loading Scene C
 
 :::
 
-1. Create a `Service Providers Profile` (the same as the Global Service Manager) and configure the scenes it will manage.
+1. Create a `Service Providers Profile` (the same as the [Global Service Manager](./02_getting_started.md#creating-the-root-configuration-for-the-service-manager)) and configure the scenes it will manage.
 
     ![Service Provides Profile for a scene](./images/06_03_ServiceProvidersProfile_SceneBased.png)
 
