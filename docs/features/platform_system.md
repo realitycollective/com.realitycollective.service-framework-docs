@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Platform System
 
-***Last updated - 27th April 2023***
+***Last updated - 27th February 2024***
 
 ## Overview
 
@@ -26,11 +26,11 @@ Time to begin.
 
 ## Platform System Usage
 
-The platform system embedded inside the Service Framework enables a multitude of capabilities from simpler and quicker platform switching, to allowing services and modules to ONLY run when a specific platform is detected as running, this enables a lot more variety than just using ```#if``` processors everywhere (and more manageable code).
+The platform system embedded inside the Service Framework enables a multitude of capabilities from simpler and quicker platform switching, to allowing services and modules to ONLY run when a specific platform is detected as running, this enables a lot more variety than just using `#if` processors everywhere (and more manageable code).
 
 This platform detection works at BOTH in the Player runtime as well as in the Editor, which each uniquely identifying their activation based on the characteristics of each and not just the currently detected Unity platform.
 
-This capability can also be extended and is used by toolkits such as the Reality Toolkit and the XRTK, to create custom platforms such as the Meta Quest and Pico, which require the presence of the vendor API in order to enable custom platforms.
+This capability can also be extended and is used by toolkits such as the MRTK2, [Reality Toolkit](https://www.realitytoolkit.io/) and the XRTK, to create custom platforms such as the Meta Quest and Pico, which require the presence of the vendor API in order to enable custom platforms.
 
 ---
 
@@ -42,7 +42,7 @@ By default, the Service Framework supports all of the built-in platforms that Un
 * iOS
 * Linux
 * OSX
-* Playstation*
+* PlayStation*
 * TVOS*
 * Windows Universal (UWP)
 * WebGL
@@ -50,7 +50,11 @@ By default, the Service Framework supports all of the built-in platforms that Un
 * Xbox*
 * Nintendo*
 
-> * requires 3rd party licensed plugin
+:::info
+
+* requires 3rd party licensed plugin
+
+:::
 
 ---
 
@@ -58,9 +62,9 @@ By default, the Service Framework supports all of the built-in platforms that Un
 
 ![Platform Switcher component](../basics/images/02_11_PlatformSwitcher.png)
 
-On the inspector for the **Service Management Instance**, the Service Framework provides a handy utility to automatically switch the "Active" build target while the editor is running.  In comparison, it is approximately 50% quicker using the Platform Switcher over using Unity's built in "Switch Platform" option in the Build Settings screen.
+On the inspector for the **Global Service Manager**, the Service Framework provides a handy utility to automatically switch the `Active` build target while the editor is running.  In comparison, it is approximately 50% quicker using the Platform Switcher over using Unity's built in "Switch Platform" option in the Build Settings screen.
 
-To change to another platform to check how things are compiling, you simply select a different "Platform Target" in the drop down.
+To change to another platform to check how things are compiling, you simply select a different `Platform Target` in the drop down.
 
 ---
 
@@ -72,9 +76,17 @@ When configuring when Services and Modules activate (when the Service Framework 
 
 There is no limitation (except to say that a service can only register once per platform) and you can either create duplicate services for each platform with platform variations, or use a single service with multiple Service Modules, each configured for specific platforms.
 
-> Remember a Service or Module can only be registered ONCE per interface.
+:::warning
 
-**NOTE**, code still has to compile in the editor regardless of what platform the Service or Module is targeting, so you will still need to include Preprocessor Directives (#if statements) for any code that cannot be compiled on different platforms.
+Remember a Service or Module can only be registered ONCE per interface.
+
+:::
+
+:::note
+
+Code still has to compile in the editor regardless of what platform the Service or Module is targeting, so you will still need to include Preprocessor Directives (#if statements) for any code that cannot be compiled on different platforms.
+
+:::
 
 ---
 
@@ -84,25 +96,31 @@ The IPlatform interface defines the constraints and conditions which will determ
 
 |Property|Type|Scope|Description|
 |---|---|---|---|
-|Name|string|Runtime & Editor|The visible name for the platform|
-|IsAvailable|bool|Runtime & Editor|Is the platform currently available at runtime|
-|Platform|IPlatform[] (array)|Runtime & Editor|The list of platforms that this Platform overrides and makes unavailable|
-|IsBuildTargetAvailable|string|Editor Only|While in the Editor, is this platform active in the Editor|
-|ValidBuildTargets|IPlatform[] (array)|Editor Only|When in the editor, what are the Unity base targets this Platform requires|
+|`Name`|string|Runtime & Editor|The visible name for the platform|
+|`IsAvailable`|bool|Runtime & Editor|Is the platform currently available at runtime|
+|`Platform`|IPlatform[] (array)|Runtime & Editor|The list of platforms that this Platform overrides and makes unavailable|
+|`IsBuildTargetAvailable`|string|Editor Only|While in the Editor, is this platform active in the Editor|
+|`ValidBuildTargets`|IPlatform[] (array)|Editor Only|When in the editor, what are the Unity base targets this Platform requires|
 
-Any new platforms need to inherit from "**BasePlatform**" and provides overrides for the above properties where applicable.  Check the [existing platforms](https://github.com/realitycollective/com.realitycollective.service-framework/tree/development/Runtime/Definitions/Platforms) currently implemented in the Service Framework for examples.
+Any new platforms needs to inherit from `BasePlatform` and provides overrides for the above properties where applicable.
+
+:::info
+
+Check the [existing platforms](https://github.com/realitycollective/com.realitycollective.service-framework/tree/development/Runtime/Definitions/Platforms) currently implemented in the Service Framework for examples.
+
+:::
 
 ---
 
 ## Building your own platform
 
-To build your own platform, you simply need to create a new class that inherits from **BasePlatform** and then implement the overrides as required to define WHEN your platform should be active.  There are no limitations on the conditions you set, whether they are for:
+To build your own platform, you simply need to create a new class that inherits from `BasePlatform` and then implement the overrides as required to define **WHEN** your platform should be active.  There are no limitations on the conditions you set, whether they are for:
 
-* Ensuring a path exists
-* Validating an API is valid (and returning a value, as in Quest)
+* Ensuring a path exists.
+* Validating an API is valid (and returning a value, as in Quest).
 * The day of the week :D
 
-An example platform, as used in the Reality Toolkit is the Pico platform, which is active when The build platform is Android AND that the Pico API is available:
+An example platform, as used in the Reality Toolkit, is the Pico platform, which is active when The build platform is Android AND that the Pico API is available:
 
 ```csharp
 // Copyright (c) Reality Collective. All rights reserved.
@@ -212,21 +230,25 @@ namespace RealityToolkit.Pico
 }
 ```
 
-As can be seen, the **IsAvailable** property is only active at runtime if several conditions are met:
+As you can see, the `IsAvailable` property is only active at runtime if several conditions are met:
 
-* Has the OpenXR subsystem been configured and active
-* Is the XR Display Subsystem running (runtime)
-* Is the XR Input Subsystem running (runtime)
+* Has the OpenXR subsystem been configured and active?
+* Is the XR Display Subsystem running (runtime)?
+* Is the XR Input Subsystem running (runtime)?
 
 ---
 
 ## Tips and tricks
 
-There is not much to say about the Platform system, any script inheriting from **BasePlatform** (which implements **IPlatform**) is automatically detected and picked up by the Service Framework, so long as the code in your project can "See" the code (not hidden behind an assembly definition).
+There is not much to say about the Platform system, any script inheriting from `BasePlatform` (which implements `IPlatform`) is automatically detected and picked up by the Service Framework, so long as the code in your project can "**See**" the code (not hidden behind an assembly definition).
 
 But creating Platforms to set conditions to define when a Service Or Module is very versatile and could even be used within your project based on conditions of the player / title when it starts.
 
-> Remember, Platforms are ONLY evaluated when the application starts, they are not added/registered at runtime.  (So if you have a platform based on a condition, it must be accessible in the editor at design time to assign it, even if it is only evaluated at runtime.)
+:::info
+
+Remember, Platforms are ONLY evaluated when the application starts, they are not added/registered at runtime.  (So if you have a platform based on a condition, it must be accessible in the editor at design time to assign it, even if it is only evaluated at runtime.)
+
+:::
 
 ---
 
@@ -239,4 +261,5 @@ for more information on the Service Framework, check out these additional links:
 * [Service design](../basics/03_service_design.md)
 * [Advanced services and sub services (data modules)](../basics/04_advanced_services.md)
 * [Service Patterns and implementations](../basics/05_service_patterns.md)
+* [Scene based service loading](./06_scene_based_service_manager.md)
 * [Roadmap](../basics/07_roadmap.md)
