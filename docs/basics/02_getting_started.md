@@ -140,7 +140,7 @@ Once configured, the Service Framework is ready to receive the services you crea
 
 ![Service Framework blank configuration](./images/02_03_ServiceFrameworkEmptyConfiguraton.png)
 
-There are additional options you can enable on the Service Framework Instance, which have the following behaviors:
+There are additional options you can enable on the Global Service Manager profile, which have the following behaviors:
 
 - `Initialize on Play` - Will only initialize the framework configuration when you hit **Play** in the editor, else it will always run and validate your configuration.
 
