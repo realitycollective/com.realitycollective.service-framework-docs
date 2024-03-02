@@ -230,7 +230,7 @@ Please see the [Service Design](./03_service_design.md) section for more details
 
 With your service generated, it will now be accessible to register in the Service Framework configuration which you can access via the Inspector with the `**Global Service Manager**` selected:
 
-![Service Manager Configuration](./images//02_07_ServiceManagerConfiguration.png)
+![Service Manager Configuration](./images/02_07_ServiceManagerConfiguration.png)
 
 :::tip
 
