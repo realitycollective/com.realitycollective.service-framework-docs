@@ -70,7 +70,7 @@ A fully featured "**Service Generator**" is included with the Service Framework 
 * A configuration profile - to customize to the needs of your service (optional, delete if not required)
 * The Service Implementation - You service to do with as you wish.
 
-![Add to Scene menu option under tools](./images/00_02_ServiceFramework_add_to_scene.png)
+![Add to Scene menu option under tools](./basics/images/00_02_ServiceFramework_add_to_scene.png)
 
 ### 2. Configuring your service
 

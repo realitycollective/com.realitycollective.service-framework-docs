@@ -48,7 +48,7 @@ Each package that wants other developers to be able to install their own `IServi
 
 * The `com.realitytoolkit.camera` package comes with the `CameraService`. It defines a `PackageInstallerProfile` that will make use of the `PackageInstaller` to install the `CameraService` to the project. In this scenario we DO NOT need a `IPackageModuleInstaller` since the camera package has full authority over the camera service and its modules.
 
-* The `com.realitytoolkit.pico` package comes with a `PicoInputServiceModule` that can be registered with the `InputService`. The `InputService` is a service that is outside of the PICO packge's authority, since it lives in the `com.realitytoolkit.core` package. That's why the PICO package must ask the `CorePackageModuleInstaller`, which is a `IPackageModuleInstaller` implementation, to install the `PicoInputServiceModule` to the `InputServiceProfile`.
+* The `com.realitytoolkit.pico` package comes with a `PicoInputServiceModule` that can be registered with the `InputService`. The `InputService` is a service that is outside of the PICO package's authority, since it lives in the `com.realitytoolkit.core` package. That's why the PICO package must ask the `CorePackageModuleInstaller`, which is a `IPackageModuleInstaller` implementation, to install the `PicoInputServiceModule` to the `InputServiceProfile`.
 
 ---
 

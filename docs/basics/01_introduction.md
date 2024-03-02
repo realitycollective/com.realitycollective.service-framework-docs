@@ -10,7 +10,11 @@ The Service Framework built by the Reality Collective is a Service repository th
 
 Ultimately it services to solve some of the common use cases that cause Unity developers problems when designing and managing their code.
 
-> If you just want to get started, jump to the ["**Getting Started**"](02_getting_started.md) section here and read the history later.
+:::tip
+
+If you just want to get started, jump to the ["**Getting Started**"](02_getting_started.md) section here and read the history later.
+
+:::
 
 ## Why use a Service Framework?
 
