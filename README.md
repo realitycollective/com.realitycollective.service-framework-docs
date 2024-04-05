@@ -13,3 +13,5 @@ If you want to contribute to documentation of the framework please target your P
 Whenever a PR is merged to the `main` branch the docs are updated and published right away.
 
 ![main](https://github.com/realitycollective/com.realitycollective.service-framework-docs/actions/workflows/deploy.yml/badge.svg?branch=main)
+
+© Reality Collective 2022
