@@ -65,7 +65,7 @@ All the current Unity build platforms are included by default (all targets avail
 
 Additional platforms can be defined within your project or within additional UPM packages that will automatically be picked up and registered (so long as the Editor and your project can see them).
 
-For example, the [Reality Toolkit](https://realitytoolkit.io/) defines additional platforms for:
+For example, the [Reality Toolkit](https://realitytoolkit.realitycollective.net/) defines additional platforms for:
 
 * Quest
 * Magic Leap

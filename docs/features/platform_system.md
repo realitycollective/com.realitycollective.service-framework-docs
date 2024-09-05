@@ -30,7 +30,7 @@ The platform system embedded inside the Service Framework enables a multitude of
 
 This platform detection works at BOTH in the Player runtime as well as in the Editor, which each uniquely identifying their activation based on the characteristics of each and not just the currently detected Unity platform.
 
-This capability can also be extended and is used by toolkits such as the MRTK2, [Reality Toolkit](https://www.realitytoolkit.io/) and the XRTK, to create custom platforms such as the Meta Quest and Pico, which require the presence of the vendor API in order to enable custom platforms.
+This capability can also be extended and is used by toolkits such as the MRTK2, [Reality Toolkit](https://realitytoolkit.realitycollective.net/) and the XRTK, to create custom platforms such as the Meta Quest and Pico, which require the presence of the vendor API in order to enable custom platforms.
 
 ---
 

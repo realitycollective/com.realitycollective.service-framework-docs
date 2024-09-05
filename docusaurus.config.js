@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Service Framework',
   tagline: 'Official documentation for the Service Framework by the Reality Collective',
-  url: 'http://service-framework.realitycollective.io/',
+  url: 'https://serviceframework.realitycollective.net/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -95,11 +95,11 @@ const config = {
             items: [
               {
                 label: 'Blog',
-                href: 'https://realitycollective.io/blog',
+                href: 'https://www.realitycollective.net/blog',
               },
               {
                 label: 'Reality Collective Website',
-                href: 'https://realitycollective.io/',
+                href: 'https://www.realitycollective.net/',
               },
               {
                 label: 'GitHub',

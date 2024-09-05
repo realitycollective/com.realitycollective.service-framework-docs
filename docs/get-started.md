@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Welcome to the Service Framework by the Reality Collective
 
-The Service Framework is an extensible service framework to build highly performant components for your Unity projects by the [Reality Collective](https://realityCollective.io).
+The Service Framework is an extensible service framework to build highly performant components for your Unity projects by the [Reality Collective](https://www.realitycollective.net/).
 
 [![Discord](https://img.shields.io/discord/597064584980987924.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/hF7TtRCFmB)
 
