@@ -45,9 +45,54 @@ The most common and simple service, a singular entity that enables a single capa
 
 In some scenarios, it is common for two services to be interlinked, each providing a distinct service / operation particular to that service, yet dependent on another service to provide "common" functionality.
 
-Depending on how the connectivity is maintained, care must be taken to ensure the services are registered in the correct order.  However, you can also utilize Scriptable Objects as configurable assets to provide weak references between services.
+The Service Framework supports two primary approaches for establishing service dependencies:
 
-The simplest solution is that Service 2, on initialization or later, will call `GetService<IService1>` to gain a reference and utilize `Service 1` during its operation.
+### Constructor Injection (Recommended)
+
+The preferred approach is to use **constructor-based dependency injection**, where Service 2 declares its dependency on Service 1 directly in its constructor. The Service Framework will automatically resolve and inject the dependency during service registration:
+
+```csharp
+public class Service2 : BaseServiceWithConstructor, IService2
+{
+    private readonly IService1 service1;
+
+    public Service2(string name, uint priority, BaseProfile profile, IService1 service1)
+        : base(name, priority)
+    {
+        this.service1 = service1 ?? throw new ArgumentNullException(nameof(service1));
+    }
+}
+```
+
+This approach provides compile-time safety, clearer dependencies, and eliminates the need for null checks during initialization.
+
+:::tip
+
+For detailed information on dependency injection, including registration order requirements and advanced patterns, check out the [Dependency Injection](./07_dependency-injection.md) guide.
+
+:::
+
+### Runtime Service Retrieval
+
+Alternatively, Service 2 can retrieve Service 1 at runtime during initialization or later using `GetService<IService1>()`. This approach offers more flexibility but requires manual null checking:
+
+```csharp
+public override void Initialize()
+{
+    var service1 = ServiceManager.Instance.GetService<IService1>();
+    if (service1 == null)
+    {
+        Debug.LogError("Service1 is required but not registered!");
+        return;
+    }
+}
+```
+
+:::note
+
+When using either approach, care must be taken to ensure the services are registered in the correct order. You can also utilize Scriptable Objects as configurable assets to provide weak references between services.
+
+:::
 
 ---
 
@@ -128,5 +173,6 @@ for more information on the Service Framework, check out these additional links:
 * [Service design](./03_service_design.md)
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
+* [Dependency Injection](./07_dependency-injection.md)
 * [Platform System](/docs/features/platform_system.md)
-* [Roadmap](./07_roadmap.md)
+* [Roadmap](./08_roadmap.md)
