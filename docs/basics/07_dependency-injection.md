@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 7
 ---
 
 # Dependency Injection
@@ -647,7 +647,7 @@ For more information on the Service Framework and related topics, check out thes
 * [Advanced services and sub services (service modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Unity 6 Performance Improvements](../unity6-performance-improvements.md)
-* [Roadmap](./07_roadmap.md)
+* [Roadmap](./08_roadmap.md)
 
 **External Resources:**
 * [Dependency injection in .NET - Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
