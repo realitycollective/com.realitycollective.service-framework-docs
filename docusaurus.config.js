@@ -54,6 +54,12 @@ const config = {
             label: 'Documentation',
           },
           {
+            type: 'doc',
+            docId: 'unity6-performance-improvements',
+            position: 'left',
+            label: 'Unity 6 Improvements',
+          },          
+          {
             href: 'https://discord.gg/YjHAQD2XT8',
             label: 'Join Us On Discord',
             position: 'left',
