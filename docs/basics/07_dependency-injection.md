@@ -151,7 +151,7 @@ One of the most important aspects of using dependency injection is ensuring serv
 
 In your Service Framework configuration profile, services are registered from top to bottom. Ensure dependent services appear later in the list:
 
-![Service Registration Order](./images/08_01_ServiceRegistrationOrder.png)
+<!-- ![Service Registration Order](./images/08_01_ServiceRegistrationOrder.png) -->
 
 ```text
 Correct Order:
