@@ -14,4 +14,4 @@ Whenever a PR is merged to the `main` branch the docs are updated and published 
 
 ![main](https://github.com/realitycollective/com.realitycollective.service-framework-docs/actions/workflows/deploy.yml/badge.svg?branch=main)
 
-© Reality Collective 2022
+© Reality Collective 2025
