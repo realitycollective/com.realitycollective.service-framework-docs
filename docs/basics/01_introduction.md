@@ -144,5 +144,6 @@ for more information on the Service Framework, check out these additional links:
 * [Advanced services and sub services (service modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
+* [Dependency Injection](./07_dependency-injection.md)
 * [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)

@@ -460,7 +460,7 @@ Writing services is easy enough, working out yourself what each service is and w
 
 * Use the Service Interface, it is a guide and a control to know exactly what a service does and what it provides, from the most basic to the very advanced.
 * Take note of the Accessor Pattern used in the example.  You can just call `GetService<IMyService>` everywhere and there is little cost in doing so.  But the Accessor pattern is just cleaner.
-* Remember, services can call each other, but remember that if one service depends on another when it is initializing, then make sure they are in the right order in the ServiceManager Inspector. Order matters.
+* Remember, services can call each other. If one service depends on another, consider using constructor-based dependency injection for cleaner, safer code. See the [Dependency Injection](./07_dependency-injection.md) guide for details. If using runtime retrieval with `GetService<T>()`, make sure services are in the right order in the ServiceManager Inspector. Order matters!
 * **NEVER** use `GetService` during `Awake`. During the awake loop, the ServiceManager is still waking up just like everything else so services will not have initialized yet.  Might be less critical by the second scene or so, but still something to keep in mind.
 * If you tell a service NOT to start for a platform, it will not start :D
 * Beware Null Ref Exceptions, if something is not started or initialized, it **WILL BE NULL.**
@@ -476,5 +476,6 @@ for more information on the Service Framework, check out these additional links:
 * [Advanced services and sub services (data modules)](./04_advanced_services.md)
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
+* [Dependency Injection](./07_dependency-injection.md)
 * [Platform System](/docs/features/platform_system.md)
 * [Roadmap](./07_roadmap.md)
