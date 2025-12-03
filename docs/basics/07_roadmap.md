@@ -18,7 +18,7 @@ In highlight the main items the team are reviewing to enhance the Service Framew
 
 * UI: Enabling the Services list to highlight configured services in Green if they are working / activated as expected and RED if there is an issue.
 * Editor: Enabling the **Service Hook** feature to allow properties to be editable at Editor runtime.
-* Architecture: Implement the Dependency Injection pattern to define dependent interfaces at design time and have the framework ensure dependent services are available during initialization.
+* Architecture: Improve Dependency Injection pattern to automatically sort service configuration based on dependencies.
 
 :::tip
 
