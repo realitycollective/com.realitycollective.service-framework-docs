@@ -253,7 +253,7 @@ public void Test_Pool_04_GetServices_MultipleCallsPerformance()
 
 ### References
 
-- [ConcurrentBag<T> Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.concurrent.concurrentbag-1)
+- [ConcurrentBag&lt;T&gt; Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.concurrent.concurrentbag-1)
 - [Object Pooling Pattern](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.objectpool)
 
 ---
