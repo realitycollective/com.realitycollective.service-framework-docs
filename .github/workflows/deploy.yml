@@ -37,11 +37,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 22.x
           cache: npm
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
 
       - name: Install dependencies
         run: npm ci
+
+      # Clones the C# and TypeScript framework repositories at the refs in api-sources.json,
+      # then generates the API reference into api-docs/ (see scripts/).
+      - name: Generate API reference
+        run: npm run api
 
       - name: Build website
         run: npm run build

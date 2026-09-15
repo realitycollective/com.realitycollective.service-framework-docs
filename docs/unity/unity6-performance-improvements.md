@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 4
 ---
 
 # Unity 6 Performance Improvements
@@ -224,7 +224,7 @@ public List<T> GetServices<T>(Type interfaceType, string serviceName) where T : 
 
 Tests validate:
 - **List reuse** across multiple `GetServices` calls
-- **Performance benchmark:** 1,000 `GetServices` calls complete in <500ms (Test_Pool_04)
+- **Performance benchmark:** 1,000 `GetServices` calls complete in &lt;500ms (Test_Pool_04)
 - **Cache invalidation** on service unregistration
 - **Thread-safe** concurrent access
 
@@ -476,7 +476,7 @@ private Type[] GetInterfacesFromType(Type objectType)
 
 ### References
 
-- [ConcurrentDictionary<TKey,TValue> Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.concurrent.concurrentdictionary-2)
+- [`ConcurrentDictionary<TKey,TValue>` Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.concurrent.concurrentdictionary-2)
 - [Reflection Performance Considerations](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/reflection-performance-considerations)
 
 ---
@@ -565,7 +565,7 @@ internal static void CheckPlatforms()
 
 ### Impact
 
-In projects with many assemblies (100+), assembly scanning can take **50-200ms**. Caching reduces subsequent `CheckPlatforms()` calls to **<1ms**.
+In projects with many assemblies (100+), assembly scanning can take **50-200ms**. Caching reduces subsequent `CheckPlatforms()` calls to **&lt;1ms**.
 
 ### References
 

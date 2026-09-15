@@ -49,4 +49,4 @@ for more information on the Service Framework, check out these additional links:
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
 * [Dependency Injection](./07_dependency-injection.md)
-* [Platform System](/docs/features/platform_system.md)
+* [Platform System](/docs/unity/features/platform_system.md)

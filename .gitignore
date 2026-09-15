@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# API generation inputs and outputs (see api-sources.json and scripts/)
+/.sources
+/api-docs

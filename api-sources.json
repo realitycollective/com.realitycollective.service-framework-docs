@@ -1,0 +1,23 @@
+{
+  "$comment": "Repositories the API reference is generated from. 'ref' is a branch, tag or commit. Override per run with SF_<KEY>_REF (branch/tag/sha) or SF_<KEY>_DIR (use a local checkout, no fetch); keys are CS, CS_UTILITIES and TS. The same overrides are exposed as --cs-ref, --utilities-ref and --ts-ref on `npm run local` and as workflow_dispatch inputs on the Test deployment workflow.",
+  "csharp": {
+    "repo": "https://github.com/realitycollective/com.realitycollective.service-framework.git",
+    "ref": "development",
+    "dir": ".sources/service-framework",
+    "env": "SF_CS"
+  },
+  "csharpUtilities": {
+    "$comment": "Dependency of the C# framework. Compiled alongside it so its types resolve; excluded from the generated pages.",
+    "repo": "https://github.com/realitycollective/com.realitycollective.utilities.git",
+    "ref": "development",
+    "dir": ".sources/utilities",
+    "env": "SF_CS_UTILITIES"
+  },
+  "typescript": {
+    "repo": "https://github.com/realitycollective/com.realitycollective.service-framework.ts.git",
+    "ref": "development",
+    "dir": ".sources/service-framework.ts",
+    "env": "SF_TS",
+    "install": "npm"
+  }
+}

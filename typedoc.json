@@ -1,0 +1,33 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPointStrategy": "packages",
+  "packageOptions": {
+    "entryPoints": ["src/index.ts*"],
+    "tsconfig": "tsconfig.json",
+    "excludePrivate": true,
+    "excludeInternal": true,
+    "excludeExternals": true
+  },
+  "plugin": ["typedoc-plugin-markdown", "typedoc-docusaurus-theme"],
+  "docsPath": "./api-docs",
+  "name": "TypeScript API",
+  "readme": "none",
+  "includeVersion": false,
+  "cleanOutputDir": true,
+  "hideGenerator": true,
+  "treatWarningsAsErrors": false,
+  "hidePageHeader": true,
+  "hideBreadcrumbs": true,
+  "useCodeBlocks": true,
+  "expandObjects": true,
+  "expandParameters": true,
+  "parametersFormat": "table",
+  "propertiesFormat": "table",
+  "enumMembersFormat": "table",
+  "typeDeclarationFormat": "table",
+  "indexFormat": "table",
+  "sidebar": {
+    "autoConfiguration": true,
+    "pretty": true
+  }
+}

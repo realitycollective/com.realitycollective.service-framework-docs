@@ -1,0 +1,405 @@
+/* Overview: full-width page. Dark bands top and bottom continue the homepage; the middle follows the site theme. */
+
+.page {
+  --band-bg: #12141a;
+  --band-panel: #1c2030;
+  --band-line: #262a35;
+  --band-border: #3a3f4d;
+  --band-text: #eef0f4;
+  --band-muted: #b7bcc8;
+  --band-faint: #8e94a3;
+  --band-action: #fc3848;
+  --band-link: #ff7ad0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Dark bands */
+
+.band {
+  background: var(--band-bg);
+  color: var(--band-text);
+  padding: 80px 0;
+}
+
+.band a {
+  color: var(--band-link);
+}
+
+.band a:hover {
+  color: #ffffff;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 64px;
+  align-items: center;
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.introCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.eyebrowAccent,
+.eyebrow {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrowAccent {
+  color: var(--band-action);
+}
+
+.eyebrow {
+  color: var(--ifm-color-emphasis-600);
+}
+
+.title {
+  margin: 0;
+  font-size: 3.5rem;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--band-text);
+}
+
+.headingDark,
+.heading {
+  margin: 0;
+  font-size: 2.25rem;
+  letter-spacing: -0.01em;
+}
+
+.headingDark {
+  color: var(--band-text);
+}
+
+.leadDark,
+.lead {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 900px;
+}
+
+.leadDark {
+  color: var(--band-muted);
+}
+
+.lead {
+  color: var(--ifm-color-emphasis-800);
+}
+
+.bodyDark,
+.body,
+.note,
+.noteDark {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.bodyDark {
+  font-size: 1.0625rem;
+  color: var(--band-muted);
+}
+
+.body {
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.note {
+  font-size: 0.9375rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.noteDark {
+  font-size: 0.9375rem;
+  color: var(--band-faint);
+}
+
+.modelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.modelRoot,
+.modelLeaf {
+  padding: 18px;
+  border-radius: 10px;
+  background: var(--band-panel);
+  text-align: center;
+}
+
+.modelRoot {
+  grid-column: span 2;
+  padding: 20px;
+  border: 2px solid var(--band-action);
+  border-radius: 12px;
+}
+
+.modelLeaf {
+  border: 1px solid var(--band-border);
+}
+
+.modelTitle {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.modelSub {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  color: var(--band-muted);
+}
+
+/* Light middle */
+
+.section {
+  padding: 80px 0;
+  background: var(--ifm-background-color);
+}
+
+.sectionTinted {
+  padding: 72px 0;
+  background: var(--ifm-color-emphasis-100);
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.reason {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 36px 32px;
+  border-left: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.reason:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.reason:last-child {
+  padding-right: 0;
+}
+
+.reasonNumber {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ifm-color-primary);
+}
+
+.reasonTitle {
+  margin: 0;
+  font-size: 1.3125rem;
+}
+
+.roads {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.road {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+}
+
+.roadTitle {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.packageName {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.roadLink {
+  font-weight: 600;
+}
+
+/* Ladder */
+
+.ladder {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px minmax(0, 1fr);
+  font-size: 0.9375rem;
+}
+
+.rung {
+  display: contents;
+}
+
+.ladderHeadSide,
+.ladderHeadMid,
+.ladderHeadSideRight {
+  display: block;
+  padding: 12px 20px;
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  color: var(--band-muted);
+  border-bottom: 1px solid var(--band-border);
+}
+
+.ladderHeadSide {
+  text-align: right;
+}
+
+.ladderHeadMid {
+  text-align: center;
+  color: var(--band-action);
+  border-bottom-color: var(--band-action);
+}
+
+.rungSide,
+.rungMid,
+.rungSideRight {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--band-line);
+  color: var(--band-muted);
+}
+
+.rungSide {
+  text-align: right;
+}
+
+.rungMid {
+  text-align: center;
+  font-weight: 600;
+  color: var(--band-text);
+  background: var(--band-panel);
+}
+
+.rung:last-child .rungSide,
+.rung:last-child .rungMid,
+.rung:last-child .rungSideRight {
+  border-bottom: 0;
+}
+
+.band code {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--band-text);
+}
+
+@media (max-width: 996px) {
+  .band {
+    padding: 48px 0;
+  }
+
+  .section,
+  .sectionTinted {
+    padding: 48px 0;
+  }
+
+  .container,
+  .introGrid {
+    padding: 0 16px;
+  }
+
+  .introGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .headingDark,
+  .heading {
+    font-size: 1.75rem;
+  }
+
+  .reasons,
+  .roads {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reason {
+    padding: 24px 0;
+    border-left: 0;
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+  }
+
+  .reason:first-child {
+    border-top: 0;
+  }
+
+  .ladder {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ladderHeadSide,
+  .ladderHeadSideRight {
+    display: none;
+  }
+
+  .rungSide,
+  .rungSideRight {
+    text-align: left;
+    padding: 10px 16px;
+  }
+
+  .rungSide {
+    border-bottom: 0;
+    padding-top: 14px;
+  }
+
+  .rungSide::before {
+    content: 'Unity: ';
+    color: var(--band-faint);
+  }
+
+  .rungSideRight::before {
+    content: 'Web: ';
+    color: var(--band-faint);
+  }
+
+  .rungMid {
+    order: -1;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 0;
+  }
+
+  .rung {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--band-line);
+  }
+}

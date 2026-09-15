@@ -96,7 +96,7 @@ You have full access to all the events Unity exposes:
 
 ## Platform support
 
-Services can be configured to only activate when a particular [platform](/docs/features/platform_system.md) is active (being run on), this is useful in those situations when a service only needs to run on a specific platform or platforms.
+Services can be configured to only activate when a particular [platform](/docs/unity/features/platform_system.md) is active (being run on), this is useful in those situations when a service only needs to run on a specific platform or platforms.
 
 :::note
 
@@ -106,7 +106,7 @@ Only want a specific piece of functionality to run on iOS and NOT Android, then 
 
 ![Service Runtime Platform selector](./images/03_04_ServicePlatformSelector.png)
 
-> See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
+> See the [Platform System](/docs/unity/features/platform_system.md) section for more details on the Platform System.
 
 ---
 
@@ -399,7 +399,7 @@ We will not the `AutoStart` behaviour above because we want the Settings service
     Set this to "Everything" for now since there is no platform-dependent code in our service and it should be able to run anywhere.
     ![Settings Service Configured](./images/03_02_SettingServiceConfigured.png)
 
-    :::tip[Pro Tip**]
+    :::tip[Pro Tip]
 
     If you collapse the Service definition in the Service Configuration Options, you can simply **click on the service** and it will automatically open the profile settings for the service, no need to keep expanding it just to open its settings.   You can of course just inspect the asset itself instead.
     ![Collapsed Service Settings View](./images/03_03_CollapsedServiceConfiguration.png)
@@ -477,5 +477,5 @@ for more information on the Service Framework, check out these additional links:
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
 * [Dependency Injection](./07_dependency-injection.md)
-* [Platform System](/docs/features/platform_system.md)
+* [Platform System](/docs/unity/features/platform_system.md)
 * [Roadmap](./08_roadmap.md)

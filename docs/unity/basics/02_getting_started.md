@@ -253,7 +253,7 @@ Once the Instance Type is selected, you can also assign a Profile for the servic
 
 :::
 
-- `Runtime Platforms` - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](/docs/features/platform_system.md)
+- `Runtime Platforms` - Select the **Platforms** the service will run on, the list shows what is available to Unity by default [but can be extended](/docs/unity/features/platform_system.md)
 
 Clicking the `Instanced Type` drop-down shows the list of services detected by the framework, grouped by Namespace (that you entered when you created the service):
 
@@ -391,7 +391,7 @@ There are a few more accessors for getting references to services, such as:
 |`EnableAllServices`|Restarts all paused services|
 |||
 
-See the API Docs (coming soon) for more detail.
+See the [API reference](pathname:///api) for more detail.
 
 ---
 
@@ -409,5 +409,5 @@ for more information on the Service Framework, check out these additional links:
 - [Service Patterns and implementations](./05_service_patterns.md)
 - [Scene based service loading](./06_scene_based_service_manager.md)
 - [Dependency Injection](./07_dependency-injection.md)
-- [Platform System](/docs/features/platform_system.md)
+- [Platform System](/docs/unity/features/platform_system.md)
 - [Roadmap](./08_roadmap.md)

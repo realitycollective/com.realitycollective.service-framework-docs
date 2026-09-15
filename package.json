@@ -12,21 +12,33 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "api:fetch": "node scripts/fetch-sources.mjs",
+    "api:ts": "node scripts/generate-api-ts.mjs",
+    "api:cs": "node scripts/generate-api-cs.mjs",
+    "api:index": "node scripts/generate-api-index.mjs",
+    "api": "npm run api:fetch && npm run api:ts && npm run api:cs && npm run api:index",
+    "api:clean": "node scripts/clean-api.mjs",
+    "local": "node scripts/local.mjs"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.20",
-    "@docusaurus/preset-classic": "2.0.0-beta.20",
-    "@mdx-js/react": "^1.6.22",
-    "clsx": "^1.1.1",
-    "prism-react-renderer": "^1.3.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/plugin-client-redirects": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@mdx-js/react": "^3.1.1",
+    "clsx": "^2.1.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.20",
-    "@tsconfig/docusaurus": "^1.0.5",
-    "typescript": "^4.6.4"
+    "@docusaurus/module-type-aliases": "3.10.2",
+    "@docusaurus/tsconfig": "3.10.2",
+    "@docusaurus/types": "3.10.2",
+    "typedoc": "0.28.20",
+    "typedoc-docusaurus-theme": "1.4.3",
+    "typedoc-plugin-markdown": "4.13.0",
+    "typescript": "~6.0.3"
   },
   "browserslist": {
     "production": [
@@ -35,9 +47,12 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=20.0"
   }
 }
