@@ -1,23 +1,239 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* Homepage: the "Two roads" design. Always dark, whatever the site theme. */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.page {
+  --home-bg: #12141a;
+  --home-panel: #1c2030;
+  --home-line: #262a35;
+  --home-border: #3a3f4d;
+  --home-text: #eef0f4;
+  --home-muted: #b7bcc8;
+  --home-faint: #8e94a3;
+  --home-action: #fc3848;
+  --home-link: #ff7ad0;
+  background: var(--home-bg);
+  color: var(--home-text);
+  font-family: var(--ifm-font-family-base);
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.page a {
+  color: var(--home-link);
 }
 
-.buttons {
+.page a:hover {
+  color: #ffffff;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px;
+  align-items: center;
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 104px 32px 80px;
+}
+
+.heroCopy {
   display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 4.125rem;
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--home-text);
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.3125rem;
+  line-height: 1.55;
+  color: var(--home-muted);
+  max-width: 560px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  text-decoration: none;
+}
+
+/* Written as ".page a.primary" so these beat the page-wide pink link colour above. */
+.page a.primary {
+  background: var(--home-action);
+  color: #ffffff;
+}
+
+.page a.primary:hover {
+  background: #e02e3d;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.page a.secondary {
+  border: 1px solid var(--home-border);
+  color: var(--home-text);
+}
+
+.page a.secondary:hover {
+  border-color: var(--home-muted);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.repoLinks {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+}
+
+.repoLinks a {
+  color: var(--home-faint);
+}
+
+.heroArt {
+  display: flex;
+  justify-content: center;
+}
+
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 0 32px;
+  border-top: 1px solid var(--home-line);
+  border-bottom: 1px solid var(--home-line);
+}
+
+.reason {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 40px 32px;
+  border-left: 1px solid var(--home-line);
+}
+
+.reason:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.reason:last-child {
+  padding-right: 0;
+}
+
+.reasonNumber {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--home-action);
+}
+
+.reasonTitle {
+  margin: 0;
+  font-size: 1.3125rem;
+  color: var(--home-text);
+}
+
+.reasonBody,
+.roadBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--home-muted);
+}
+
+.roads {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 72px 32px;
+}
+
+.road {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 36px;
+  background: var(--home-panel);
+  border: 1px solid var(--home-line);
+  border-radius: 12px;
+}
+
+.eyebrow {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--home-faint);
+}
+
+.roadTitle {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--home-text);
+}
+
+.roadLink {
+  font-weight: 600;
+}
+
+@media (max-width: 996px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding: 56px 16px 40px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+  }
+
+  .lead {
+    font-size: 1.125rem;
+  }
+
+  .reasons {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 16px;
+  }
+
+  .reason {
+    padding: 28px 0;
+    border-left: 0;
+    border-top: 1px solid var(--home-line);
+  }
+
+  .reason:first-child {
+    border-top: 0;
+  }
+
+  .roads {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 40px 16px;
+  }
 }

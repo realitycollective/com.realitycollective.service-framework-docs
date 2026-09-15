@@ -68,7 +68,7 @@ Again, like services, Modules can be configured to only activate when a particul
 
 :::tip
 
-See the [Platform System](/docs/features/platform_system.md) section for more details on the Platform System.
+See the [Platform System](/docs/unity/features/platform_system.md) section for more details on the Platform System.
 
 :::
 
@@ -138,5 +138,5 @@ for more information on the Service Framework, check out these additional links:
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
 * [Dependency Injection](./07_dependency-injection.md)
-* [Platform System](/docs/features/platform_system.md)
+* [Platform System](/docs/unity/features/platform_system.md)
 * [Roadmap](./08_roadmap.md)

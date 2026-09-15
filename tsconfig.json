@@ -1,7 +1,11 @@
 {
   // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
-    "baseUrl": "."
-  }
+    // baseUrl must be re-declared here so the inherited "@site/*" path maps to this folder.
+    // TypeScript 6 flags baseUrl as deprecated; drop both lines once @docusaurus/tsconfig stops using it.
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0"
+  },
+  "exclude": [".docusaurus", "build"]
 }

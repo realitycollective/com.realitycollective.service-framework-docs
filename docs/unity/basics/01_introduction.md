@@ -75,7 +75,7 @@ So long as there is a unique way to identify when a platform is available in the
 
 This then allows you to configure on which platforms your services should run, this is multi-selectable, so you can choose all platforms or just a selection.  You also create "Mock" services and have these only available in the editor if you so wish.
 
-Check the [Platform System](/docs/features/platform_system.md) section for more information.
+Check the [Platform System](/docs/unity/features/platform_system.md) section for more information.
 
 ## Services and SubServices (service modules) - Advanced
 
@@ -145,5 +145,5 @@ for more information on the Service Framework, check out these additional links:
 * [Service Patterns and implementations](./05_service_patterns.md)
 * [Scene based service loading](./06_scene_based_service_manager.md)
 * [Dependency Injection](./07_dependency-injection.md)
-* [Platform System](/docs/features/platform_system.md)
+* [Platform System](/docs/unity/features/platform_system.md)
 * [Roadmap](./08_roadmap.md)

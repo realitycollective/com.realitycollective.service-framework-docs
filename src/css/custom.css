@@ -28,3 +28,31 @@
   --ifm-color-primary-lightest: #fd939c;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* The homepage and overview open on a dark band, so their navbar is dark too, whatever the theme. */
+body:has(main.sf-dark-nav) .navbar {
+  --ifm-navbar-background-color: #12141a;
+  --ifm-navbar-link-color: #eef0f4;
+  --ifm-navbar-link-hover-color: #ffffff;
+  --ifm-color-emphasis-200: #262a35;
+  --ifm-menu-color: #eef0f4;
+  --ifm-navbar-search-input-background-color: #1c2030;
+  color: #eef0f4;
+  border-bottom: 1px solid #262a35;
+  box-shadow: none;
+}
+
+body:has(main.sf-dark-nav) .navbar .navbar__title,
+body:has(main.sf-dark-nav) .navbar .navbar__link,
+body:has(main.sf-dark-nav) .navbar .navbar__toggle,
+body:has(main.sf-dark-nav) .navbar .clean-btn {
+  color: #eef0f4;
+}
+
+body:has(main.sf-dark-nav) .navbar .navbar__link--active {
+  color: #ff7ad0;
+}
+
+body:has(main.sf-dark-nav) .navbar .dropdown__menu {
+  background: #1c2030;
+}
