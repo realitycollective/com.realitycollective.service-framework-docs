@@ -25,6 +25,7 @@ Services never import a host package. They implement lifecycle methods from `Bas
 | three.js | `service-framework-three` | yes, `source: "three"` | no | no |
 | Babylon.js | `service-framework-babylon` | yes, `source: "babylon"` | no | no |
 | Meta IWSDK | `service-framework-iwsdk` | yes, `source: "iwsdk"`, only while visible | no | yes, from the world's visibility |
+| Native (embedded JavaScript engine) | `service-framework-native` | yes, `source: "native"`, when given a `scheduler` | no | no |
 | Client (React + three) | `service-framework-client` | yes, through the three.js bridge | no | no |
 
 Three things follow from this table:
@@ -99,6 +100,10 @@ if (result && !result.ok) {
 
 `request` never throws; it resolves `{ ok: false, reason }` with `unsupported`, `denied`, `timeout` or `error`. The default timeout is 10 seconds; pass `timeoutMs` to change it.
 
+### The capability override rule
+
+Every adapter that derives capabilities also exposes `setCapabilities(partial)`, a sticky override layered on top of what it derives. An override wins for as long as it is set: it survives every later derivation, so forcing `passthrough: true` on a device that under-reports its blend mode keeps working when the session changes. `clearCapabilityOverrides()` drops every override and falls back to the derived values, and `dispose()` drops them too. The method stays off the `RuntimeAdapter` interface itself, because a service must only read capabilities, never force them; only the app wiring the adapter calls it. `MockRuntimeAdapter` follows the same rule, so a test that calls `setCapabilities` behaves like a real adapter would.
+
 ## Plain TypeScript
 
 The lowest-level pattern and the easiest way to see what the framework does.
@@ -120,6 +125,8 @@ manager.resolve(LOGGER_TOKEN).log("Application started");
 ```
 
 `TimerScheduler` drives `tick` and `lateTick` every 16 ms and `fixedTick` every 50 ms by default; pass `requestAnimationFrameFn` to get `renderTick` as well. `ManualScheduler` drives nothing until you call `emit`, which is what tests and tools want.
+
+`TimerScheduler` counts each channel on its own counter, from 1, and every context it emits names `source: "timer"`. Earlier previews shared one counter across all four channels, so a service counting render frames saw gaps whenever another channel had also fired; each channel now counts 1, 2, 3 independently of the others.
 
 ## React
 
@@ -206,6 +213,21 @@ world.registerSystem(
 
 Services depend on `RuntimeAdapter`, never on `@iwsdk/core`. See the [Meta IWSDK package](../integrations/iwsdk.md) page.
 
+## Native
+
+A native XR app, such as an OpenXR app on Quest or a CompositorServices app on visionOS, embeds a JavaScript engine such as Hermes. It owns the session, the frame loop, rendering and physics itself. It installs one host object, `globalThis.__rcHost`, before the bundle runs, and `NativeRuntimeAdapter` reads it:
+
+```ts
+import { ServiceManager, TimerScheduler } from "@realitycollective/service-framework";
+import { NativeRuntimeAdapter, createNativeHostIO } from "@realitycollective/service-framework-native";
+
+const scheduler = new TimerScheduler();
+const adapter = new NativeRuntimeAdapter({ scheduler });   // reads globalThis.__rcHost
+const manager = new ServiceManager({ scheduler });
+```
+
+`FrameInfo` and `renderTick` carry the same units as every other binding: `timestamp` in milliseconds, `FrameInfo.delta` in seconds, `LifecycleContext.deltaTime` in milliseconds. Capabilities derive from the OpenXR session state, the enabled extensions and the blend mode, with the same sticky `setCapabilities` override every adapter has. A native host also needs `HostIO`, over `createNativeHostIO()`, because a bare engine like Hermes has no `fetch` or `DecompressionStream`; see [`HostIO`](../features/host_io.md). See the [Native package](../integrations/native.md) page for the full host object contract and the host globals the embedded engine must provide.
+
 ## The client package
 
 `@realitycollective/service-framework-client` is React and three.js already wired: it owns the manager and the scheduler, binds the three.js render loop, and ships a starting profile. Use it when that is the shape of your app; use the core plus one binding when you need a different host or want to own the composition. See the [client package](../integrations/client.md) page.
@@ -223,5 +245,6 @@ Whatever the host, the order is the same:
 ## More information
 
 - [Host integrations](../integrations/core.md): one page per package, including the full API of each adapter
+- [Conformance suites](../features/conformance_suites.md): the suites every binding on this page passes
 - [Service design](./03_service_design.md): the lifecycle tables
 - [Walkthrough: weather client](../walkthrough-weather-client.md): a React app end to end

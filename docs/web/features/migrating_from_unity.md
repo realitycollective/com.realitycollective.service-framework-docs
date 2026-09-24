@@ -53,7 +53,7 @@ The rule is the same as Unity's: a dependency must be registered before the serv
 Unity has one engine loop and the manager forwards its callbacks. The web framework has no loop of its own. The scheduler defines channels, and what emits them depends on the host:
 
 - `TimerScheduler` emits `tick`, `lateTick` and `fixedTick` from timers, which is the only way `update`, `lateUpdate` and `fixedUpdate` fire
-- the three.js, Babylon.js and Meta IWSDK bindings emit `renderTick` once per host frame, and nothing else per frame
+- the three.js, Babylon.js, Meta IWSDK and native bindings emit `renderTick` once per host frame, and nothing else per frame. The native binding does so only when it is given a `scheduler`
 - only the IWSDK binding raises focus and pause for you; elsewhere the app calls `manager.emitFocusChange` and `emitPauseChange`
 
 A Unity service that did its work in `Update` becomes a web service that does it in `render()` on a renderer host, or in `update()` with a `TimerScheduler`. [Host runtimes](../basics/06_host_runtimes.md) has the full table.

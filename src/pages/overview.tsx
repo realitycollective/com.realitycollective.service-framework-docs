@@ -124,7 +124,7 @@ export default function Overview(): ReactNode {
               </div>
               <div className={styles.modelLeaf}>
                 <div className={styles.modelTitle}>Web</div>
-                <div className={styles.modelSub}>TypeScript · React · three.js · Babylon · IWSDK</div>
+                <div className={styles.modelSub}>TypeScript · React · three.js · Babylon · IWSDK · Native</div>
               </div>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function Overview(): ReactNode {
                 <h3 className={styles.roadTitle}>Web (TypeScript)</h3>
                 <p className={styles.body}>
                   The same model for browsers and WebXR. A core npm package holds the manager, lifecycle, injection, events
-                  and schedulers. A thin connector ties it into React, three.js, Babylon.js or Meta IWSDK. A service written
+                  and schedulers. A thin connector ties it into React, three.js, Babylon.js, Meta IWSDK or a native XR app. A service written
                   against the core runs unchanged on every host.
                 </p>
                 <p className={styles.packageName}>

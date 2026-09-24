@@ -5,7 +5,7 @@ sidebar_label: "Meta IWSDK"
 
 # `@realitycollective/service-framework-iwsdk`
 
-Meta **IWSDK** (WebXR) frame-source bindings for the [Reality Collective TypeScript Service Framework](https://github.com/realitycollective/com.realitycollective.service-framework.ts).
+Meta **IWSDK** (WebXR) frame bridge and runtime adapter for the [Reality Collective TypeScript Service Framework](https://github.com/realitycollective/com.realitycollective.service-framework.ts).
 
 Lets `@realitycollective/service-framework` services run inside the [IWSDK](https://github.com/meta-quest/immersive-web-sdk) engine loop without each project re-implementing the bridge layer. Services written against `BaseService<TConfig>` run unchanged here, on three.js, or on Babylon.js.
 
@@ -37,7 +37,9 @@ ServiceManager.scheduler      → renderTick channel → services
 ServiceManager  →  your SnapshotService graph
 ```
 
-Each focused frame goes out twice, on the two channels a service can be written against. `adapter.onFrame` is the adapter seam, and carries IWSDK's own units: `timestamp` in milliseconds, `delta` in seconds. `renderTick` is the scheduler channel the three.js and Babylon.js bridges emit, and carries a `LifecycleContext` in scheduler units: `timestamp` and `deltaTime` both in milliseconds, a frame counter, and `source: "iwsdk"`. A service written against `renderTick` therefore runs under IWSDK exactly as it does under three.js, with no change. Frames while the session is not focused are emitted on neither channel and do not advance the counter.
+Each focused frame goes out twice, on the two channels a service can be written against. `adapter.onFrame` is the adapter seam, and carries `FrameInfo`'s units: `timestamp` in milliseconds, `delta` in seconds. `renderTick` is the scheduler channel the three.js and Babylon.js bridges emit, and carries a `LifecycleContext` in scheduler units: `timestamp` and `deltaTime` both in milliseconds, a frame counter, and `source: "iwsdk"`. A service written against `renderTick` therefore runs under IWSDK exactly as it does under three.js, with no change. Frames while the session is not focused are emitted on neither channel and do not advance the counter.
+
+IWSDK itself reports elapsed time in seconds, the three.js `Clock` value its own `update(delta, time)` call carries. From 1.0.2, `ServiceBridgeSystem` converts that `time` into the millisecond `timestamp` both channels report, and converts `delta` into `deltaTime` for `renderTick` the same way; `FrameInfo.delta` stays in seconds, matching every other binding. Earlier previews passed IWSDK's seconds value straight through as `timestamp`, so code written against that preview should now expect milliseconds there.
 
 **Invariant:** services depend only on `RuntimeAdapter`, never on `@iwsdk/core`. That is what keeps them unit-testable headless - swap `IWSDKAdapter` for `MockRuntimeAdapter`.
 

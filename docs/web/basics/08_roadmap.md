@@ -24,12 +24,13 @@ The core and its host bindings ship with the investment areas the [design](../fe
 - multi-registration support by token and service name
 - circular dependency detection before construction
 - tests with 100% coverage thresholds
-- host bindings for React, three.js, Babylon.js and Meta IWSDK, sharing one `RuntimeAdapter` contract with a published set of contract cases so a new host adapter can prove it behaves the same
+- host bindings for React, three.js, Babylon.js, Meta IWSDK and a native XR app embedding a JavaScript engine such as Hermes
+- one `RuntimeAdapter` contract, one `renderTick` contract and one `HostIO` contract shared by every binding, each with published contract cases so a new binding can prove it behaves the same
 
 ## Under consideration
 
 - **Portable scene content.** Scene content (meshes, prefabs, placement) is built by the app, ideally behind a factory interface the app owns. A shared content descriptor will be considered only when a second host is actually targeted; Meta's `iwsdk.scene.v1` format is an acceptable authoring interchange in the meantime.
-- **Leaving preview.** Moving from `preview` to `latest` once the host adapter contract has settled across all four bindings.
+- **Leaving preview.** Moving from `preview` to `latest` once the host adapter contract has settled across all five bindings.
 
 ## Not planned
 
