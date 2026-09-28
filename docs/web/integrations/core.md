@@ -23,7 +23,7 @@ A TypeScript-first implementation of the same architecture as the Reality Collec
 | **Scheduler** | Named channels such as `renderTick` that services subscribe to. Your app decides what drives them: a timer, a render loop, or manual ticks |
 | **Events** | An in-framework event service for service-to-service messaging |
 | **Configuration** | Profile-based configuration with environment awareness |
-| **Runtime adapter** | `RuntimeAdapter` - the host seam a service depends on: a per-frame fan-out, XR capability flags, and an optional session facet (`request`, `end`, state and visibility). Host bindings implement it |
+| **Runtime adapter** | `RuntimeAdapter` - the host seam a service depends on: a per-frame fan-out (`FrameInfo`: `timestamp` in milliseconds, `delta` in seconds and, from 1.0.2, `frame`, the same count `renderTick` carries), XR capability flags, and an optional session facet (`request`, `end`, state and visibility). Host bindings implement it, and every binding feeds frames only while its session is focused or visible |
 | **Session features** | `SessionRequestOptions.requiredFeatures` and `optionalFeatures` - WebXR feature strings for one request, merged over the host's own defaults by `mergeSessionInit(init, options)`. An app that swaps mode mid-session needs them, because the host's defaults were chosen for the mode it is leaving |
 | **Capability derivation** | `deriveCapabilities(session)` - reads `immersive`, `handTracking`, `planeDetection`, `passthrough` and `environmentBlendMode` off a live XR session. Shared by every host binding, so the same session reports the same flags under IWSDK and three.js. Its input, `CapabilitySessionLike`, is structural: no WebXR types, no DOM |
 | **State-owning services** | `SnapshotService<TConfig, TSnapshot>` - one immutable snapshot plus pub/sub; subscribers get the current value immediately, then every publish |
@@ -59,7 +59,7 @@ The core is host-agnostic. Add exactly one binding for your runtime:
 | --- | --- |
 | [`service-framework-react`](https://www.npmjs.com/package/@realitycollective/service-framework-react) | React provider and hooks |
 | [`service-framework-three`](https://www.npmjs.com/package/@realitycollective/service-framework-three) | three.js render loop, plus a WebXR runtime adapter for any page that owns its renderer |
-| [`service-framework-babylon`](https://www.npmjs.com/package/@realitycollective/service-framework-babylon) | Babylon.js render loop |
+| [`service-framework-babylon`](https://www.npmjs.com/package/@realitycollective/service-framework-babylon) | Babylon.js render loop, plus a WebXR runtime adapter over `WebXRDefaultExperience` |
 | [`service-framework-iwsdk`](https://www.npmjs.com/package/@realitycollective/service-framework-iwsdk) | Meta IWSDK (WebXR) frame bridge and runtime adapter |
 | [`service-framework-native`](https://www.npmjs.com/package/@realitycollective/service-framework-native) | Native XR app embedding a JavaScript engine such as Hermes |
 | [`service-framework-client`](https://www.npmjs.com/package/@realitycollective/service-framework-client) | React + three.js, already wired together |

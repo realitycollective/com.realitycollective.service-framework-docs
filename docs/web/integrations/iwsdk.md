@@ -37,7 +37,7 @@ ServiceManager.scheduler      → renderTick channel → services
 ServiceManager  →  your SnapshotService graph
 ```
 
-Each focused frame goes out twice, on the two channels a service can be written against. `adapter.onFrame` is the adapter seam, and carries `FrameInfo`'s units: `timestamp` in milliseconds, `delta` in seconds. `renderTick` is the scheduler channel the three.js and Babylon.js bridges emit, and carries a `LifecycleContext` in scheduler units: `timestamp` and `deltaTime` both in milliseconds, a frame counter, and `source: "iwsdk"`. A service written against `renderTick` therefore runs under IWSDK exactly as it does under three.js, with no change. Frames while the session is not focused are emitted on neither channel and do not advance the counter.
+Each focused frame goes out twice, on the two channels a service can be written against. `adapter.onFrame` is the adapter seam, and carries `FrameInfo`'s units: `timestamp` in milliseconds, `delta` in seconds. `renderTick` is the scheduler channel the three.js and Babylon.js bridges emit, and carries a `LifecycleContext` in scheduler units: `timestamp` and `deltaTime` both in milliseconds, a frame counter, and `source: "iwsdk"`. From 1.0.2, `FrameInfo.frame` carries that same counter, so a service reads one clock on either channel. A service written against `renderTick` therefore runs under IWSDK exactly as it does under three.js, with no change. Frames while the session is not focused are emitted on neither channel and do not advance the counter.
 
 IWSDK itself reports elapsed time in seconds, the three.js `Clock` value its own `update(delta, time)` call carries. From 1.0.2, `ServiceBridgeSystem` converts that `time` into the millisecond `timestamp` both channels report, and converts `delta` into `deltaTime` for `renderTick` the same way; `FrameInfo.delta` stays in seconds, matching every other binding. Earlier previews passed IWSDK's seconds value straight through as `timestamp`, so code written against that preview should now expect milliseconds there.
 
@@ -252,7 +252,7 @@ Re-exported from `@realitycollective/service-framework`. None of these ever touc
 | Symbol | Kind | Purpose |
 | --- | --- | --- |
 | `RuntimeAdapter` | interface | The seam services depend on (`onFrame`, `getCapabilities`, `onCapabilitiesChange`, optional `session`). |
-| `FrameInfo` | interface | `{ timestamp, delta }`. |
+| `FrameInfo` | interface | `{ timestamp, delta, frame }`; `frame` is the `renderTick` count for the same frame, from 1.0.2. |
 | `AdapterCapabilities` / `DEFAULT_CAPABILITIES` | interface / const | XR capability flags; all-false default. |
 | `Unsubscribe` / `FrameListener` / `CapabilitiesListener` | types | Callback / handle aliases. |
 | `SessionFacet` | interface | `getState`, `request`, `end`, `onStateChange`, `onVisibilityChange`. |

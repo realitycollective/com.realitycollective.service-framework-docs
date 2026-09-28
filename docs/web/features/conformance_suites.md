@@ -101,6 +101,12 @@ if (failures.length > 0) {
 
 A service that only depends on core contracts, `RuntimeAdapter`, the scheduler's `renderTick` channel and `HostIO`, runs unchanged on every platform that passes these three suites. A platform that fails a case is the thing to fix, never the service. Clients only talk to the core; every platform implements or extends it, and never adds calls of its own.
 
+The IWSDK binding is the reference behaviour, and every other binding is held to it. Where a rule lives in the core, one unit test proves it once. Where a binding applies a rule of its own, such as ticking services only while the session is focused, each binding carries a test of the same name, and the suites above hold every one of them to the same seam. A binding never decides a behaviour the reference has not.
+
+## Host conformance kits
+
+A native app has a fourth seam the web bindings do not: the host itself, which renders, measures and reports. Each WebXR family's native package therefore ships a host conformance kit beside the shared suites, `nativeInteractionsHostConformanceCases()`, `nativeUiHostConformanceCases()` and `nativeEnvironmentHostConformanceCases()`, in the same runner-free shape. A kit drives the real core over the real host and reads back what the host drew, hid, measured or sounded through a small test-readback type, so it runs only on the device, against the real `__rcHost`. This package has no kit of its own, because the root slice carries nothing a host draws; its three suites are what the native app runs on the device for this seam. The kits are documented on the [WebXR native platform page](https://www.realitycollective.net/webxr/docs/concepts/native-platform).
+
 ## The wider family
 
 Every other Reality Collective WebXR family ships one conformance suite per contract of its own, in this same runner-free shape: input providers, hit testers, transform ports, window hosts, scene targets, UI Extensions elements, environment ports, audio ports and world-sensing ports. Their suites, and how each family runs them on device, are documented on the [WebXR conformance suites page](https://www.realitycollective.net/webxr/docs/concepts/conformance-suites).

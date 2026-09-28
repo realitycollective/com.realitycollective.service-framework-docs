@@ -19,7 +19,11 @@ Start with the [introduction](./basics/01_introduction.md) for the concepts, or 
 - A bundler or framework of your choice. The runnable examples use Vite.
 - TypeScript is recommended but not required; the packages ship type declarations.
 
-Current release: `1.0.1-preview.8` on npm, published under the `preview` tag from the `development` branch.
+Current release: `1.0.1` on npm, resolved by a bare `npm install`.
+
+:::note Preview
+The native binding, the focus gate on every binding and the byte I/O helpers are working extensions in `1.0.2-preview.1`, published under the `preview` tag from the `development` branch and installed with `@preview`. Previews show where the framework is heading and are not supported.
+:::
 
 ### Packages
 

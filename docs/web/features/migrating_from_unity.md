@@ -54,7 +54,7 @@ Unity has one engine loop and the manager forwards its callbacks. The web framew
 
 - `TimerScheduler` emits `tick`, `lateTick` and `fixedTick` from timers, which is the only way `update`, `lateUpdate` and `fixedUpdate` fire
 - the three.js, Babylon.js, Meta IWSDK and native bindings emit `renderTick` once per host frame, and nothing else per frame. The native binding does so only when it is given a `scheduler`
-- only the IWSDK binding raises focus and pause for you; elsewhere the app calls `manager.emitFocusChange` and `emitPauseChange`
+- every binding that follows a live XR session raises focus and pause for you: IWSDK always, and the three.js, Babylon.js and native adapters when given the `manager` option. On a desktop page with no session the app calls `manager.emitFocusChange` and `emitPauseChange` itself
 
 A Unity service that did its work in `Update` becomes a web service that does it in `render()` on a renderer host, or in `update()` with a `TimerScheduler`. [Host runtimes](../basics/06_host_runtimes.md) has the full table.
 
