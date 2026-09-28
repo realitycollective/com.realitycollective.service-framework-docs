@@ -22,16 +22,17 @@ Services never import a host package. They implement lifecycle methods from `Bas
 | Plain browser, `TimerScheduler` | core | only if `requestAnimationFrameFn` is passed | yes, from timers | no |
 | Plain browser, `ManualScheduler` | core | no | no | no |
 | React | `service-framework-react` | no | no | no |
-| three.js | `service-framework-three` | yes, `source: "three"` | no | no |
-| Babylon.js | `service-framework-babylon` | yes, `source: "babylon"` | no | no |
+| three.js | `service-framework-three` | yes, `source: "three"`; while a session is live, only while it is visible | no | yes, from the session's visibility, when given a `manager` |
+| Babylon.js | `service-framework-babylon` | yes, `source: "babylon"`; while a session is live, only while it is visible | no | yes, from the session's visibility, when given a `manager` |
 | Meta IWSDK | `service-framework-iwsdk` | yes, `source: "iwsdk"`, only while visible | no | yes, from the world's visibility |
+| Native (embedded JavaScript engine) | `service-framework-native` | yes, `source: "native"`, when given a `scheduler`, only while the session is focused | no | yes, from the session's focus, when given a `manager` |
 | Client (React + three) | `service-framework-client` | yes, through the three.js bridge | no | no |
 
 Three things follow from this table:
 
 - On a renderer host, per-frame work belongs in `render()`. `update()` does not fire unless you also use a `TimerScheduler`.
 - The schedulers compose. `TimerScheduler` extends `ManualScheduler`, so one manager can have timers driving `tick` and a bridge driving `renderTick`.
-- Outside IWSDK, focus and pause are yours to raise. Wire the browser's visibility to the manager once and every service gets `onFocusChange` and `onPauseChange`:
+- Every adapter that follows a live XR session raises focus and pause for you, and feeds no frame while the session is not visible: `IWSDKAdapter` always, and `WebXRRuntimeAdapter`, `BabylonRuntimeAdapter` and `NativeRuntimeAdapter` when given the `manager` option. That is one rule, taken from the IWSDK bridge and applied on every binding from 1.0.2 (preview). A desktop page with no session is never gated, so there focus and pause are still yours to raise. Wire the browser's visibility to the manager once and every service gets `onFocusChange` and `onPauseChange`:
 
 ```ts
 document.addEventListener("visibilitychange", () => {
@@ -54,7 +55,7 @@ Each renderer binding offers two ways in, and you use one or the other for the l
 
 | Member | What it gives a service |
 | --- | --- |
-| `onFrame(listener)` | a per-frame callback with `{ timestamp, delta }`; `delta` is in seconds here, unlike the scheduler's millisecond `deltaTime` |
+| `onFrame(listener)` | a per-frame callback with `{ timestamp, delta, frame }`; `delta` is in seconds here, unlike the scheduler's millisecond `deltaTime`, and `frame` is the same count `renderTick` carries for that frame, from 1, on every binding (from 1.0.2, preview) |
 | `getCapabilities()` and `onCapabilitiesChange(listener)` | `{ immersive, handTracking, planeDetection, passthrough, environmentBlendMode }`, which change when a session starts or ends |
 | `session` (optional) | `getState()`, `request(mode, options)`, `end()`, `onStateChange`, `onVisibilityChange`; present only on hosts that own an XR session |
 
@@ -86,7 +87,7 @@ export class PassthroughService extends BaseService<PassthroughConfig> {
 }
 ```
 
-The same class runs under three.js, Babylon.js or IWSDK, because every adapter implements the same interface and passes the same conformance suite (`runtimeAdapterContractCases()`). In a test, hand it a `MockRuntimeAdapter` and call `setCapabilities({ passthrough: true })`.
+The same class runs under three.js, Babylon.js, IWSDK or a native host, because every adapter implements the same interface and passes the same conformance suite (`runtimeAdapterContractCases()`). In a test, hand it a `MockRuntimeAdapter` and call `setCapabilities({ passthrough: true })`.
 
 Session control goes through the facet when the host has one:
 
@@ -98,6 +99,10 @@ if (result && !result.ok) {
 ```
 
 `request` never throws; it resolves `{ ok: false, reason }` with `unsupported`, `denied`, `timeout` or `error`. The default timeout is 10 seconds; pass `timeoutMs` to change it.
+
+### The capability override rule
+
+Every adapter that derives capabilities also exposes `setCapabilities(partial)`, a sticky override layered on top of what it derives. An override wins for as long as it is set: it survives every later derivation, so forcing `passthrough: true` on a device that under-reports its blend mode keeps working when the session changes. `clearCapabilityOverrides()` drops every override and falls back to the derived values, and `dispose()` drops them too. The method stays off the `RuntimeAdapter` interface itself, because a service must only read capabilities, never force them; only the app wiring the adapter calls it. `MockRuntimeAdapter` follows the same rule, so a test that calls `setCapabilities` behaves like a real adapter would.
 
 ## Plain TypeScript
 
@@ -120,6 +125,8 @@ manager.resolve(LOGGER_TOKEN).log("Application started");
 ```
 
 `TimerScheduler` drives `tick` and `lateTick` every 16 ms and `fixedTick` every 50 ms by default; pass `requestAnimationFrameFn` to get `renderTick` as well. `ManualScheduler` drives nothing until you call `emit`, which is what tests and tools want.
+
+`TimerScheduler` counts each channel on its own counter, from 1, and every context it emits names `source: "timer"`. Earlier previews shared one counter across all four channels, so a service counting render frames saw gaps whenever another channel had also fired; each channel now counts 1, 2, 3 independently of the others.
 
 ## React
 
@@ -165,11 +172,11 @@ For XR capabilities and sessions, use the adapter and let it own the loop:
 ```ts
 import { WebXRRuntimeAdapter } from "@realitycollective/service-framework-three";
 
-const adapter = new WebXRRuntimeAdapter({ xr: renderer.xr, host: renderer, scheduler: manager.scheduler });
+const adapter = new WebXRRuntimeAdapter({ xr: renderer.xr, host: renderer, scheduler: manager.scheduler, manager });
 adapter.start();
 ```
 
-Build the profile after the adapter exists so services can take it through their configuration. See the [three.js package](../integrations/three.md) page.
+Build the profile after the adapter exists so services can take it through their configuration. With `manager` given, the adapter raises focus and pause from the session's visibility and feeds no frame while a live session is hidden. An app that owns its own loop, such as one built on Google XR Blocks, never calls `start()` and drives the same step by hand with `adapter.tick(timestampMs)`. See the [three.js package](../integrations/three.md) page.
 
 ## Babylon.js
 
@@ -182,7 +189,7 @@ const bridge = new BabylonRenderLoopBridge({ scheduler: manager.scheduler, host:
 bridge.start();
 ```
 
-`BabylonRuntimeAdapter` is the adapter over `WebXRDefaultExperience` and can own the loop in the same way. The package also ships `BaseBabylonService`, a base class for services that receive an already-built `engine` and `scene` through their configuration. It exposes them as typed getters and declares an `onRenderTick(context)` hook; the service wires that hook itself in `start()` with `this.scheduler.subscribe("renderTick", ...)`. See the [Babylon.js package](../integrations/babylon.md) page.
+`BabylonRuntimeAdapter` is the adapter over `WebXRDefaultExperience` and can own the loop in the same way, with the same `manager` option and the same visibility gate; `adapter.tick()` is the hand-driven form. The package also ships `BaseBabylonService`, a base class for services that receive an already-built `engine` and `scene` through their configuration. It exposes them as typed getters and declares an `onRenderTick(context)` hook; the service wires that hook itself in `start()` with `this.scheduler.subscribe("renderTick", ...)`. See the [Babylon.js package](../integrations/babylon.md) page.
 
 ## Meta IWSDK
 
@@ -206,6 +213,21 @@ world.registerSystem(
 
 Services depend on `RuntimeAdapter`, never on `@iwsdk/core`. See the [Meta IWSDK package](../integrations/iwsdk.md) page.
 
+## Native
+
+A native XR app, such as an OpenXR app on Quest or a CompositorServices app on visionOS, embeds a JavaScript engine such as Hermes. It owns the session, the frame loop, rendering and physics itself. It installs one host object, `globalThis.__rcHost`, before the bundle runs, and `NativeRuntimeAdapter` reads it:
+
+```ts
+import { ServiceManager, TimerScheduler } from "@realitycollective/service-framework";
+import { NativeRuntimeAdapter, createNativeHostIO } from "@realitycollective/service-framework-native";
+
+const scheduler = new TimerScheduler();
+const manager = new ServiceManager({ scheduler });
+const adapter = new NativeRuntimeAdapter({ scheduler, manager });   // reads globalThis.__rcHost
+```
+
+Services tick only while the session is focused, as they do under the IWSDK bridge: a host frame outside focus reaches no frame listener and no `renderTick`, and does not advance the frame count. Given `manager`, the adapter raises `focusChange` and `pauseChange` on every change of focus. `FrameInfo` and `renderTick` carry the same units as every other binding: `timestamp` in milliseconds, `FrameInfo.delta` in seconds, `LifecycleContext.deltaTime` in milliseconds. Capabilities derive from the OpenXR session state, the enabled extensions and the blend mode, with the same sticky `setCapabilities` override every adapter has. A native host also needs `HostIO`, over `createNativeHostIO()`, because a bare engine like Hermes has no `fetch` or `DecompressionStream`; see [`HostIO`](../features/host_io.md). See the [Native package](../integrations/native.md) page for the full host object contract and the host globals the embedded engine must provide.
+
 ## The client package
 
 `@realitycollective/service-framework-client` is React and three.js already wired: it owns the manager and the scheduler, binds the three.js render loop, and ships a starting profile. Use it when that is the shape of your app; use the core plus one binding when you need a different host or want to own the composition. See the [client package](../integrations/client.md) page.
@@ -223,5 +245,6 @@ Whatever the host, the order is the same:
 ## More information
 
 - [Host integrations](../integrations/core.md): one page per package, including the full API of each adapter
+- [Conformance suites](../features/conformance_suites.md): the suites every binding on this page passes
 - [Service design](./03_service_design.md): the lifecycle tables
 - [Walkthrough: weather client](../walkthrough-weather-client.md): a React app end to end

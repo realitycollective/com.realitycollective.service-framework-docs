@@ -105,8 +105,8 @@ This is the part to get right. Nothing emits a channel unless you arrange it:
 
 - the default scheduler is `ManualScheduler`, which emits nothing until code calls `emit`
 - `TimerScheduler` emits `tick`, `lateTick` and `fixedTick` from timers, so `update()`, `lateUpdate()` and `fixedUpdate()` run
-- the three.js, Babylon.js and Meta IWSDK bindings emit `renderTick` once per host frame, so `render()` runs; they never emit `tick`
-- only the IWSDK binding emits `focusChange` and `pauseChange` for you; elsewhere the app calls `manager.emitFocusChange()` itself
+- the three.js, Babylon.js, Meta IWSDK and native bindings emit `renderTick` once per host frame, so `render()` runs; they never emit `tick`. The native binding does so only when it is given a `scheduler`
+- every binding that follows a live XR session emits `focusChange` and `pauseChange` for you: IWSDK always, and the three.js, Babylon.js and native adapters when given the `manager` option. On a desktop page with no session the app calls `manager.emitFocusChange()` itself
 
 So a service that overrides `update()` does nothing on a three.js host with the default scheduler. Either do per-frame work in `render()`, or give the manager a `TimerScheduler` alongside the render-loop bridge. [Host runtimes](./06_host_runtimes.md) has the full matrix of hosts and channels.
 

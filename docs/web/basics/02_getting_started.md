@@ -44,7 +44,7 @@ const timed = new ServiceManager({
 
 Both arguments are optional. The defaults are a `ManualScheduler`, which emits nothing on its own, and an environment with no capabilities. Those defaults suit a test; a real app passes both.
 
-A React app uses the provider from `service-framework-react`, which owns the manager for you. A three.js or Babylon.js app bridges its render loop into the scheduler. Both are covered in [host runtimes](./06_host_runtimes.md).
+A React app uses the provider from `service-framework-react`, which owns the manager for you. A three.js or Babylon.js app bridges its render loop into the scheduler, and a native app hands the scheduler to `NativeRuntimeAdapter`. All of these are covered in [host runtimes](./06_host_runtimes.md).
 
 ## Creating the root configuration for the Service Manager
 

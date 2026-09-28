@@ -31,12 +31,12 @@ The framework is built around one idea: keep application behaviour in services, 
 
 ### Why a core and bindings?
 
-A web app has no single engine loop. Depending on the project, frames come from a three.js animation loop, a Babylon.js engine, the Meta IWSDK system scheduler, a `setInterval`, or nothing at all in a React form. XR sessions, capability flags and visibility come from whichever of those hosts owns the headset. If the framework depended on any one of them, every service written against it would be tied to that host and would break when the app moved to another.
+A web app has no single engine loop. Depending on the project, frames come from a three.js animation loop, a Babylon.js engine, the Meta IWSDK system scheduler, a native app's own frame loop, a `setInterval`, or nothing at all in a React form. XR sessions, capability flags and visibility come from whichever of those hosts owns the headset. If the framework depended on any one of them, every service written against it would be tied to that host and would break when the app moved to another.
 
 So the framework is split in two:
 
 - **The core** owns everything that does not care about the host: the manager, dependency injection, profiles, tokens, the lifecycle methods on `BaseService`, events, and the scheduler with its named channels. It also defines the `RuntimeAdapter` interface, which is the only way a service is allowed to see the host. The core has no loop of its own, imports no renderer, and runs under Node in a unit test.
-- **A binding** is the small package that knows one host. It does two jobs. It emits scheduler channels from the host's loop, so `render()` runs once per frame. And it implements `RuntimeAdapter` over the host's XR session, so a service can ask about capabilities or request a session through the core interface rather than through three.js, Babylon or IWSDK directly.
+- **A binding** is the small package that knows one host. It does two jobs. It emits scheduler channels from the host's loop, so `render()` runs once per frame. And it implements `RuntimeAdapter` over the host's XR session, so a service can ask about capabilities or request a session through the core interface rather than through three.js, Babylon, IWSDK or a native host's own object directly.
 
 What this means in practice:
 
@@ -57,6 +57,7 @@ What this means in practice:
 | `@realitycollective/service-framework-three` | three.js render-loop bridge and WebXR runtime adapter | your renderer is three.js |
 | `@realitycollective/service-framework-babylon` | Babylon.js render-loop bridge and runtime adapter | your renderer is Babylon.js |
 | `@realitycollective/service-framework-iwsdk` | Meta IWSDK frame bridge and runtime adapter | your app runs inside the IWSDK engine loop |
+| `@realitycollective/service-framework-native` | Runtime adapter and `HostIO` over a native host's `globalThis.__rcHost` object | your app is a native XR app embedding a JavaScript engine such as Hermes |
 | `@realitycollective/service-framework-client` | a pre-wired client runtime for React and three.js | you want a higher-level runtime instead of composing everything yourself |
 
 ### How a running application fits together

@@ -5,7 +5,7 @@ sidebar_label: Welcome to the Service Framework for the web
 
 # Welcome to the Service Framework for the web
 
-The Service Framework for the web is a small runtime for organising an application as services. One core package holds the manager, lifecycle, dependency injection, events and schedulers. A small binding package for each host (React, three.js, Babylon.js, Meta IWSDK) feeds the core from that host's loop and exposes the host's XR features through one interface. Services are written once against the core and run unchanged on any host.
+The Service Framework for the web is a small runtime for organising an application as services. One core package holds the manager, lifecycle, dependency injection, events and schedulers. A small binding package for each host (React, three.js, Babylon.js, Meta IWSDK, a native app embedding a JavaScript engine such as Hermes) feeds the core from that host's loop and exposes the host's XR features through one interface. Services are written once against the core and run unchanged on any host.
 
 ## Overview
 
@@ -19,7 +19,11 @@ Start with the [introduction](./basics/01_introduction.md) for the concepts, or 
 - A bundler or framework of your choice. The runnable examples use Vite.
 - TypeScript is recommended but not required; the packages ship type declarations.
 
-Current release: `1.0.1-preview.8` on npm, published under the `preview` tag from the `development` branch.
+Current release: `1.0.1` on npm, resolved by a bare `npm install`.
+
+:::note Preview
+The native binding, the focus gate on every binding and the byte I/O helpers are working extensions in `1.0.2-preview.1`, published under the `preview` tag from the `development` branch and installed with `@preview`. Previews show where the framework is heading and are not supported.
+:::
 
 ### Packages
 
@@ -29,7 +33,8 @@ Current release: `1.0.1-preview.8` on npm, published under the `preview` tag fro
 | `@realitycollective/service-framework-react` | React provider and hooks |
 | `@realitycollective/service-framework-three` | three.js render-loop bridge and WebXR runtime adapter |
 | `@realitycollective/service-framework-babylon` | Babylon.js render-loop bridge and WebXR runtime adapter |
-| `@realitycollective/service-framework-iwsdk` | Meta IWSDK (WebXR) frame-source bridge |
+| `@realitycollective/service-framework-iwsdk` | Meta IWSDK (WebXR) frame bridge and runtime adapter |
+| `@realitycollective/service-framework-native` | Runtime adapter and `HostIO` for a native XR app embedding a JavaScript engine such as Hermes |
 | `@realitycollective/service-framework-client` | React and three.js already wired together, so you add services and go |
 
 Each package has its own page under [Host integrations](./integrations/core.md), and the generated [TypeScript API reference](pathname:///api/typescript/) covers every exported symbol.
@@ -51,6 +56,9 @@ npm install @realitycollective/service-framework @realitycollective/service-fram
 
 # Core + Meta IWSDK (WebXR) bindings
 npm install @realitycollective/service-framework @realitycollective/service-framework-iwsdk
+
+# Core + native bindings (a native XR app embedding a JavaScript engine such as Hermes)
+npm install @realitycollective/service-framework @realitycollective/service-framework-native
 
 # Full client (React + three.js composition layer)
 npm install @realitycollective/service-framework-client
@@ -132,7 +140,7 @@ npm run dev     # rebuilds the framework first, then serves on https://localhost
 
 ## What this stack is and is not
 
-The Reality Collective WebXR packages aim at one outcome: an app's logic, input handling, interactions and UI should not care which engine hosts them. Each family ships an engine-free core and thin adapters for Meta IWSDK, plain three.js and WebXR, and Babylon.js. When an app still has to reach into the host, either a contract is missing, which is a bug to report, or the app is overreaching.
+The Reality Collective WebXR packages aim at one outcome: an app's logic, input handling, interactions and UI should not care which engine hosts them. Each family ships an engine-free core and thin adapters for Meta IWSDK, plain three.js and WebXR, Babylon.js, and a native XR app embedding a JavaScript engine such as Hermes. When an app still has to reach into the host, either a contract is missing, which is a bug to report, or the app is overreaching.
 
 Portable world-building is not a current promise. Scene content (meshes, prefabs, placement) is built by the app, ideally behind a factory interface the app owns, so that a second host can implement the same factories.
 

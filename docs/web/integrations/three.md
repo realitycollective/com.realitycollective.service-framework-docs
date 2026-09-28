@@ -71,7 +71,11 @@ Pass the adapter to your services (through their configuration, or a token you r
 
 ### Owning the loop
 
-Given a `host`, the adapter owns the animation loop: `start()` binds it, `stop()` releases it, and each callback becomes one `FrameInfo` - `timestamp` in milliseconds, `delta` in seconds. Given a `scheduler` as well, the same callback also emits `renderTick` with `source: "three"` and `deltaTime` in milliseconds, exactly as `ThreeRenderLoopBridge` does, so an app needs one loop owner rather than two. Use the adapter or the bridge, not both.
+Given a `host`, the adapter owns the animation loop: `start()` binds it, `stop()` releases it, and each callback becomes one `FrameInfo` - `timestamp` in milliseconds, `delta` in seconds, and from 1.0.2 (preview) `frame`, the count from 1 that `renderTick` carries for the same frame. Given a `scheduler` as well, the same callback also emits `renderTick` with `source: "three"` and `deltaTime` in milliseconds, exactly as `ThreeRenderLoopBridge` does, so an app needs one loop owner rather than two. Use the adapter or the bridge, not both.
+
+From 1.0.2 (preview) the owned loop is gated on the session's own visibility while one is live, as the IWSDK bridge gates on focus: a tick that is not `"visible"` reaches no frame listener and no `renderTick`, and does not advance the frame count. Given the `manager` option, the service manager whose signals should follow the session, the adapter also calls `emitFocusChange(focused)` and `emitPauseChange({ paused: !focused })` on every change. `WebXRFocusSink` names the two methods it needs. A desktop page with no session is never gated: the loop ticks exactly as before, and a session ending while hidden restores focus at once. Before this, a three.js app kept rendering into a hidden headset.
+
+`tick(timestampMs)` is the whole frame step `start()` binds to the loop, the visibility gate, the focus and pause signals, the one frame count, `emitFrame` and `renderTick`, and it is public. A host that owns its own loop and never calls `start()`, such as a Google XR Blocks app whose `Core` calls `setAnimationLoop` itself, drives the same step from whatever per-frame hook it has, rather than reimplementing the gate.
 
 three.js routes `setAnimationLoop` through the session's own `requestAnimationFrame` while presenting, so one call covers both the 2D page and the headset.
 
@@ -122,8 +126,9 @@ A desktop build with no headset needs no special case. `request` returns `{ ok: 
 | `ThreeRenderLoopBridgeOptions` | interface | `{ scheduler, host }`. |
 | `AnimationLoopHostLike` | interface | Anything with `setAnimationLoop`. |
 | `FIRST_FRAME_DELTA_MS` | const | 16 - the delta reported for the first frame. |
-| `WebXRRuntimeAdapter` | class | `RuntimeAdapter` over WebXR; `start`, `stop`, `emitFrame`, `getSession`, `refreshCapabilities`, `setCapabilities`, `clearCapabilityOverrides`, `session`, `dispose`. |
-| `WebXRRuntimeAdapterOptions` | interface | `{ xr, xrSystem?, host?, scheduler?, sessionInit? }`. |
+| `WebXRRuntimeAdapter` | class | `RuntimeAdapter` over WebXR; `start`, `stop`, `tick`, `emitFrame`, `getSession`, `refreshCapabilities`, `setCapabilities`, `clearCapabilityOverrides`, `session`, `dispose`. |
+| `WebXRRuntimeAdapterOptions` | interface | `{ xr, xrSystem?, host?, scheduler?, sessionInit?, manager? }`. |
+| `WebXRFocusSink` | interface | The two methods `manager` needs: `emitFocusChange` and `emitPauseChange`. |
 | `WebXRManagerLike` | interface | The slice of `renderer.xr` the adapter drives. |
 | `WebXRSystemLike` | interface | The slice of `navigator.xr` it negotiates through. |
 | `WebXRSessionLike` | interface | The slice of `XRSession` it reads. |

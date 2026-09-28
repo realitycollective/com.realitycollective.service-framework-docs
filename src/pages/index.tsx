@@ -39,7 +39,7 @@ export default function Home(): ReactNode {
             <p className={styles.lead}>
               Structure your application as services: units of logic with a lifecycle, explicit dependencies and a home that
               is not a scene. Write against the model once. Ship it in C# for Unity, or in TypeScript for React, three.js,
-              Babylon.js and Meta IWSDK.
+              Babylon.js, Meta IWSDK and native XR apps.
             </p>
             <div className={styles.actions}>
               <Link className={styles.primary} to="/overview">
@@ -86,7 +86,7 @@ export default function Home(): ReactNode {
             <span className={styles.eyebrow}>Road two</span>
             <h3 className={styles.roadTitle}>Web (TypeScript)</h3>
             <p className={styles.roadBody}>
-              A core npm package plus a thin connector for React, three.js, Babylon.js or Meta IWSDK. Services run unchanged
+              A core npm package plus a thin connector for React, three.js, Babylon.js, Meta IWSDK or a native XR app. Services run unchanged
               on every host.
             </p>
             <Link className={styles.roadLink} to="/docs/web/get-started">

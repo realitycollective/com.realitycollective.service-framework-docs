@@ -106,6 +106,8 @@ document.querySelector("#enter-vr")?.addEventListener("click", async () => {
 
 Pass `xr` and omit `host` to keep the loop yourself; the app then calls `adapter.emitFrame(timestamp, deltaSeconds)` per frame. Pass `host` and omit `scheduler` to own the loop without emitting `renderTick`.
 
+From 1.0.2 (preview) the owned loop is gated on the session's own visibility while one is live, exactly as the three.js adapter and the IWSDK bridge are: a tick that is not `"visible"` reaches no frame listener and no `renderTick`, and does not advance the frame count. Given the `manager` option, the service manager whose signals should follow the session, the adapter calls `emitFocusChange(focused)` and `emitPauseChange({ paused: !focused })` on every change; `BabylonFocusSink` names the two methods it needs. A desktop page with no session is never gated. `adapter.tick()` is the same frame step, public, for an app that owns its own loop and never calls `start()`. Each `FrameInfo` also carries `frame`, the count from 1 that `renderTick` carries for the same frame.
+
 Session requests resolve with a result rather than throwing, because a host that cannot start a session is a normal runtime condition:
 
 | `result.reason` | Meaning |
