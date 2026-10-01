@@ -71,9 +71,9 @@ Pass the adapter to your services (through their configuration, or a token you r
 
 ### Owning the loop
 
-Given a `host`, the adapter owns the animation loop: `start()` binds it, `stop()` releases it, and each callback becomes one `FrameInfo` - `timestamp` in milliseconds, `delta` in seconds, and from 1.0.2 (preview) `frame`, the count from 1 that `renderTick` carries for the same frame. Given a `scheduler` as well, the same callback also emits `renderTick` with `source: "three"` and `deltaTime` in milliseconds, exactly as `ThreeRenderLoopBridge` does, so an app needs one loop owner rather than two. Use the adapter or the bridge, not both.
+Given a `host`, the adapter owns the animation loop: `start()` binds it, `stop()` releases it, and each callback becomes one `FrameInfo` - `timestamp` in milliseconds, `delta` in seconds, and from 1.0.2 `frame`, the count from 1 that `renderTick` carries for the same frame. Given a `scheduler` as well, the same callback also emits `renderTick` with `source: "three"` and `deltaTime` in milliseconds, exactly as `ThreeRenderLoopBridge` does, so an app needs one loop owner rather than two. Use the adapter or the bridge, not both.
 
-From 1.0.2 (preview) the owned loop is gated on the session's own visibility while one is live, as the IWSDK bridge gates on focus: a tick that is not `"visible"` reaches no frame listener and no `renderTick`, and does not advance the frame count. Given the `manager` option, the service manager whose signals should follow the session, the adapter also calls `emitFocusChange(focused)` and `emitPauseChange({ paused: !focused })` on every change. `WebXRFocusSink` names the two methods it needs. A desktop page with no session is never gated: the loop ticks exactly as before, and a session ending while hidden restores focus at once. Before this, a three.js app kept rendering into a hidden headset.
+From 1.0.2 the owned loop is gated on the session's own visibility while one is live, as the IWSDK bridge gates on focus: a tick that is not `"visible"` reaches no frame listener and no `renderTick`, and does not advance the frame count. Given the `manager` option, the service manager whose signals should follow the session, the adapter also calls `emitFocusChange(focused)` and `emitPauseChange({ paused: !focused })` on every change. `WebXRFocusSink` names the two methods it needs. A desktop page with no session is never gated: the loop ticks exactly as before, and a session ending while hidden restores focus at once. Before this, a three.js app kept rendering into a hidden headset.
 
 `tick(timestampMs)` is the whole frame step `start()` binds to the loop, the visibility gate, the focus and pause signals, the one frame count, `emitFrame` and `renderTick`, and it is public. A host that owns its own loop and never calls `start()`, such as a Google XR Blocks app whose `Core` calls `setAnimationLoop` itself, drives the same step from whatever per-frame hook it has, rather than reimplementing the gate.
 
@@ -87,13 +87,17 @@ Omit `host` to keep the loop yourself and call `adapter.emitFrame(timestamp, del
 
 | Outcome | When |
 | --- | --- |
-| `{ ok: true }` | the session started, or one was already active |
+| `{ ok: true }` | the session started, or one of the same mode was already active |
 | `unsupported` | there is no `navigator.xr`, or `isSessionSupported(mode)` resolved false |
 | `denied` | the request failed with `NotAllowedError` or `SecurityError` - the user, the prompt or the permissions policy refused |
 | `timeout` | nothing arrived within `timeoutMs` (default 10000) |
 | `error` | anything else, with the original error attached |
 
 `getState()` walks `"none"` -> `"requesting"` -> `"active"` -> `"ending"` -> `"none"`. `end()` calls `session.end()` and resolves once the session is gone. `onVisibilityChange` maps the session's `visibilitychange` onto `"visible"`, `"visible-blurred"` and `"hidden"`, and reports `"non-immersive"` whenever there is no session. A value the adapter does not recognise is reported as `"hidden"`, because treating an unknown state as visible would keep game logic running when it should not.
+
+`getMode()` returns the mode this adapter requested while that session is live, and `null` otherwise. `isSupported(mode)` reads `navigator.xr.isSessionSupported(mode)` and resolves `false` with no system or when the check rejects, so it never throws. Asking for a different mode while a session is active ends it first and then requests the new one, as the core describes under [session modes and recentring](../basics/06_host_runtimes.md). Before the manager hands the new session to the renderer, the adapter calls `setReferenceSpaceType(SESSION_REFERENCE_SPACE)` when the manager has that member, so the session uses the `"local-floor"` reference space.
+
+`recentre()` makes the viewer's current floor position and yaw the origin by offsetting the renderer's reference space. It reads the viewer pose from the manager's frame, computes the offset with the core's `recentreOffset`, builds an `XRRigidTransform` and sets the offset reference space back on the manager. It needs three optional members of `WebXRManagerLike`: `getReferenceSpace`, `setReferenceSpace` and `getFrame`. It builds the transform with the `rigidTransform` option, a factory that takes a position and an orientation and defaults to `globalThis.XRRigidTransform`. When any of these is missing, or there is no live frame, `recentre()` does nothing.
 
 `sessionInit` supplies the `XRSessionInit` per mode - required and optional features - and is called once per request. The default sends none.
 
@@ -127,9 +131,9 @@ A desktop build with no headset needs no special case. `request` returns `{ ok: 
 | `AnimationLoopHostLike` | interface | Anything with `setAnimationLoop`. |
 | `FIRST_FRAME_DELTA_MS` | const | 16 - the delta reported for the first frame. |
 | `WebXRRuntimeAdapter` | class | `RuntimeAdapter` over WebXR; `start`, `stop`, `tick`, `emitFrame`, `getSession`, `refreshCapabilities`, `setCapabilities`, `clearCapabilityOverrides`, `session`, `dispose`. |
-| `WebXRRuntimeAdapterOptions` | interface | `{ xr, xrSystem?, host?, scheduler?, sessionInit?, manager? }`. |
+| `WebXRRuntimeAdapterOptions` | interface | `{ xr, xrSystem?, host?, scheduler?, sessionInit?, manager?, rigidTransform? }`. |
 | `WebXRFocusSink` | interface | The two methods `manager` needs: `emitFocusChange` and `emitPauseChange`. |
-| `WebXRManagerLike` | interface | The slice of `renderer.xr` the adapter drives. |
+| `WebXRManagerLike` | interface | The slice of `renderer.xr` the adapter drives, including the optional `setReferenceSpaceType`, `getReferenceSpace`, `setReferenceSpace` and `getFrame` that session modes and `recentre()` use. |
 | `WebXRSystemLike` | interface | The slice of `navigator.xr` it negotiates through. |
 | `WebXRSessionLike` | interface | The slice of `XRSession` it reads. |
 | `WebXRManagerEventType` / `WebXRSessionEventType` / `WebXREventListener` | types | The host events it subscribes to. |

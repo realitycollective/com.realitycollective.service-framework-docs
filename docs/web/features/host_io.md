@@ -5,7 +5,7 @@ sidebar_label: "HostIO"
 
 # `HostIO`
 
-From 1.0.2 (preview).
+From 1.0.2.
 
 A browser has `fetch` and `DecompressionStream`. A native host that embeds a bare JavaScript engine, such as Hermes, has neither. `HostIO` is the interface that lets a service read assets the same way on both: a service takes a `HostIO` through its configuration and never reaches for a global, so it does not care which host gave it one.
 

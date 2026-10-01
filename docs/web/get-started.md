@@ -19,11 +19,9 @@ Start with the [introduction](./basics/01_introduction.md) for the concepts, or 
 - A bundler or framework of your choice. The runnable examples use Vite.
 - TypeScript is recommended but not required; the packages ship type declarations.
 
-Current release: `1.0.1` on npm, resolved by a bare `npm install`.
+Current release: `1.0.2` on npm, resolved by a bare `npm install`.
 
-:::note Preview
-The native binding, the focus gate on every binding and the byte I/O helpers are working extensions in `1.0.2-preview.1`, published under the `preview` tag from the `development` branch and installed with `@preview`. Previews show where the framework is heading and are not supported.
-:::
+From 1.0.2 the framework has a native binding, a focus gate on every binding, session modes and recentring, and the byte I/O helpers. Upgrading from 1.0.1 changes a few behaviours: `session.request(mode)` with a different mode now ends the live session first, the IWSDK `timestamp` is in milliseconds, and `TimerScheduler` counts each channel from 1. The [host runtimes](./basics/06_host_runtimes.md) page describes each.
 
 ### Packages
 

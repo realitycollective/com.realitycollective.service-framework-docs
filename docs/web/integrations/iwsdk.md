@@ -39,7 +39,7 @@ ServiceManager  →  your SnapshotService graph
 
 Each focused frame goes out twice, on the two channels a service can be written against. `adapter.onFrame` is the adapter seam, and carries `FrameInfo`'s units: `timestamp` in milliseconds, `delta` in seconds. `renderTick` is the scheduler channel the three.js and Babylon.js bridges emit, and carries a `LifecycleContext` in scheduler units: `timestamp` and `deltaTime` both in milliseconds, a frame counter, and `source: "iwsdk"`. From 1.0.2, `FrameInfo.frame` carries that same counter, so a service reads one clock on either channel. A service written against `renderTick` therefore runs under IWSDK exactly as it does under three.js, with no change. Frames while the session is not focused are emitted on neither channel and do not advance the counter.
 
-IWSDK itself reports elapsed time in seconds, the three.js `Clock` value its own `update(delta, time)` call carries. From 1.0.2, `ServiceBridgeSystem` converts that `time` into the millisecond `timestamp` both channels report, and converts `delta` into `deltaTime` for `renderTick` the same way; `FrameInfo.delta` stays in seconds, matching every other binding. Earlier previews passed IWSDK's seconds value straight through as `timestamp`, so code written against that preview should now expect milliseconds there.
+IWSDK itself reports elapsed time in seconds, the three.js `Clock` value its own `update(delta, time)` call carries. From 1.0.2, `ServiceBridgeSystem` converts that `time` into the millisecond `timestamp` both channels report, and converts `delta` into `deltaTime` for `renderTick` the same way; `FrameInfo.delta` stays in seconds, matching every other binding. Before 1.0.2 the bridge passed IWSDK's seconds value straight through as `timestamp`, so code that read it as seconds must now read milliseconds.
 
 **Invariant:** services depend only on `RuntimeAdapter`, never on `@iwsdk/core`. That is what keeps them unit-testable headless - swap `IWSDKAdapter` for `MockRuntimeAdapter`.
 
@@ -190,9 +190,18 @@ await adapter.session.end();
 - `getState()` walks `"none"` → `"requesting"` → `"active"` → `"ending"` → `"none"`.
 - `request(mode, options)` calls `launchXR` with `{ sessionMode: mode }` (the `XROptions` shape IWSDK accepts; its `SessionMode` enum values are the WebXR mode strings), plus a `features` object when the request named any, and resolves once a session appears, whether the adapter learns that from the visibility signal or from its polling fallback. A synchronous throw from `launchXR` comes back as `{ ok: false, reason: "unsupported", error }`. Nothing appearing within `timeoutMs` (default 10000) comes back as `{ ok: false, reason: "timeout" }`.
 - `end()` calls `exitXR` and resolves once the session is gone.
+- `getMode()` returns the mode this adapter launched while that session is live, and `null` otherwise. IWSDK keeps the mode it launched with on its options, not on the live session, so a session started some other way reports `null`.
+- `isSupported(mode)` reads `navigator.xr.isSessionSupported(mode)` and resolves `false` where there is no `navigator.xr` or the check rejects. It never throws. A test passes its own slice as the second constructor argument, `new IWSDKAdapter(world, { xrSystem })`; `IWSDKAdapterOptions.xrSystem` defaults to the global, and to `null` in Node, where every mode then reads unsupported.
+- `request(mode)` for the mode already active does nothing and resolves `{ ok: true }`. A different mode is end-and-request: the adapter calls `exitXR`, waits for the session to go, then calls `launchXR` for the new mode. A world with no `exitXR` cannot end its own session, so the switch resolves `{ ok: false, reason: "unsupported" }` at once and the live session keeps running. A session the adapter did not launch has no known mode, so a request against it is treated as a switch.
 - `onVisibilityChange` maps IWSDK's signal onto `"visible"`, `"visible-blurred"`, `"hidden"` and `"non-immersive"`. A value the adapter does not recognise is reported as `"hidden"`, because treating an unknown state as visible would keep game logic running when it should not.
 
 A world with no `launchXR` reports `{ ok: false, reason: "unsupported" }` rather than throwing, so a 2D preview build needs no special case.
+
+### Recentring and the player rig
+
+`adapter.session.recentre()` makes the head's current floor position and yaw the origin, which IWSDK does by moving the player rig. It reads the rig and the head's pose local to the rig, computes the new rig pose with the core's `recentreRig`, and writes only the rig. The head's local pose is untouched, and `y` is unchanged. It needs two optional members of `IWSDKWorldLike`, `player` and `playerSpaceEntities`, and does nothing when either the rig or the head is missing.
+
+`world.player` has two shapes, and `IWSDKPlayerLike` accepts both. In IWSDK 0.5 it is an entity carrying an `object3D`, typed `IWSDKPlayerEntityLike`, and the rig is that `object3D`. In IWSDK 1.0 it is the `XROrigin` itself, typed `IWSDKXROriginLike`. That is an `Object3D` with its own `position` and `quaternion`, and the head is its `head` child. The adapter finds the rig and the head from either shape, so an IWSDK 1.0 `World` type-checks against `IWSDKWorldLike`. The head is read from `playerSpaceEntities.head.object3D` when that is present, and from the rig's `head` child otherwise.
 
 ### Per-request features
 
@@ -240,12 +249,13 @@ Owned by this package:
 
 | Symbol | Kind | Purpose |
 | --- | --- | --- |
-| `IWSDKAdapter` | class | Production adapter; `emitFrame`, `refreshCapabilities`, `setCapabilities`, `clearCapabilityOverrides`, `session`, `getWorld`, `dispose`. |
+| `IWSDKAdapter` | class | Production adapter, `new IWSDKAdapter(world, options?)`; `emitFrame`, `refreshCapabilities`, `setCapabilities`, `clearCapabilityOverrides`, `session`, `getWorld`, `dispose`. |
 | `makeServiceBridgeSystem` | factory | Returns the IWSDK `ServiceBridgeSystem` class; pumps `onFrame` and `renderTick`. |
 | `ServiceBridgeSystemOptions` | interface | `{ adapter, manager, world, createSystem, visibleState }`. |
 | `startServiceRuntime` / `ServiceRuntime` | function / interface | Bootstraps `{ manager, adapter }` from a profile factory. |
 | `toIWSDKFeatures` / `IWSDK_FEATURE_KEYS` / `IWSDKFeatureMapping` | function / const / interface | Maps WebXR feature strings onto IWSDK's structured flags and reports what it could not map. |
-| `IWSDKWorldLike` / `IWSDKSignalLike` / `IWSDKSessionLike` / `IWSDKInputSourceLike` / `IWSDKSessionEventType` / `IWSDKSessionEventListener` / `IWSDKXROptionsLike` / `IWSDKXRFeatureOptionsLike` / `IWSDKFeatureFlagLike` / `IWSDKDepthSensingFlagLike` / `IWSDKSystemLike` / `IWSDKSystemConstructor` / `CreateSystemLike` | types | Structural `@iwsdk/core` contracts (no engine import). |
+| `IWSDKAdapterOptions` | interface | `{ xrSystem? }`, the `navigator.xr` slice `isSupported` reads. |
+| `IWSDKWorldLike` / `IWSDKSignalLike` / `IWSDKSessionLike` / `IWSDKInputSourceLike` / `IWSDKSessionEventType` / `IWSDKSessionEventListener` / `IWSDKPlayerLike` / `IWSDKPlayerEntityLike` / `IWSDKXROriginLike` / `IWSDKPlayerSpaceEntitiesLike` / `IWSDKObject3DLike` / `IWSDKVector3Like` / `IWSDKQuaternionLike` / `IWSDKXRSystemLike` / `IWSDKXROptionsLike` / `IWSDKXRFeatureOptionsLike` / `IWSDKFeatureFlagLike` / `IWSDKDepthSensingFlagLike` / `IWSDKSystemLike` / `IWSDKSystemConstructor` / `CreateSystemLike` | types | Structural `@iwsdk/core` contracts (no engine import). |
 
 Re-exported from `@realitycollective/service-framework`. None of these ever touched IWSDK, and every host binding needs them, so they moved into the core in 1.0.1. They are re-exported here unchanged, so importing them from this package keeps working; new code should import them from the core package.
 

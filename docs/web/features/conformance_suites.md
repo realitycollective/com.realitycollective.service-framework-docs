@@ -13,7 +13,7 @@ The core ships three of them. This page covers those three; the other Reality Co
 
 | Suite | Checks | Cases |
 | --- | --- | --- |
-| `runtimeAdapterContractCases()` | Every `RuntimeAdapter` implementation: frame delivery, capability reporting and change notification, and the optional session facet's whole lifecycle. | 10 |
+| `runtimeAdapterContractCases()` | Every `RuntimeAdapter` implementation: frame delivery, capability reporting and change notification, and the optional session facet's whole lifecycle, including session modes and recentring. | 14 |
 | `renderTickContractCases()` | Every binding that emits the scheduler's `renderTick` channel: one tick per frame, frames counted from 1, a stable `source`, and `timestamp` / `deltaTime` in milliseconds. | 5 |
 | `hostIOContractCases()` | Every `HostIO` implementation: `fetchBytes` returns served bytes and rejects a missing resource, `gunzip` restores gzipped bytes and rejects non-gzip bytes, and the core's helpers read plain and gzipped JSON alike. | 5 |
 
@@ -29,8 +29,12 @@ The core ships three of them. This page covers those three; the other Reality Co
 - session: onStateChange returns an unsubscribe that stops delivery
 - session: onVisibilityChange returns an unsubscribe that can be called
 - session: follows the host when the session ends from the host side
+- session: getMode reports the live session's mode and null otherwise
+- session: isSupported answers without changing the state
+- session: recentre keeps the state and never throws
+- session: requesting a different mode while active ends the first session and starts the second
 
-An adapter with no session facet passes the five session cases without running them, because `session` is an optional member of `RuntimeAdapter`.
+An adapter with no session facet passes the ten session cases without running them, because `session` is an optional member of `RuntimeAdapter`.
 
 ### `renderTickContractCases()` case names
 
@@ -71,7 +75,7 @@ describe("MyRuntimeAdapter conformance", () => {
 });
 ```
 
-`makeSubject()` builds a fresh `RuntimeAdapterSubject`: your adapter, plus a driver that pushes a frame and sets capability flags. If your host owns sessions, the driver also starts and ends one. Build a fresh subject per case: the session cases drive a session through its whole lifecycle, so a subject reused across cases starts in the wrong state.
+`makeSubject()` builds a fresh `RuntimeAdapterSubject`: your adapter, plus a driver that pushes a frame and sets capability flags. If your host owns sessions, the driver also starts and ends one. The driver's `sessionStart` states one rule the mode-switch case relies on. Called while a session is live, it hands over the new session only after the adapter has ended the old one itself, so a driver whose host starts sessions at once queues the start until the adapter's end completes or its next request arrives. Build a fresh subject per case: the session cases drive a session through its whole lifecycle, so a subject reused across cases starts in the wrong state.
 
 ## Running a suite on device, with no runner
 
