@@ -13,6 +13,8 @@ There are two seams, both defined in the core package:
 1. **The scheduler.** Named channels (`tick`, `renderTick`, `focusChange` and so on) that the manager forwards to every service as lifecycle calls. A binding emits on these channels from the host's own loop.
 2. **`RuntimeAdapter`.** An interface a service can depend on to reach the host directly: per-frame callbacks, XR capability flags, and an optional session facet. Each binding ships an adapter that implements it; the core ships `MockRuntimeAdapter` for tests.
 
+The split between the two is firm. The core defines the scheduler channels and `BaseService`. A binding emits `renderTick` from its own loop and, where it follows a session, raises focus and pause. It never emits `update`, `lateUpdate` or `fixedUpdate`. Those fire only from the core's `TimerScheduler`. Host hooks such as capabilities and the session reach a service through `RuntimeAdapter`.
+
 Services never import a host package. They implement lifecycle methods from `BaseService`, and when they need the host, they take a `RuntimeAdapter` through their configuration or a dependency.
 
 ## Which host drives which channel
@@ -32,7 +34,7 @@ Three things follow from this table:
 
 - On a renderer host, per-frame work belongs in `render()`. `update()` does not fire unless you also use a `TimerScheduler`.
 - The schedulers compose. `TimerScheduler` extends `ManualScheduler`, so one manager can have timers driving `tick` and a bridge driving `renderTick`.
-- Every adapter that follows a live XR session raises focus and pause for you, and feeds no frame while the session is not visible: `IWSDKAdapter` always, and `WebXRRuntimeAdapter`, `BabylonRuntimeAdapter` and `NativeRuntimeAdapter` when given the `manager` option. That is one rule, taken from the IWSDK bridge and applied on every binding from 1.0.2 (preview). A desktop page with no session is never gated, so there focus and pause are still yours to raise. Wire the browser's visibility to the manager once and every service gets `onFocusChange` and `onPauseChange`:
+- Every adapter that follows a live XR session raises focus and pause for you, and feeds no frame while the session is not visible: `IWSDKAdapter` always, and `WebXRRuntimeAdapter`, `BabylonRuntimeAdapter` and `NativeRuntimeAdapter` when given the `manager` option. That is one rule, taken from the IWSDK bridge and applied on every binding from 1.0.2. A desktop page with no session is never gated, so there focus and pause are still yours to raise. Wire the browser's visibility to the manager once and every service gets `onFocusChange` and `onPauseChange`:
 
 ```ts
 document.addEventListener("visibilitychange", () => {
@@ -55,9 +57,9 @@ Each renderer binding offers two ways in, and you use one or the other for the l
 
 | Member | What it gives a service |
 | --- | --- |
-| `onFrame(listener)` | a per-frame callback with `{ timestamp, delta, frame }`; `delta` is in seconds here, unlike the scheduler's millisecond `deltaTime`, and `frame` is the same count `renderTick` carries for that frame, from 1, on every binding (from 1.0.2, preview) |
+| `onFrame(listener)` | a per-frame callback with `{ timestamp, delta, frame }`; `delta` is in seconds here, unlike the scheduler's millisecond `deltaTime`, and `frame` is the same count `renderTick` carries for that frame, from 1, on every binding (from 1.0.2) |
 | `getCapabilities()` and `onCapabilitiesChange(listener)` | `{ immersive, handTracking, planeDetection, passthrough, environmentBlendMode }`, which change when a session starts or ends |
-| `session` (optional) | `getState()`, `request(mode, options)`, `end()`, `onStateChange`, `onVisibilityChange`; present only on hosts that own an XR session |
+| `session` (optional) | `getState()`, `getMode()`, `isSupported(mode)`, `request(mode, options)`, `end()`, `recentre()`, `onStateChange`, `onVisibilityChange`; present only on hosts that own an XR session |
 
 A service takes the adapter through its configuration and subscribes in `start()`:
 
@@ -100,6 +102,36 @@ if (result && !result.ok) {
 
 `request` never throws; it resolves `{ ok: false, reason }` with `unsupported`, `denied`, `timeout` or `error`. The default timeout is 10 seconds; pass `timeoutMs` to change it.
 
+### Session modes and recentring
+
+Every binding requests the same reference space, `SESSION_REFERENCE_SPACE`, which is `"local-floor"`. Its origin is where the session began, +Y is up with the floor at y = 0, and -Z is the direction the viewer first faced. The constant is exported from the core so an app can name it instead of repeating the string.
+
+Three members of the session facet work with modes.
+
+- `getMode()` returns the mode of the live session, or `null` when there is none. It reports the mode this facet requested. A session the app adopted from outside the facet, such as one already running when the adapter was built or one started from the host's own UI, reports `null` even while live, because a WebXR session does not carry its mode.
+- `isSupported(mode)` resolves whether the host could start `mode` now. It changes no state, starts nothing and never rejects. A host that cannot answer resolves `false`.
+- `recentre()` makes the viewer's current position on the floor, and the direction the viewer faces, the new origin. Afterwards the viewer stands at x = 0 and z = 0 facing -Z. The height `y` is untouched and the floor stays the floor. It does nothing when there is no live session and never throws.
+
+`request(mode)` follows one rule on every binding, called end-and-request. Asking for the mode that is already active does nothing and resolves `{ ok: true }`. Asking for a different mode ends the live session first and then requests the new one. The state walks `active`, `ending`, `none`, `requesting`, `active`, as calling `end()` and then `request()` would. A host that cannot end its own session resolves `{ ok: false, reason: "unsupported" }` and leaves the live session running. An app that swaps from `"immersive-vr"` to `"immersive-ar"` relies on this. Before 1.0.2 a request in a different mode while a session was active did nothing and resolved `{ ok: true }`, so code that depended on that must now expect the live session to end.
+
+```ts
+if (await adapter.session?.isSupported("immersive-ar")) {
+  await adapter.session.request("immersive-ar"); // ends a live VR session first
+}
+adapter.session?.recentre();
+```
+
+The core also exports the two pure functions a binding uses for recentring, with the `RigidPose` type they share. A `RigidPose` is a position in metres, `[x, y, z]`, and a unit quaternion, `[x, y, z, w]`. `recentreOffset(viewer)` returns the transform to apply as a WebXR reference-space offset so the viewer lands at the origin facing -Z. `recentreRig(rig, headLocal)` returns the new pose for a player rig, given the rig's current world pose and the head's pose local to the rig, so the head lands at the origin facing -Z. Both use only position on the floor plane and yaw. Pitch and roll are untouched, and the offset's own `y` is always 0. How each binding applies the result differs, and each page below says how.
+
+| Binding | How `recentre()` moves the viewer | What it needs |
+| --- | --- | --- |
+| three.js | offsets the renderer's reference space with `recentreOffset` | the optional `getReferenceSpace`, `setReferenceSpace` and `getFrame` members on the manager, and an `XRRigidTransform` constructor or the `rigidTransform` option |
+| IWSDK | moves the player rig with `recentreRig` | the optional `player` and `playerSpaceEntities` members on the world |
+| Babylon.js | moves the XR camera with `recentreRig` | the optional `camera` member on the XR experience |
+| Native | calls `NativeHost.recentre`, and the app offsets its own reference space | an app that provides `recentre` |
+
+Where the prerequisite is missing, `recentre()` does nothing. `MockRuntimeAdapter` takes a `supportedModes` option for what `isSupported` reports, and counts calls to `recentre()` in `recentreCount`, so a test can check that a service asked for it.
+
 ### The capability override rule
 
 Every adapter that derives capabilities also exposes `setCapabilities(partial)`, a sticky override layered on top of what it derives. An override wins for as long as it is set: it survives every later derivation, so forcing `passthrough: true` on a device that under-reports its blend mode keeps working when the session changes. `clearCapabilityOverrides()` drops every override and falls back to the derived values, and `dispose()` drops them too. The method stays off the `RuntimeAdapter` interface itself, because a service must only read capabilities, never force them; only the app wiring the adapter calls it. `MockRuntimeAdapter` follows the same rule, so a test that calls `setCapabilities` behaves like a real adapter would.
@@ -126,7 +158,9 @@ manager.resolve(LOGGER_TOKEN).log("Application started");
 
 `TimerScheduler` drives `tick` and `lateTick` every 16 ms and `fixedTick` every 50 ms by default; pass `requestAnimationFrameFn` to get `renderTick` as well. `ManualScheduler` drives nothing until you call `emit`, which is what tests and tools want.
 
-`TimerScheduler` counts each channel on its own counter, from 1, and every context it emits names `source: "timer"`. Earlier previews shared one counter across all four channels, so a service counting render frames saw gaps whenever another channel had also fired; each channel now counts 1, 2, 3 independently of the others.
+`TimerScheduler` counts each channel on its own counter, from 1, and every context it emits names `source: "timer"`, as a binding names itself. A service counting render frames sees 1, 2, 3 whatever the other channels do. Before 1.0.2 all four channels shared one counter, so such a service saw gaps.
+
+The manager needs no global `AbortController`. It uses the global when the host has one and otherwise a small internal controller whose signal carries `aborted`, `reason`, `onabort`, `addEventListener("abort")` and `removeEventListener`. A bare engine such as Hermes can therefore boot a profile.
 
 ## React
 

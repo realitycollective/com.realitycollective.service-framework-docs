@@ -70,7 +70,9 @@ Contains:
 - `BaseServiceModule`
 - `BaseEventService`
 - configuration helpers
-- `RuntimeAdapter` - the host-runtime seam: frames, capabilities and an optional session facet
+- `RuntimeAdapter` - the host-runtime seam: frames, capabilities and an optional session facet with modes and recentring
+- `SESSION_REFERENCE_SPACE`, `recentreOffset`, `recentreRig` and `RigidPose` - the reference space every binding requests and the pure functions that compute a recentre
+- `HostIO` and its helpers, and the three conformance suites
 - `SnapshotService` - the state-owning service base
 - `MockRuntimeAdapter` - the headless adapter services are unit-tested against
 - `deriveCapabilities` - the capability rules every host binding shares, over the structural `CapabilitySessionLike`
@@ -92,7 +94,7 @@ Contains:
 
 - `ThreeRenderLoopBridge`
 - `WebXRRuntimeAdapter` - a `RuntimeAdapter` over `navigator.xr` and `renderer.xr`, so a three.js or desktop app reaches the same seam the IWSDK binding exposes. It orchestrates the platform's own session and frame entry points; it renders nothing and owns no scene state.
-- the structural host contracts the adapter is typed against: `WebXRManagerLike`, `WebXRSystemLike`, `WebXRSessionLike`
+- the structural host contracts the adapter is typed against: `WebXRManagerLike`, `WebXRSystemLike`, `WebXRSessionLike`, with the optional members that recentring reads
 
 ## `@realitycollective/service-framework-babylon`
 
@@ -101,7 +103,7 @@ Contains:
 - `BabylonRenderLoopBridge`
 - `BaseBabylonService` - the optional base for a service handed an engine and a scene
 - `BabylonRuntimeAdapter` - a `RuntimeAdapter` over Babylon's `WebXRDefaultExperience`, so a Babylon app reaches the same seam the three.js and IWSDK bindings expose. It orchestrates Babylon's own session and frame entry points; it renders nothing and owns no scene state.
-- the structural host contracts the adapter is typed against: `BabylonXRExperienceLike`, `BabylonSessionManagerLike`, `BabylonXRSessionLike`, `BabylonObservableLike`
+- the structural host contracts the adapter is typed against: `BabylonXRExperienceLike`, `BabylonXRCameraLike`, `BabylonSessionManagerLike`, `BabylonXRSessionLike`, `BabylonObservableLike`
 
 ## `@realitycollective/service-framework-iwsdk`
 
@@ -111,7 +113,7 @@ Contains:
 - `makeServiceBridgeSystem` - the IWSDK system that hands each frame to the adapter and emits `renderTick`, and maps visibility onto focus and pause
 - `startServiceRuntime` - builds the adapter and a `ServiceManager` from the app's profile, and starts it; the app still registers the bridge system with its world
 - `toIWSDKFeatures` and `IWSDK_FEATURE_KEYS` - the mapping from adapter capabilities to IWSDK feature flags
-- the structural host contracts the package is typed against, such as `IWSDKWorldLike`, `IWSDKSessionLike` and `CreateSystemLike`
+- the structural host contracts the package is typed against, such as `IWSDKWorldLike`, `IWSDKSessionLike` and `CreateSystemLike`, and the two player rig shapes of IWSDK 0.5 and 1.0, `IWSDKPlayerEntityLike` and `IWSDKXROriginLike`
 
 ## `@realitycollective/service-framework-native`
 
@@ -119,7 +121,7 @@ Contains:
 
 - `NativeRuntimeAdapter` - a `RuntimeAdapter` over the host object a native XR app installs as `globalThis.__rcHost`, so a native app reaches the same seam as the three.js, Babylon.js and IWSDK bindings. It orchestrates the native app's own session and frame entry points; it renders nothing and owns no scene state.
 - `createNativeHostIO()` - the core's `HostIO` over the host object's optional `io` slice
-- the structural types of the host object: `NativeHost`, `NativeSessionInfo`, `NativeIOHost`
+- the structural types of the host object: `NativeHost`, `NativeSessionInfo`, `NativeIOHost`, `NativeInputSignals`
 
 It depends on the core alone. Like the other bindings, it runs the shared runtime-adapter and `renderTick` conformance suites, and a test fails if its public surface grows.
 
